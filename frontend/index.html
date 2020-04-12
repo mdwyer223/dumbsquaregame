@@ -1,0 +1,230 @@
+<!--
+
+
+Change session code system
+Make it Letter-#-Letter-#
+this is 1/67000
+Check random generated code against active sessions
+
+
+Change Cursor
+cursor: url("link.png"), auto;
+
+
+-->
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Square Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="Description" content="Dumb square game where you race your friends to click squares.">
+    <meta name="Author" content="Jason Proleika">
+    <meta name="Keywords" content="jason proleika, designer, freelance, design, web design, developer, web, website, front end, mobile, app design, ux, user experience, ui, user interface, game, game design, ny, nyc, new york city, new jersey, nj">
+
+    <link rel="icon" href="favicon.png" type="image/ico">
+
+    <link rel="stylesheet" href="style/style.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Barlow:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="main.js"></script>
+
+</head>
+
+<body>
+
+    <!--CLOSE BUTTON-->
+
+    <div class="back-button display-none">
+        back
+    </div>
+
+    <!--MAIN MENU-->
+
+    <div class="main-menu-wrapper">
+
+        <div class="content">
+
+            <h1>Dumb square game</h1>
+
+            <div class="button-container">
+
+                <div id="create-game-menu" class="button">create game</div>
+                <div id="join-game-menu" class="button">join game</div>
+                <div id="settings-menu" class="button">settings</div>
+
+            </div>
+
+        </div>
+
+        <!--CREATE GAME-->
+
+    </div>
+
+    <div class="create-game-wrapper display-none">
+
+        <div class="content">
+
+            <h1>Create Game</h1>
+
+            <div class="container">
+
+                <div class="field">
+                    <h3>Session name</h3>
+                    <input type="text" maxlength="6" value="I6M4J9" contenteditable="false">
+                </div>
+                
+                <div class="field">
+                    <h3>Difficulty</h3>
+                    <div class="difficulty">
+                        <div class="normal selected">normal</div>
+                        <div class="hard">hard</div>
+                        <div class="expert">expert</div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <h3>Max. players</h3>
+                    <div class="number-input">
+                        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
+                        <input class="quantity" min="2" name="quantity" max="8" maxlength="1" value="2" type="number" onKeyDown="return false">
+                        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <h3>Pick your color</h3>
+                    <div class="color-picker">
+                        <div class="one selected">
+                            <div></div>
+                        </div>
+                        <div class="two">
+                            <div></div>
+                        </div>
+                        <div class="three">
+                            <div></div>
+                        </div>
+                        <div class="four">
+                            <div></div>
+                        </div>
+                        <div class="five">
+                            <div></div>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="field">
+                    <div id="start-game" class="start-game">
+                        <div>Start</div>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+
+    </div>
+
+    <!--JOIN GAME-->
+
+    <div class="join-game-wrapper display-none">
+
+        <div class="content">
+
+            <h1>Join Game</h1>
+
+            <div class="button-container">
+
+                <div class="field">
+                    <h3>Enter Session ID</h3>
+                    <input type="text" maxlength="6">
+                </div>
+
+                <div class="field">
+                    <h3>Pick your color</h3>
+                    <div class="color-picker">
+                        <div class="one selected">
+                            <div></div>
+                        </div>
+                        <div class="two">
+                            <div></div>
+                        </div>
+                        <div class="three">
+                            <div></div>
+                        </div>
+                        <div class="four">
+                            <div></div>
+                        </div>
+                        <div class="five">
+                            <div></div>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="field">
+                    <div id="join-game" class="join-game">
+                        <div>Join</div>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+
+    </div>
+
+    <!--SETTINGS-->
+
+    <div class="settings-wrapper display-none">
+
+        <div class="content">
+
+            <h1>Settings</h1>
+
+            <div class="button-container">
+
+                <div id="create-game" class="button">setting 1</div>
+                <div id="join-game" class="button">setting 2</div>
+                <div id="settings" class="button">setting 3</div>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+    <!--GAME-->
+    
+    <div class="game-wrapper display-none">
+
+        <div class="content">
+
+            <div class="score">
+            
+                <h2>Scoreboard:</h2>
+                <h2>Player 1</h2>
+                <h2>Player 2</h2>
+                <h2>Player 3</h2>
+                    
+            </div>    
+            
+            <div class="canvas"></div>    
+            
+        </div>
+
+    </div>
+
+
+
+</body>
+
+</html>

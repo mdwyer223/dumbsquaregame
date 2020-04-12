@@ -2,12 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const game = require('./services/game');
-const port = 8080;
+const port = 80;
 
 app.use(bodyParser.json());
+app.engine('html', require('ejs').renderFile);
 
 app.get('/', (req, res) => {
-  res.send("hello");
+  res.render('./frontend/index.html');
 });
 
 app.post('/games', (req, res) => {
