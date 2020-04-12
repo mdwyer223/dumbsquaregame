@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -8,7 +9,7 @@ app.use(bodyParser.json());
 //app.engine('html');
 
 app.get('/', (req, res) => {
-  res.render('./frontend/index.html');
+  res.sendFile(path.join(__dirname, './frontend', 'index.html'));
 });
 
 app.post('/games', (req, res) => {
