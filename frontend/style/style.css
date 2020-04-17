@@ -464,7 +464,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .canvas .winner {
     width: 60%;
-    background: purple;
+    background: cyan;
     display: inline-block;
     font-size: 20px;
 }
