@@ -144,8 +144,8 @@ cursor: url("link.png"), auto;
             <div class="button-container">
 
                 <div class="field">
-                    <h3>Enter Session ID</h3>
-                    <input type="text" maxlength="6">
+                    <h3>Session ID</h3>
+                    <input type="text" maxlength="6" placeholder="Enter ID" onblur="this.placeholder='Enter ID'" onfocus="this.placeholder=''">
                 </div>
 
                 <div class="field">
@@ -192,9 +192,9 @@ cursor: url("link.png"), auto;
 
             <div class="button-container">
 
-                <div id="create-game" class="button">setting 1</div>
-                <div id="join-game" class="button">setting 2</div>
-                <div id="settings" class="button">setting 3</div>
+                <div class="button">setting 1</div>
+                <div class="button">setting 2</div>
+                <div class="button">setting 3</div>
 
             </div>
 
@@ -208,16 +208,44 @@ cursor: url("link.png"), auto;
 
         <div class="content">
 
-            <div class="score">
+            <div class="score-container">
             
-                <h2>Scoreboard:</h2>
-                <h2>Player 1</h2>
-                <h2>Player 2</h2>
-                <h2>Player 3</h2>
-                    
+                <div class="score1">
+            
+                   <h2>Scoreboard:</h2>
+                   <h3>Player 1</h3>
+                   <h3>Player 2</h3>
+                   <h3>Player 3</h3>
+                       
+               </div> 
+               
+               <div class="score2">
+               
+                   <h2></h2>
+                   <h3>3 pts</h3>
+                   <h3>1 pts</h3>
+                   <h3>0 pts</h3>
+                       
+               </div>
+                
+            </div>
+            
+            <div class="canvas ready">
+                <div class="square display-none"></div>
+                <div class="waiting display-none">
+                    <p>Waiting for more <br>players to join...</p>
+                </div>
+                <div class="timer display-none">
+                    <p>3..2..1..</p>
+                </div>
+                <div class="ready">
+                    <div>Hold mouse here to start</div>
+                </div>
+                <div class="winner display-none">
+                    <p>Player 1<br>+1 point</p>
+                </div>
+            
             </div>    
-            
-            <div class="canvas"></div>    
             
         </div>
 
