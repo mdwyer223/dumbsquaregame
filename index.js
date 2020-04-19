@@ -1,13 +1,23 @@
 const path = require('path');
 const express = require('express');
+const http = require('http');
 const bodyParser = require('body-parser');
 const app = express();
 const game = require('./services/game');
 const port = 80;
 
+var io = require('socket.io');
+
+var rooms = [];
+
+let main = this;
+
 app.use(bodyParser.json());
 app.use(express.static('./frontend'));
 //app.engine('html');
+
+const server = http.Server(app);
+io = io.listen(server);
 
 app.get('/', (req, res) => {
   res.sendFile(
@@ -48,6 +58,34 @@ app.post('/games/:gameId/players/:playerId', (req, res) => {
   res.send(content);
 });
 
-app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
+io.on('connection', function(socket) {
+  socket.on('disconnect', function(client) {
+    var gameId = null;
+    console.log('user disconnected');
+    console.log(gameId);
+    console.log(socket);
+    console.log(socket.adapter.rooms);
+    socket.to(gameId).emit('player-left', null);
+  });
+
+  socket.on('disconnecting', (data) => {
+    socket.to(data.gameId).emit('player-disconnecting', data.playerId);
+  });
+
+  socket.on('room', function(gameId) {
+    console.log(gameId);
+    socket.join(gameId);
+    console.log(socket);
+    console.log(socket.adapter.rooms);
+    console.log(`Player joined the room ${gameId}`);
+  });
+
+  socket.on('player-scored', (data) => {
+    // update game score
+    socket.to(data.gameId).emit('player-scored', {player: data.player, score: data.score});
+  });
+});
+
+server.listen(port, function() {
+  console.log(`server started on localhost:${port}`);
 });

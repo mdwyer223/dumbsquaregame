@@ -1,6 +1,13 @@
+let player = {};
+
+player.name = 'Matt';
+
 $(document).ready(function () {
     
     $(".back-button").click(function () {
+
+        console.log('Disconnecting from game service...');
+        gameService.disconnect();
         
         $(".main-menu-wrapper").removeClass("display-none");
         $(".create-game-wrapper").addClass("display-none");
@@ -83,13 +90,15 @@ $(document).ready(function () {
     
     $("#join-game").click(function () {
 
+        gameService.connect('fakeid');
+
         $(".join-game-wrapper").addClass("display-none");
         $(".game-wrapper").removeClass("display-none");
         
         $(".back-button").addClass("back-game");
         $(".back-button").removeClass("back-create-game");
         $(".back-button").removeClass("back-join-game");
-        
+
         $(".back-button").text("exit");
     });
     
