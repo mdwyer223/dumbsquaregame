@@ -9,7 +9,7 @@ gameService.createGame = function() {
 };
 
 gameService.connect = function(gameId) {
-  gameSocket = io('http://localhost');
+  gameSocket = io();
   gameSocket.emit('room', gameId);
 
   gameSocket.on('connect', function() {
