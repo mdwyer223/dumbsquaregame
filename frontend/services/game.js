@@ -1,6 +1,6 @@
 let gameSocket = null;
 
-var gameService = {};
+let gameService = {};
 
 gameService.createGame = function() {
   $.post('/games', {}, function(data) {
@@ -26,7 +26,17 @@ gameService.connect = function(gameId) {
     });
 
     gameSocket.on('message-sent', function(data) {
-      return null;
+      
+      let messageString = data.msg;
+      
+      if (messageString.length > 0) {
+        
+        $('.chat .messages').append(`<p class="message"><strong class="playerColor"> "playerId: "</strong>${messageString}</p>`);
+            
+        $(".chat .messages").scrollTop(9999999999);
+      
+      }
+      
     });
   });
 };
