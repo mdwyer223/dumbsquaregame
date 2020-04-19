@@ -7,10 +7,6 @@ this is 1/67000
 Check random generated code against active sessions
 
 
-Change Cursor
-cursor: url("link.png"), auto;
-
-
 -->
 
 <!DOCTYPE html>
@@ -48,7 +44,7 @@ cursor: url("link.png"), auto;
 
     <!--MAIN MENU-->
 
-    <div class="main-menu-wrapper">
+    <div class="main-menu-wrapper display-none">
 
         <div class="content">
 
@@ -204,29 +200,55 @@ cursor: url("link.png"), auto;
     
     <!--GAME-->
     
-    <div class="game-wrapper display-none">
+    <div class="game-wrapper">
 
         <div class="content">
 
-            <div class="score-container">
+            <div class="sidebar">
             
-                <div class="score1">
-            
-                   <h2>Scoreboard:</h2>
-                   <h3>Player 1</h3>
-                   <h3>Player 2</h3>
-                   <h3>Player 3</h3>
-                       
-               </div> 
-               
-               <div class="score2">
-               
-                   <h2></h2>
-                   <h3>3 pts</h3>
-                   <h3>1 pts</h3>
-                   <h3>0 pts</h3>
-                       
-               </div>
+            <div class="scoreboard">
+                
+                <h3>Scoreboard</h3>
+                
+                <div class="player color-red">
+                    <div class="name">JDog69</div>
+                    <div class="points"><span>247</span>pts</div>
+                </div>
+                
+                <div class="player color-green">
+                    <div class="name">MBro666</div>
+                    <div class="points"><span>5</span>pts</div>
+                </div>
+                
+                <div class="player color-purple">
+                    <div class="name">Player name 3</div>
+                    <div class="points"><span>2</span>pts</div>
+                </div>
+                
+            </div>
+                
+            <div class="chat">
+                
+                <div class="messages">
+                    
+                    <p class="message"><strong class="color-green">MBro666: </strong>Quis nostrud exercitation ullamco laboris.</p>
+                    
+                    <p class="message"><strong class="color-red">JDog69: </strong>Excepteur sint cupidatat.</p>
+                    
+                    <p class="message"><strong class="color-purple">Player name 3: </strong>Lorem ipsum quis nostrud exercitation consectitur ullamco laboris.</p>
+                    
+                    <p class="message"><strong class="color-red">JDog69: </strong>Requiat excepteur cupidatat sint.</p>
+                    
+                    <p class="message"><strong class="color-green">MBro666: </strong>Quis nostrud exercitation ullamco laboris.</p>
+                    
+                </div>
+                
+                <div class="message-bar">
+                    <input type="text" placeholder="Send message" onblur="this.placeholder='Send message'" onfocus="this.placeholder=''">
+                    <div class="send-button">Send</div>
+                </div>
+                
+            </div>
                 
             </div>
             
@@ -238,13 +260,14 @@ cursor: url("link.png"), auto;
                 <div class="timer display-none">
                     <p>3..2..1..</p>
                 </div>
-                <div class="ready">
+                <div class="ready display-none">
                     <div>Hold mouse here to start</div>
                 </div>
                 <div class="winner display-none">
                     <p>Player 1<br>+1 point</p>
                 </div>
-            
+                <div class="jason-square">Jason click this</div>
+                <div class="matt-square">Matt click this</div>
             </div>    
             
         </div>

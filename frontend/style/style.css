@@ -60,7 +60,8 @@ body {
     font-size: 20px;
 }
 
-input[type=text] {
+.create-game-wrapper input[type=text],
+.join-game-wrapper input[type=text] {
     text-align: center;
     font-size: 20px;
     font-weight: 500;
@@ -73,16 +74,18 @@ input[type=text] {
     border-radius: 32px;
 }
 
-input[type=text]:hover {
+.create-game-wrapper input[type=text]:hover,
+.join-game-wrapper input[type=text]:hover {
     box-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
 
-input[type=text]:focus {
+.create-game-wrapper input[type=text]:focus,
+.join-game-wrapper input[type=text]:focus {
     box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     outline: none;
 }
 
-input[type=number] {
+.create-game-wrapper input[type=number] {
     text-align: center;
     font-size: 20px;
     font-weight: 500;
@@ -95,12 +98,12 @@ input[type=number] {
     user-select: none;
 }
 
-input[type=number]:focus {
+.create-game-wrapper input[type=number]:focus {
     outline: none;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+.create-game-wrapper input[type=number]::-webkit-inner-spin-button,
+.create-game-wrapper input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
 }
 
@@ -152,7 +155,6 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .number-input input[type=number] {
-    font-family: sans-serif;
     max-width: 5rem;
     padding: 0.5rem 0.75rem 0.4rem 0.75rem;
     border: none;
@@ -386,49 +388,133 @@ input[type=number]::-webkit-outer-spin-button {
 
 
 .game-wrapper .content {
-    padding: 3vh 3vh 3vh 1vh;
-    text-align: right;
+    padding: 3vh;
+    width: 100%;
+    display: flex;
 }
 
-.game-wrapper .score-container {
-    width: 24vw;
-    padding: 0 2vw 3vh 0;
-    display: inline-block;
+.game-wrapper .sidebar {
+    flex: 1;
+    height: 94vh;
 }
 
-.game-wrapper .score1 {
-    display: inline-block;
-    text-align: left;
-    width: 70%;
+.game-wrapper .scoreboard {
+    height: 60%;
+    background: white;
+    border-left: 2px solid gray;
+    border-top: 2px solid gray;
+    padding: 20px 16px 16px;
 }
 
-.game-wrapper .score1 h2,
-.game-wrapper .score2 h2 {
-    font-size: 20px;
+.game-wrapper .scoreboard h3 {
+    margin-bottom: 8px;
+    padding: 4px 4px 20px 8px;
+}
+
+.scoreboard .player {
+    display: flex;
     margin: 8px 0;
+    padding: 8px;
+    border-radius: 50px;
 }
 
-.game-wrapper .score1 h3,
-.game-wrapper .score2 h3 {
+.scoreboard .player:hover {
+    background: #eee;
+}
+
+.scoreboard .player .name {
+    width: auto;
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-size: 18px; 
+    font-weight: 500;
+}
+
+.scoreboard .player .points {
+    flex: 1;
+    text-align: right;
+    padding: 6px 12px;
+}
+
+.player.color-red .name {
+    background: #992233;
+    color: white;
+}
+
+.player.color-green .name {
+    background: #228833;
+    color: white;
+}
+
+.player.color-purple .name {
+    background: #662299;
+    color: white;
+}
+
+.game-wrapper .chat {
+    height: 40%;
+    background: white;
+    border-left: 2px solid gray;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
+}
+
+.game-wrapper .chat .messages {
+    width: 100%;
+    height: calc(100% - 48px);
+}
+
+.chat .message {
+    margin: 16px;
+}
+
+.message .color-red {
+    color: #992233;
+}
+
+.message .color-green {
+    color: #228833;
+}
+
+.message .color-purple {
+    color: #662299;
+}
+
+.game-wrapper .chat .message-bar {
+    height: 48px;
+    width: 100%;
+    border-top: 2px solid gray;
+    display: flex;
+}
+
+.game-wrapper .chat input {
+    flex: 3;
+    height: 48px;
+    border: none;
+    outline: none;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.game-wrapper .chat .send-button {
+    flex: 1;
+    height: 48px;
     font-size: 18px;
-    margin: 8px 0;
-}
-
-.game-wrapper .score2 {
-    display: inline-block;
-    text-align: right;
-    width: 20%;
+    background: gray;
+    color: white;
+    width: 100px;
+    text-align: center;
+    padding: 11px 0;
+    cursor: pointer;
+    font-weight: 600;
 }
 
 .game-wrapper .canvas {
-    display: inline-block;
+    text-align: center;
+    flex: 3;
     height: 94vh;
-    width: 72vw;
-    padding: 48px;
     background: white;
     border: 2px solid gray;
-    text-align: center;
-    cursor: url("cursor1.png"), auto;
 }
 
 .canvas .square {
@@ -438,7 +524,6 @@ input[type=number]::-webkit-outer-spin-button {
     position: absolute;
     top: 0px;
     left: 0px;
-    
 }
 
 .canvas .waiting {
@@ -467,6 +552,26 @@ input[type=number]::-webkit-outer-spin-button {
     background: cyan;
     display: inline-block;
     font-size: 20px;
+}
+
+.canvas .jason-square {
+    margin: 24px;
+    padding: 24px;
+    background: darkred;
+    cursor: pointer;
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.canvas .matt-square {
+    margin: 24px;
+    padding: 24px;
+    background: darkgreen;
+    cursor: pointer;
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
 }
 
 

@@ -93,10 +93,43 @@ $(document).ready(function () {
         $(".back-button").text("exit");
     });
     
+    $(".jason-square").click(function () {
+
+        var string = $(".color-red .points span").text();
+        var points = parseInt(string);
+        
+        points++;
+        
+        console.log(points);
+        
+        $(".color-red .points span").text(points);
+    
+    });
+    
+    $(".matt-square").click(function () {
+
+        var string = $(".color-green .points span").text();
+        var points = parseInt(string);
+        
+        points++;
+        
+        console.log(points);
+        
+        $(".color-green .points span").text(points);
+    
+    });
     
     
     
+//    $(".chat .message-button").click(function () || $(".chat .message-button").click(function () {
+//
+//        var messageString = ;
+//        
+//    });
     
+    
+//    var objDiv = document.getElementById("your_div");
+//    objDiv.scrollTop = objDiv.scrollHeight;
     
     
     
