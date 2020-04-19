@@ -18,6 +18,7 @@ app.use(express.static('./frontend'));
 
 const server = http.Server(app);
 io = io.listen(server);
+let defaultNamespace = io.of('/');
 
 app.get('/', (req, res) => {
   res.sendFile(
@@ -58,14 +59,13 @@ app.post('/games/:gameId/players/:playerId', (req, res) => {
   res.send(content);
 });
 
-io.on('connection', function(socket) {
+defaultNamespace.on('connection', function(socket) {
   socket.on('disconnect', function(client) {
     var gameId = null;
     console.log('user disconnected');
     console.log(gameId);
-    console.log(socket);
     console.log(socket.adapter.rooms);
-    socket.to(gameId).emit('player-left', null);
+    defaultNamespace.to(gameId).emit('player-left', null);
   });
 
   socket.on('disconnecting', (data) => {
@@ -74,15 +74,19 @@ io.on('connection', function(socket) {
 
   socket.on('room', function(gameId) {
     console.log(gameId);
-    socket.join(gameId);
-    console.log(socket);
+    socket.join(gameId, function() {
+      let rooms = Object.keys(socket.rooms);
+      console.log(rooms);
+    });
     console.log(socket.adapter.rooms);
     console.log(`Player joined the room ${gameId}`);
   });
 
   socket.on('player-scored', (data) => {
     // update game score
-    socket.to(data.gameId).emit('player-scored', {player: data.player, score: data.score});
+    console.log('Player scored!');
+    console.log(data);
+    defaultNamespace.to('fakeid').emit('player-scored-confirmed', {playerId: data.playerId, score: data.score});
   });
 });
 

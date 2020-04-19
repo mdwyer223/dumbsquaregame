@@ -107,11 +107,13 @@ $(document).ready(function () {
         var string = $(".color-red .points span").text();
         var points = parseInt(string);
         
-        points++;
+        // points++;
         
         console.log(points);
+
+        gameService.score('fakeid', 'jason', points);
         
-        $(".color-red .points span").text(points);
+        // $(".color-red .points span").text(points);
     
     });
     
@@ -120,11 +122,13 @@ $(document).ready(function () {
         var string = $(".color-green .points span").text();
         var points = parseInt(string);
         
-        points++;
+        // points++;
         
         console.log(points);
+
+        gameService.score('fakeid', 'matt', points);
         
-        $(".color-green .points span").text(points);
+        // $(".color-green .points span").text(points);
     
     });
     

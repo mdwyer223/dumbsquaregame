@@ -11,6 +11,20 @@ gameService.createGame = function() {
 gameService.connect = function(gameId) {
   gameSocket = io('http://localhost');
   gameSocket.emit('room', gameId);
+
+  gameSocket.on('connect', function() {
+    gameSocket.on('player-scored-confirmed', function(data) {
+      let points = data.score;
+      console.log('received event');
+      if(data.playerId === 'jason') {
+        console.log('Jason scored!');
+        $(".color-red .points span").text(points);
+      } else {
+        console.log('Matt scored');
+        $(".color-green .points span").text(points);
+      }
+    });
+  });
 };
 
 gameService.disconnect = function() {
@@ -22,8 +36,10 @@ gameService.disconnect = function() {
   }
 };
 
-gameSocket.on('player-scored', (data) => {
-  
-});
+gameService.score = function(gameId, playerId, score) {
+  console.log('attmepting to score');
+  score++;
+  gameSocket.emit('player-scored', {gameId: gameId, playerId: playerId, score: score})
+}
 
 exports = gameService;
