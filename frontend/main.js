@@ -1,6 +1,13 @@
+let player = {};
+
+player.name = 'Matt';
+
 $(document).ready(function () {
     
     $(".back-button").click(function () {
+
+        console.log('Disconnecting from game service...');
+        gameService.disconnect();
         
         $(".main-menu-wrapper").removeClass("display-none");
         $(".create-game-wrapper").addClass("display-none");
@@ -83,13 +90,15 @@ $(document).ready(function () {
     
     $("#join-game").click(function () {
 
+        gameService.connect('fakeid');
+
         $(".join-game-wrapper").addClass("display-none");
         $(".game-wrapper").removeClass("display-none");
         
         $(".back-button").addClass("back-game");
         $(".back-button").removeClass("back-create-game");
         $(".back-button").removeClass("back-join-game");
-        
+
         $(".back-button").text("exit");
         
         $(".chat .messages").scrollTop(9999999999);
@@ -101,11 +110,13 @@ $(document).ready(function () {
         var string = $(".color-red .points span").text();
         var points = parseInt(string);
         
-        points++;
+        // points++;
         
         console.log(points);
+
+        gameService.score('fakeid', 'jason', points);
         
-        $(".color-red .points span").text(points);
+        // $(".color-red .points span").text(points);
     
     });
     
@@ -114,11 +125,13 @@ $(document).ready(function () {
         var string = $(".color-green .points span").text();
         var points = parseInt(string);
         
-        points++;
+        // points++;
         
         console.log(points);
+
+        gameService.score('fakeid', 'matt', points);
         
-        $(".color-green .points span").text(points);
+        // $(".color-green .points span").text(points);
     
     });
     
