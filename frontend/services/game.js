@@ -28,10 +28,11 @@ gameService.connect = function(gameId) {
     gameSocket.on('message-sent', function(data) {
       
       let messageString = data.msg;
+      let playerId = data.playerId;
       
       if (messageString.length > 0) {
         
-        $('.chat .messages').append(`<p class="message"><strong class="playerColor"> "playerId: "</strong>${messageString}</p>`);
+        $('.chat .messages').append(`<p class="message"><strong class="playerColor"> ${playerId}: </strong>${messageString}</p>`);
             
         $(".chat .messages").scrollTop(9999999999);
       

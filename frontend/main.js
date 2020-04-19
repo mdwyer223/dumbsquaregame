@@ -143,7 +143,7 @@ $(document).ready(function () {
 
     if (messageString.length > 0) {
 
-      gameService.sendMessage("fakeId", "Mutt", messageString)
+      gameService.sendMessage("fakeId", "matt", messageString)
       $(".chat input").val("");
 
     }
