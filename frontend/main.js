@@ -91,6 +91,9 @@ $(document).ready(function () {
         $(".back-button").removeClass("back-join-game");
         
         $(".back-button").text("exit");
+        
+        $(".chat .messages").scrollTop(9999999999);
+        
     });
     
     $(".jason-square").click(function () {
@@ -120,18 +123,26 @@ $(document).ready(function () {
     });
     
     
-    
-//    $(".chat .message-button").click(function () || $(".chat .message-button").click(function () {
-//
-//        var messageString = ;
-//        
-//    });
-    
-    
-//    var objDiv = document.getElementById("your_div");
-//    objDiv.scrollTop = objDiv.scrollHeight;
-    
-    
+ 
+    $(".chat .send-button").click(function () {
+        
+        console.log("hi");
+        
+        var messageString = $(".chat input").val();
+        
+        console.log(messageString);
+
+        if (messageString.length > 0) {
+            
+            $('.chat .messages').append('<p class="message"><strong class="' + "playerColor" + '">' + "playerId: " + '</strong>' + messageString + '</p>');
+            
+            $(".chat input").val("");
+            
+            $(".chat .messages").scrollTop(9999999999);
+            
+        }
+        
+    });
     
     
 //    $(".nav-button-container > div").click(function () {
