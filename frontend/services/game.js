@@ -24,6 +24,10 @@ gameService.connect = function(gameId) {
         $(".color-green .points span").text(points);
       }
     });
+
+    gameSocket.on('message-sent', function(data) {
+      return null;
+    });
   });
 };
 
@@ -40,6 +44,28 @@ gameService.score = function(gameId, playerId, score) {
   console.log('attmepting to score');
   score++;
   gameSocket.emit('player-scored', {gameId: gameId, playerId: playerId, score: score})
+};
+
+gameService.sendMessage = function(gameId, playerId, message) {
+  let data = {
+    gameId: gameId,
+    playerId: playerId,
+    msg: sanitize(message)
+  };
+  gameSocket.emit('send-message', data);
+};
+
+function sanitize(string) {
+  const map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#x27;',
+      "/": '&#x2F;',
+  };
+  const reg = /[&<>"'/]/ig;
+  return string.replace(reg, (match)=>(map[match]));
 }
 
 exports = gameService;

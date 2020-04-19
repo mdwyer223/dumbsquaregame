@@ -88,6 +88,11 @@ defaultNamespace.on('connection', function(socket) {
     console.log(data);
     defaultNamespace.to('fakeid').emit('player-scored-confirmed', {playerId: data.playerId, score: data.score});
   });
+
+  socket.on('send-message', (messageData) => {
+    console.log(messageData);
+    defaultNamespace.to('fakeid').emit('message-sent', messageData)
+  });
 });
 
 server.listen(port, function() {
