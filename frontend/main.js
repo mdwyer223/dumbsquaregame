@@ -1,7 +1,3 @@
-let player = {};
-
-player.name = 'Matt';
-
 $(document).ready(function () {
 
   $(".back-button").click(function () {

@@ -1,3 +1,5 @@
+const utils = require('./utils/utils');
+
 const path = require('path');
 const express = require('express');
 const http = require('http');
@@ -7,6 +9,8 @@ const game = require('./services/game');
 const port = 80;
 
 var io = require('socket.io');
+
+const playerIdLength = 20;
 
 var rooms = [];
 
@@ -57,6 +61,12 @@ app.post('/games/:gameId/players/:playerId', (req, res) => {
   let content = game.update(opts);
 
   res.send(content);
+});
+
+app.post('/players', (req, res) => {
+  let playerId = utils.generateId(playerIdLength);
+
+  res.json({playerId: playerId});
 });
 
 defaultNamespace.on('connection', function(socket) {

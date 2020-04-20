@@ -2,6 +2,8 @@ let gameSocket = null;
 
 let gameService = {};
 
+let players = [];
+
 gameService.createGame = function() {
   $.post('/games', {}, function(data) {
     gameSocket = io(data.gameId);
@@ -44,10 +46,8 @@ gameService.connect = function(gameId) {
 
 gameService.disconnect = function() {
   if (gameSocket && gameSocket.connected) {
-    console.log('Disconnecting...');
     gameSocket.emit('disconnecting', {gameId: gameId, playerId: 'player1'});
-    gameSocket.close('userId');
-    console.log('Disconnected!');
+    gameSocket.close();
   }
 };
 

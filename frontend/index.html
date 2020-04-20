@@ -31,6 +31,7 @@ Check random generated code against active sessions
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="resources/socket.io.js"></script>
     <script src="services/game.js"></script>
+    <script src="services/player.js"></script>
 
     <script src="main.js"></script>
 
@@ -240,7 +241,7 @@ Check random generated code against active sessions
                 </div>
                 
                 <div class="message-bar">
-                    <input type="text" placeholder="Send message" onblur="this.placeholder='Send message'" onfocus="this.placeholder=''">
+                    <input type="text" placeholder="Send message" onblur="this.placeholder='Send message'" onfocus="this.placeholder=''" onsubmit="$('.send-button').click()">
                     <div class="send-button">Send</div>
                 </div>
                 
