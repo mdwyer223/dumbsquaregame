@@ -1,21 +1,13 @@
 let files = require('../utils/game-file-system');
+let utils = require('../utils/utils');
 
 let game = {};
-
-function makeGameId(length) {
-  let result = '';
-  let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
-  return result;
-}
 
 // Need a method to create a new game
 game.create = function(opts) {
   let gameIdLength = 10;
 
-  let gameId = makeGameId(gameIdLength);
+  let gameId = utils.generateId(gameIdLength);
 
   let newGameContents = {
     seesionId: gameId,
