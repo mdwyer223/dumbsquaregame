@@ -4,6 +4,8 @@ let gameService = {};
 
 let players = [];
 
+var gameId;
+
 gameService.createGame = function() {
   $.post('/games', {}, function(data) {
     gameSocket = io(data.gameId);
@@ -31,13 +33,11 @@ gameService.connect = function(gameId) {
       
       let messageString = data.msg;
       let playerId = data.playerId;
+      let playerName = data.playerName;
       
       if (messageString.length > 0) {
-        
-        $('.chat .messages').append(`<p class="message"><strong class="playerColor"> ${playerId}: </strong>${messageString}</p>`);
-            
+        $('.chat .messages').append(`<p class="message"><strong class="playerColor ${playerId}"> ${playerName}: </strong>${messageString}</p>`);
         $(".chat .messages").scrollTop(9999999999);
-      
       }
       
     });
@@ -45,6 +45,7 @@ gameService.connect = function(gameId) {
 };
 
 gameService.disconnect = function() {
+  let gameId = 'fakeid';
   if (gameSocket && gameSocket.connected) {
     gameSocket.emit('disconnecting', {gameId: gameId, playerId: 'player1'});
     gameSocket.close();
@@ -57,26 +58,14 @@ gameService.score = function(gameId, playerId, score) {
   gameSocket.emit('player-scored', {gameId: gameId, playerId: playerId, score: score})
 };
 
-gameService.sendMessage = function(gameId, playerId, message) {
+gameService.sendMessage = function(gameId, player, message) {
   let data = {
     gameId: gameId,
-    playerId: playerId,
+    playerId: player.id,
+    playerName: player.name,
     msg: sanitize(message)
   };
   gameSocket.emit('send-message', data);
 };
-
-function sanitize(string) {
-  const map = {
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#x27;',
-      "/": '&#x2F;',
-  };
-  const reg = /[&<>"'/]/ig;
-  return string.replace(reg, (match)=>(map[match]));
-}
 
 exports = gameService;
