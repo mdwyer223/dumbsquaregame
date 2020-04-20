@@ -1,168 +1,168 @@
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow-x: hidden;
 }
 
 .select,
 .select * {
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
-    user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 .select img {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 h1 {
-    font-weight: 400;
-    font-size: 28px;
+  font-weight: 400;
+  font-size: 28px;
 }
 
 h2 {
-    font-weight: 400;
-    font-size: 24px;
+  font-weight: 400;
+  font-size: 24px;
 }
 
 h3 {
-    font-weight: 600;
-    font-size: 20px;
+  font-weight: 600;
+  font-size: 20px;
 }
 
 .display-none {
-    display: none !important;
+  display: none !important;
 }
 
 .back-button {
-    padding: 7px 20px 8px;
-    color: white;
-    background: black;
-    position: fixed;
-    left: 25px;
-    top: 25px;
-    cursor: pointer;
-    border-radius: 32px;
+  padding: 7px 20px 8px;
+  color: white;
+  background: black;
+  position: fixed;
+  left: 25px;
+  top: 25px;
+  cursor: pointer;
+  border-radius: 32px;
 }
 
 body {
-    background: lightgrey;
-    font-family: "Barlow", Futura, sans-serif;
-    font-size: 20px;
+  background: lightgrey;
+  font-family: "Barlow", Futura, sans-serif;
+  font-size: 20px;
 }
 
 .create-game-wrapper input[type=text],
 .join-game-wrapper input[type=text] {
-    text-align: center;
-    font-size: 20px;
-    font-weight: 500;
-    padding: 8px 0;
-    width: 200px;
-    transition-property: all;
-    transition-duration: 0.2s;
-    transition-timing-function: ease-out;
-    border: 1px solid gray;
-    border-radius: 32px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 8px 0;
+  width: 200px;
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+  border: 1px solid gray;
+  border-radius: 32px;
 }
 
 .create-game-wrapper input[type=text]:hover,
 .join-game-wrapper input[type=text]:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .create-game-wrapper input[type=text]:focus,
 .join-game-wrapper input[type=text]:focus {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-    outline: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  outline: none;
 }
 
 .create-game-wrapper input[type=number] {
-    text-align: center;
-    font-size: 20px;
-    font-weight: 500;
-    padding: 4px 0;
-    -webkit-appearance: textfield;
-    -moz-appearance: textfield;
-    appearance: textfield;
-    caret-color: transparent;
-    cursor: default;
-    user-select: none;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 4px 0;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+  caret-color: transparent;
+  cursor: default;
+  user-select: none;
 }
 
 .create-game-wrapper input[type=number]:focus {
-    outline: none;
+  outline: none;
 }
 
 .create-game-wrapper input[type=number]::-webkit-inner-spin-button,
 .create-game-wrapper input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
+  -webkit-appearance: none;
 }
 
 .number-input {
-    /* border: 2px solid #ddd; */
-    display: inline-flex;
+  /* border: 2px solid #ddd; */
+  display: inline-flex;
 }
 
 .number-input,
 .number-input * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .number-input button {
-    outline: none;
-    -webkit-appearance: none;
-    background-color: #999;
-    border: none;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    cursor: pointer;
-    margin: 0;
-    position: relative;
+  outline: none;
+  -webkit-appearance: none;
+  background-color: #999;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
 }
 
 .number-input button:first-child {
-    border-radius: 50% 0 0 50%;
+  border-radius: 50% 0 0 50%;
 }
 
 .number-input button:last-child {
-    border-radius: 0 50% 50% 0;
+  border-radius: 0 50% 50% 0;
 }
 
 .number-input button:before,
 .number-input button:after {
-    display: inline-block;
-    position: absolute;
-    content: '';
-    width: 1rem;
-    height: 3px;
-    background-color: white;
-    transform: translate(-50%, -50%);
+  display: inline-block;
+  position: absolute;
+  content: '';
+  width: 1rem;
+  height: 3px;
+  background-color: white;
+  transform: translate(-50%, -50%);
 }
 
 .number-input button.plus:after {
-    transform: translate(-50%, -50%) rotate(90deg);
+  transform: translate(-50%, -50%) rotate(90deg);
 }
 
 .number-input input[type=number] {
-    max-width: 5rem;
-    padding: 0.5rem 0.75rem 0.4rem 0.75rem;
-    border: none;
-    /* border-width: 0 2px; */
-    font-size: 20px;
-    height: 2.5rem;
-    font-weight: 500;
-    text-align: center;
+  max-width: 5rem;
+  padding: 0.5rem 0.75rem 0.4rem 0.75rem;
+  border: none;
+  /* border-width: 0 2px; */
+  font-size: 20px;
+  height: 2.5rem;
+  font-weight: 500;
+  text-align: center;
 }
 
 
@@ -172,28 +172,28 @@ body {
 */
 
 .main-menu-wrapper {
-    text-align: center;
+  text-align: center;
 }
 
 .main-menu-wrapper .content {
-    width: 300px;
-    margin-top: 10vh;
-    display: inline-block;
+  width: 300px;
+  margin-top: 10vh;
+  display: inline-block;
 }
 
 .main-menu-wrapper .button-container {
-    width: 100%;
-    margin: 36px 0;
-    display: inline-block;
+  width: 100%;
+  margin: 36px 0;
+  display: inline-block;
 }
 
 .main-menu-wrapper .button {
-    margin: 24px;
-    padding: 12px 24px;
-    border-radius: 50px;
-    background: grey;
-    color: white;
-    cursor: pointer;
+  margin: 24px;
+  padding: 12px 24px;
+  border-radius: 50px;
+  background: grey;
+  color: white;
+  cursor: pointer;
 }
 
 
@@ -202,61 +202,61 @@ body {
 */
 
 .create-game-wrapper {
-    text-align: center;
+  text-align: center;
 }
 
 .create-game-wrapper .content {
-    width: 60vw;
-    margin-top: 10vh;
-    display: inline-block;
+  width: 60vw;
+  margin-top: 10vh;
+  display: inline-block;
 }
 
 .create-game-wrapper .container {
-    width: 100%;
-    margin: 36px 0;
-    display: inline-block;
+  width: 100%;
+  margin: 36px 0;
+  display: inline-block;
 }
 
 .create-game-wrapper .field {
-    padding: 36px 0;
+  padding: 36px 0;
 }
 
 .create-game-wrapper h3 {
-    margin-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 .create-game-wrapper .field .difficulty {
-    margin: 0 24px;
+  margin: 0 24px;
 }
 
 .create-game-wrapper .field .difficulty div {
-    padding: 7px 20px 8px;
-    color: white;
-    border-radius: 30px;
-    margin-right:8px;
-    display: inline-block;
-    background: #888;
-    cursor: pointer;
+  padding: 7px 20px 8px;
+  color: white;
+  border-radius: 30px;
+  margin-right: 8px;
+  display: inline-block;
+  background: #888;
+  cursor: pointer;
 }
 
 .create-game-wrapper .field .difficulty .selected {
-    background: #444;
+  background: #444;
 }
 
 .create-game-wrapper .field .start-game {
-    text-align: center
+  text-align: center
 }
 
 .create-game-wrapper .field .start-game div {
-    display: inline-block;
-    max-width: 300px;
-    padding: 12px 48px;
-    font-size: 24px;
-    font-weight: 600;
-    background: black;
-    color: white;
-    border-radius: 48px;
-    cursor: pointer;
+  display: inline-block;
+  max-width: 300px;
+  padding: 12px 48px;
+  font-size: 24px;
+  font-weight: 600;
+  background: black;
+  color: white;
+  border-radius: 48px;
+  cursor: pointer;
 }
 
 /*  ______
@@ -264,91 +264,91 @@ body {
 */
 
 .join-game-wrapper {
-    text-align: center;
+  text-align: center;
 }
 
 .join-game-wrapper .content {
-    width: 80vw;
-    margin-top: 10vh;
-    display: inline-block;
+  width: 80vw;
+  margin-top: 10vh;
+  display: inline-block;
 }
 
 .join-game-wrapper .container {
-    width: 100%;
-    margin: 36px 0;
-    display: inline-block;
+  width: 100%;
+  margin: 36px 0;
+  display: inline-block;
 }
 
 .join-game-wrapper .field {
-    padding: 36px 0;
+  padding: 36px 0;
 }
 
 .join-game-wrapper h3 {
-    margin-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 .color-picker div {
-    margin: 4px;
-    display: inline-block;
-    border: 2px solid rgba(0, 0, 0, 0);
-    border-radius: 50%;
+  margin: 4px;
+  display: inline-block;
+  border: 2px solid rgba(0, 0, 0, 0);
+  border-radius: 50%;
 }
 
 .color-picker .selected {
-    border: 2px solid rgba(0, 0, 0, 1);
+  border: 2px solid rgba(0, 0, 0, 1);
 }
 
-.color-picker>div:hover {
-    border: 2px solid rgba(0, 0, 0, 0.25);
+.color-picker > div:hover {
+  border: 2px solid rgba(0, 0, 0, 0.25);
 }
 
 .color-picker .selected:hover {
-    border: 2px solid rgba(0, 0, 0, 1);
+  border: 2px solid rgba(0, 0, 0, 1);
 }
 
 .color-picker div div {
-    width: 48px;
-    height: 48px;
-    border: none;
-    margin: 6px 6px 3px 6px;
-    cursor: pointer;
-    border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  border: none;
+  margin: 6px 6px 3px 6px;
+  cursor: pointer;
+  border-radius: 50%;
 }
 
 .color-picker .one div {
-    background: red;
+  background: red;
 }
 
 .color-picker .two div {
-    background: green;
+  background: green;
 }
 
 .color-picker .three div {
-    background: darkgoldenrod;
+  background: darkgoldenrod;
 }
 
 .color-picker .four div {
-    background: blue;
+  background: blue;
 }
 
 .color-picker .five div {
-    background: purple;
+  background: purple;
 }
 
 .join-game-wrapper .field .join-game {
-    text-align: center
+  text-align: center
 }
 
 .join-game-wrapper .field .join-game div {
-    display: inline-block;
-    max-width: 300px;
-    padding: 12px 48px;
-    font-size: 24px;
-    font-weight: 600;
-    background: black;
-    color: white;
-    border-radius: 48px;
-    cursor: pointer;
+  display: inline-block;
+  max-width: 300px;
+  padding: 12px 48px;
+  font-size: 24px;
+  font-weight: 600;
+  background: black;
+  color: white;
+  border-radius: 48px;
+  cursor: pointer;
 }
 
 
@@ -357,28 +357,28 @@ body {
 */
 
 .settings-wrapper {
-    text-align: center;
+  text-align: center;
 }
 
 .settings-wrapper .content {
-    width: 30vw;
-    margin-top: 10vh;
-    display: inline-block;
+  width: 30vw;
+  margin-top: 10vh;
+  display: inline-block;
 }
 
 .settings-wrapper .button-container {
-    width: 100%;
-    margin: 36px 0;
-    display: inline-block;
+  width: 100%;
+  margin: 36px 0;
+  display: inline-block;
 }
 
 .settings-wrapper .button {
-    margin: 24px;
-    padding: 12px 24px;
-    border-radius: 50px;
-    background: grey;
-    color: white;
-    cursor: pointer;
+  margin: 24px;
+  padding: 12px 24px;
+  border-radius: 50px;
+  background: grey;
+  color: white;
+  cursor: pointer;
 }
 
 
@@ -386,192 +386,196 @@ body {
     GAME
 */
 
-
 .game-wrapper .content {
-    padding: 3vh;
-    width: 100%;
-    display: flex;
+  padding: 3vh;
+  width: 100%;
+  display: flex;
 }
 
 .game-wrapper .sidebar {
-    flex: 1;
-    height: 94vh;
+  flex: 1;
+  height: 94vh;
 }
 
 .game-wrapper .scoreboard {
-    height: 60%;
-    background: white;
-    border-left: 2px solid gray;
-    border-top: 2px solid gray;
-    padding: 20px 16px 16px;
+  height: 60%;
+  background: white;
+  border-left: 2px solid gray;
+  border-top: 2px solid gray;
+  padding: 20px 16px 16px;
 }
 
 .game-wrapper .scoreboard h3 {
-    margin-bottom: 8px;
-    padding: 4px 4px 20px 8px;
+  margin-bottom: 8px;
+  padding: 4px 4px 20px 8px;
 }
 
 .scoreboard .player {
-    display: flex;
-    margin: 8px 0;
-    padding: 8px;
-    border-radius: 50px;
+  display: flex;
+  margin: 8px 0;
+  padding: 8px;
+  border-radius: 50px;
 }
 
 .scoreboard .player:hover {
-    background: #eee;
+  background: #eee;
 }
 
 .scoreboard .player .name {
-    width: auto;
-    padding: 6px 12px;
-    border-radius: 50px;
-    font-size: 18px; 
-    font-weight: 500;
+  width: auto;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .scoreboard .player .points {
-    flex: 1;
-    text-align: right;
-    padding: 6px 12px;
+  flex: 1;
+  text-align: right;
+  padding: 6px 12px;
 }
 
 .player.color-red .name {
-    background: #992233;
-    color: white;
+  background: #992233;
+  color: white;
 }
 
 .player.color-green .name {
-    background: #228833;
-    color: white;
+  background: #228833;
+  color: white;
 }
 
 .player.color-purple .name {
-    background: #662299;
-    color: white;
+  background: #662299;
+  color: white;
 }
 
 .game-wrapper .chat {
-    height: 40%;
-    background: white;
-    border-left: 2px solid gray;
-    border-top: 2px solid gray;
-    border-bottom: 2px solid gray;
+  height: 40%;
+  background: white;
+  border-left: 2px solid gray;
+  border-top: 2px solid gray;
+  border-bottom: 2px solid gray;
+}
+
+.chat h3 {
+  margin-bottom: 8px;
+  padding: 24px 4px 20px 22px;
 }
 
 .game-wrapper .chat .messages {
-    width: 100%;
-    height: calc(100% - 48px);
+  width: 100%;
+  height: calc(100% - 48px);
 }
 
 .chat .message {
-    margin: 16px;
+  margin: 16px;
 }
 
 .message .color-red {
-    color: #992233;
+  color: #992233;
 }
 
 .message .color-green {
-    color: #228833;
+  color: #228833;
 }
 
 .message .color-purple {
-    color: #662299;
+  color: #662299;
 }
 
 .game-wrapper .chat .message-bar {
-    height: 48px;
-    width: 100%;
-    border-top: 2px solid gray;
-    display: flex;
+  height: 48px;
+  width: 100%;
+  border-top: 2px solid gray;
+  display: flex;
 }
 
 .game-wrapper .chat input {
-    flex: 3;
-    height: 48px;
-    border: none;
-    outline: none;
-    padding: 8px;
-    font-size: 16px;
+  flex: 3;
+  height: 48px;
+  border: none;
+  outline: none;
+  padding: 8px;
+  font-size: 16px;
 }
 
 .game-wrapper .chat .send-button {
-    flex: 1;
-    height: 48px;
-    font-size: 18px;
-    background: gray;
-    color: white;
-    width: 100px;
-    text-align: center;
-    padding: 11px 0;
-    cursor: pointer;
-    font-weight: 600;
+  flex: 1;
+  height: 48px;
+  font-size: 18px;
+  background: gray;
+  color: white;
+  width: 100px;
+  text-align: center;
+  padding: 11px 0;
+  cursor: pointer;
+  font-weight: 600;
 }
 
 .game-wrapper .canvas {
-    text-align: center;
-    flex: 3;
-    height: 94vh;
-    background: white;
-    border: 2px solid gray;
+  text-align: center;
+  flex: 3;
+  height: 94vh;
+  background: white;
+  border: 2px solid gray;
 }
 
 .canvas .square {
-    width: 100px;
-    height: 100px;
-    background: black;
-    position: absolute;
-    top: 0px;
-    left: 0px;
+  width: 100px;
+  height: 100px;
+  background: black;
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 .canvas .waiting {
-    width: 60%;
-    background: blue;
-    display: inline-block;
-    font-size: 20px;
+  width: 60%;
+  background: blue;
+  display: inline-block;
+  font-size: 20px;
 }
 
 .canvas .timer {
-    width: 60%;
-    background: red;
-    display: inline-block;
-    font-size: 20px;
+  width: 60%;
+  background: red;
+  display: inline-block;
+  font-size: 20px;
 }
 
 .canvas .ready {
-    width: 60%;
-    background: yellow;
-    display: inline-block;
-    font-size: 20px;
+  width: 60%;
+  background: yellow;
+  display: inline-block;
+  font-size: 20px;
 }
 
 .canvas .winner {
-    width: 60%;
-    background: cyan;
-    display: inline-block;
-    font-size: 20px;
+  width: 60%;
+  background: cyan;
+  display: inline-block;
+  font-size: 20px;
 }
 
 .canvas .jason-square {
-    margin: 24px;
-    padding: 24px;
-    background: darkred;
-    cursor: pointer;
-    color: white;
-    font-size: 24px;
-    font-weight: 600;
+  margin: 24px;
+  padding: 24px;
+  background: darkred;
+  cursor: pointer;
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 .canvas .matt-square {
-    margin: 24px;
-    padding: 24px;
-    background: darkgreen;
-    cursor: pointer;
-    color: white;
-    font-size: 24px;
-    font-weight: 600;
+  margin: 24px;
+  padding: 24px;
+  background: darkgreen;
+  cursor: pointer;
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 

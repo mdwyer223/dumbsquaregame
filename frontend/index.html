@@ -14,261 +14,259 @@ Check random generated code against active sessions
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Square Game</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Square Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="Description" content="Dumb square game where you race your friends to click squares.">
-    <meta name="Author" content="Jason Proleika">
-    <meta name="Keywords" content="jason proleika, designer, freelance, design, web design, developer, web, website, front end, mobile, app design, ux, user experience, ui, user interface, game, game design, ny, nyc, new york city, new jersey, nj">
+  <meta name="Description" content="Dumb square game where you race your friends to click squares.">
+  <meta name="Author" content="Jason Proleika">
+  <meta name="Keywords" content="jason proleika, designer, freelance, design, web design, developer, web, website, front end, mobile, app design, ux, user experience, ui, user interface, game, game design, ny, nyc, new york city, new jersey, nj">
 
-    <link rel="icon" href="favicon.png" type="image/ico">
+  <link rel="icon" href="favicon.png" type="image/ico">
 
-    <link rel="stylesheet" href="style/style.css">
+  <link rel="stylesheet" href="style/style.css">
 
-    <link href="https://fonts.googleapis.com/css?family=Barlow:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Barlow:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="resources/socket.io.js"></script>
-    <script src="services/game.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="resources/socket.io.js"></script>
+  <script src="services/game.js"></script>
 
-    <script src="main.js"></script>
+  <script src="main.js"></script>
 
 </head>
 
 <body>
 
-    <!--CLOSE BUTTON-->
+  <!--CLOSE BUTTON-->
 
-    <div class="back-button display-none">
-        back
+  <div class="back-button display-none">
+    back
+  </div>
+
+  <!--MAIN MENU-->
+
+  <div class="main-menu-wrapper">
+
+    <div class="content">
+
+      <h1>Dumb square game</h1>
+
+      <div class="button-container">
+
+        <div id="create-game-menu" class="button">create game</div>
+        <div id="join-game-menu" class="button">join game</div>
+        <div id="settings-menu" class="button">settings</div>
+
+      </div>
+
     </div>
 
-    <!--MAIN MENU-->
+    <!--CREATE GAME-->
 
-    <div class="main-menu-wrapper">
+  </div>
 
-        <div class="content">
+  <div class="create-game-wrapper display-none">
 
-            <h1>Dumb square game</h1>
+    <div class="content">
 
-            <div class="button-container">
+      <h1>Create Game</h1>
 
-                <div id="create-game-menu" class="button">create game</div>
-                <div id="join-game-menu" class="button">join game</div>
-                <div id="settings-menu" class="button">settings</div>
+      <div class="container">
 
+        <div class="field">
+          <h3>Session name</h3>
+          <input type="text" maxlength="6" value="I6M4J9" contenteditable="false">
+        </div>
+
+        <div class="field">
+          <h3>Difficulty</h3>
+          <div class="difficulty">
+            <div class="normal selected">normal</div>
+            <div class="hard">hard</div>
+            <div class="expert">expert</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <h3>Max. players</h3>
+          <div class="number-input">
+            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
+            <input class="quantity" min="2" name="quantity" max="8" maxlength="1" value="2" type="number" onKeyDown="return false">
+            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+          </div>
+        </div>
+
+        <div class="field">
+          <h3>Pick your color</h3>
+          <div class="color-picker">
+            <div class="one selected">
+              <div></div>
             </div>
+            <div class="two">
+              <div></div>
+            </div>
+            <div class="three">
+              <div></div>
+            </div>
+            <div class="four">
+              <div></div>
+            </div>
+            <div class="five">
+              <div></div>
+            </div>
+          </div>
 
         </div>
 
-        <!--CREATE GAME-->
+        <div class="field">
+          <div id="start-game" class="start-game">
+            <div>Start</div>
+          </div>
+        </div>
+
+      </div>
 
     </div>
 
-    <div class="create-game-wrapper display-none">
+  </div>
 
-        <div class="content">
+  <!--JOIN GAME-->
 
-            <h1>Create Game</h1>
+  <div class="join-game-wrapper display-none">
 
-            <div class="container">
+    <div class="content">
 
-                <div class="field">
-                    <h3>Session name</h3>
-                    <input type="text" maxlength="6" value="I6M4J9" contenteditable="false">
-                </div>
-                
-                <div class="field">
-                    <h3>Difficulty</h3>
-                    <div class="difficulty">
-                        <div class="normal selected">normal</div>
-                        <div class="hard">hard</div>
-                        <div class="expert">expert</div>
-                    </div>
-                </div>
+      <h1>Join Game</h1>
 
-                <div class="field">
-                    <h3>Max. players</h3>
-                    <div class="number-input">
-                        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
-                        <input class="quantity" min="2" name="quantity" max="8" maxlength="1" value="2" type="number" onKeyDown="return false">
-                        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
-                    </div>
-                </div>
+      <div class="button-container">
 
-                <div class="field">
-                    <h3>Pick your color</h3>
-                    <div class="color-picker">
-                        <div class="one selected">
-                            <div></div>
-                        </div>
-                        <div class="two">
-                            <div></div>
-                        </div>
-                        <div class="three">
-                            <div></div>
-                        </div>
-                        <div class="four">
-                            <div></div>
-                        </div>
-                        <div class="five">
-                            <div></div>
-                        </div>
-                    </div>
+        <div class="field">
+          <h3>Session ID</h3>
+          <input type="text" maxlength="6" placeholder="Enter ID" onblur="this.placeholder='Enter ID'" onfocus="this.placeholder=''">
+        </div>
 
-                </div>
-                
-                <div class="field">
-                    <div id="start-game" class="start-game">
-                        <div>Start</div>
-                    </div>
-                </div>
-                
+        <div class="field">
+          <h3>Pick your color</h3>
+          <div class="color-picker">
+            <div class="one selected">
+              <div></div>
             </div>
+            <div class="two">
+              <div></div>
+            </div>
+            <div class="three">
+              <div></div>
+            </div>
+            <div class="four">
+              <div></div>
+            </div>
+            <div class="five">
+              <div></div>
+            </div>
+          </div>
 
         </div>
 
+        <div class="field">
+          <div id="join-game" class="join-game">
+            <div>Join</div>
+          </div>
+        </div>
+
+      </div>
+
     </div>
 
-    <!--JOIN GAME-->
+  </div>
 
-    <div class="join-game-wrapper display-none">
+  <!--SETTINGS-->
 
-        <div class="content">
+  <div class="settings-wrapper display-none">
 
-            <h1>Join Game</h1>
+    <div class="content">
 
-            <div class="button-container">
+      <h1>Settings</h1>
 
-                <div class="field">
-                    <h3>Session ID</h3>
-                    <input type="text" maxlength="6" placeholder="Enter ID" onblur="this.placeholder='Enter ID'" onfocus="this.placeholder=''">
-                </div>
+      <div class="button-container">
 
-                <div class="field">
-                    <h3>Pick your color</h3>
-                    <div class="color-picker">
-                        <div class="one selected">
-                            <div></div>
-                        </div>
-                        <div class="two">
-                            <div></div>
-                        </div>
-                        <div class="three">
-                            <div></div>
-                        </div>
-                        <div class="four">
-                            <div></div>
-                        </div>
-                        <div class="five">
-                            <div></div>
-                        </div>
-                    </div>
+        <div class="button">setting 1</div>
+        <div class="button">setting 2</div>
+        <div class="button">setting 3</div>
 
-                </div>
-                
-                <div class="field">
-                    <div id="join-game" class="join-game">
-                        <div>Join</div>
-                    </div>
-                </div>
-                
-            </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!--GAME-->
+
+  <div class="game-wrapper display-none">
+
+    <div class="content">
+
+      <div class="sidebar">
+
+        <div class="scoreboard">
+
+          <h3>Scoreboard</h3>
+
+          <div class="player color-red">
+            <div class="name">JDog69</div>
+            <div class="points"><span>247</span>pts</div>
+          </div>
+
+          <div class="player color-green">
+            <div class="name">MBro666</div>
+            <div class="points"><span>5</span>pts</div>
+          </div>
+
+          <div class="player color-purple">
+            <div class="name">Player name 3</div>
+            <div class="points"><span>2</span>pts</div>
+          </div>
 
         </div>
 
-    </div>
+        <div class="chat">
 
-    <!--SETTINGS-->
+          <div class="messages">
 
-    <div class="settings-wrapper display-none">
+            <h3>Chat</h3>
 
-        <div class="content">
+          </div>
 
-            <h1>Settings</h1>
-
-            <div class="button-container">
-
-                <div class="button">setting 1</div>
-                <div class="button">setting 2</div>
-                <div class="button">setting 3</div>
-
-            </div>
+          <div class="message-bar">
+            <input type="text" placeholder="Send message" onblur="this.placeholder='Send message'" onfocus="this.placeholder=''">
+            <div class="send-button">Send</div>
+          </div>
 
         </div>
 
-    </div>
-    
-    <!--GAME-->
-    
-    <div class="game-wrapper display-none">
+      </div>
 
-        <div class="content">
-
-            <div class="sidebar">
-            
-            <div class="scoreboard">
-                
-                <h3>Scoreboard</h3>
-                
-                <div class="player color-red">
-                    <div class="name">JDog69</div>
-                    <div class="points"><span>247</span>pts</div>
-                </div>
-                
-                <div class="player color-green">
-                    <div class="name">MBro666</div>
-                    <div class="points"><span>5</span>pts</div>
-                </div>
-                
-                <div class="player color-purple">
-                    <div class="name">Player name 3</div>
-                    <div class="points"><span>2</span>pts</div>
-                </div>
-                
-            </div>
-                
-            <div class="chat">
-                
-                <div class="messages">
-                    
-                    <p class="message"><strong class="color-green">MBro666: </strong>Quis nostrud exercitation ullamco laboris.</p>
-                    
-                    <p class="message"><strong class="color-red">JDog69: </strong>Excepteur sint cupidatat.</p>
-                    
-                </div>
-                
-                <div class="message-bar">
-                    <input type="text" placeholder="Send message" onblur="this.placeholder='Send message'" onfocus="this.placeholder=''">
-                    <div class="send-button">Send</div>
-                </div>
-                
-            </div>
-                
-            </div>
-            
-            <div class="canvas ready">
-                <div class="square display-none"></div>
-                <div class="waiting display-none">
-                    <p>Waiting for more <br>players to join...</p>
-                </div>
-                <div class="timer display-none">
-                    <p>3..2..1..</p>
-                </div>
-                <div class="ready display-none">
-                    <div>Hold mouse here to start</div>
-                </div>
-                <div class="winner display-none">
-                    <p>Player 1<br>+1 point</p>
-                </div>
-                <div class="jason-square">Jason click this</div>
-                <div class="matt-square">Matt click this</div>
-            </div>    
-            
+      <div class="canvas ready">
+        <div class="square display-none"></div>
+        <div class="waiting display-none">
+          <p>Waiting for more <br>players to join...</p>
         </div>
+        <div class="timer display-none">
+          <p>3..2..1..</p>
+        </div>
+        <div class="ready display-none">
+          <div>Hold mouse here to start</div>
+        </div>
+        <div class="winner display-none">
+          <p>Player 1<br>+1 point</p>
+        </div>
+        <div class="jason-square">Jason click this</div>
+        <div class="matt-square">Matt click this</div>
+      </div>
 
     </div>
+
+  </div>
 
 
 
