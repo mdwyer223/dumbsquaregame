@@ -437,7 +437,7 @@ body {
 .scoreboard .player .points {
   flex: 1;
   text-align: right;
-  padding: 6px 12px;
+  padding: 6px;
 }
 
 .player.color-red .name {
@@ -566,6 +566,10 @@ body {
   border-radius: 1px;
   width: 325px;
   cursor: pointer;
+}
+
+.canvas .ready:hover {
+  background: black;
 }
 
 .canvas .ready div {
