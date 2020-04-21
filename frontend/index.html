@@ -44,7 +44,7 @@ Check random generated code against active sessions
 
   <!--MAIN MENU-->
 
-  <div class="main-menu-wrapper">
+  <div class="main-menu-wrapper display-none">
 
     <div class="content">
 
@@ -209,7 +209,7 @@ Check random generated code against active sessions
 
   <!--GAME-->
 
-  <div class="game-wrapper display-none">
+  <div class="game-wrapper">
 
     <div class="content">
 
@@ -241,6 +241,8 @@ Check random generated code against active sessions
           <div class="messages">
 
             <h3>Chat</h3>
+            
+            <div class="message starter-message"></div>
 
           </div>
 
@@ -253,22 +255,17 @@ Check random generated code against active sessions
 
       </div>
 
-      <div class="canvas ready">
+      <div class="canvas status-ready">
         <div class="square display-none"></div>
         <div class="waiting display-none">
           <p>Waiting for more <br>players to join...</p>
         </div>
-        <div class="timer display-none">
-          <p>3..2..1..</p>
-        </div>
-        <div class="ready display-none">
+        <div class="ready">
           <div>Hold mouse here to start</div>
         </div>
         <div class="winner display-none">
           <p>Player 1<br>+1 point</p>
         </div>
-        <div class="jason-square">Jason click this</div>
-        <div class="matt-square">Matt click this</div>
       </div>
 
     </div>

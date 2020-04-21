@@ -524,22 +524,19 @@ body {
   height: 94vh;
   background: white;
   border: 2px solid gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .canvas .square {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   background: black;
-  position: absolute;
+  position: relative;
   top: 0px;
   left: 0px;
-}
-
-.canvas .waiting {
-  width: 60%;
-  background: blue;
-  display: inline-block;
-  font-size: 20px;
+  cursor: pointer;
 }
 
 .canvas .timer {
@@ -549,11 +546,30 @@ body {
   font-size: 20px;
 }
 
+.canvas .waiting {
+  background: none;
+  color: gray;
+  font-size: 24px;
+  border-radius: 1px;
+  width: 300px;
+  cursor: pointer;
+}
+
+.canvas .waiting p {
+  padding: 28px 0;
+}
+
 .canvas .ready {
-  width: 60%;
-  background: yellow;
-  display: inline-block;
-  font-size: 20px;
+  background: #555;
+  color: white;
+  font-size: 24px;
+  border-radius: 1px;
+  width: 325px;
+  cursor: pointer;
+}
+
+.canvas .ready div {
+  padding: 28px 0;
 }
 
 .canvas .winner {
@@ -561,26 +577,6 @@ body {
   background: cyan;
   display: inline-block;
   font-size: 20px;
-}
-
-.canvas .jason-square {
-  margin: 24px;
-  padding: 24px;
-  background: darkred;
-  cursor: pointer;
-  color: white;
-  font-size: 24px;
-  font-weight: 600;
-}
-
-.canvas .matt-square {
-  margin: 24px;
-  padding: 24px;
-  background: darkgreen;
-  cursor: pointer;
-  color: white;
-  font-size: 24px;
-  font-weight: 600;
 }
 
 
