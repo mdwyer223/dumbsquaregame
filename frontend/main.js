@@ -1,7 +1,3 @@
-// 
-// 
-// I'm in the middle of commenting through everything
-
 $(document).ready(function () {
 
   $(".back-button").click(function () {
@@ -365,8 +361,8 @@ $(document).ready(function () {
 
     // Send the User ID, Name and current points
     
+    // !!! Uncomment this 
     // gameService.score('fakeid', 'matt', winnersPoints);
-    // Score is updated server-side
     
     // Add message to show which player scored
     // "X scores +1 to make it match point"
