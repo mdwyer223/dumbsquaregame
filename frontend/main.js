@@ -133,7 +133,9 @@ $(document).ready(function () {
 
     // Connect to the associated session
     
-    gameService.connect('fakeid');
+    gameService.connect(gameId);
+    gameService.createGame();
+    gameService.addPlayer(playerInfo.id);
 
     // Opens the game board
     
@@ -303,6 +305,8 @@ $(document).ready(function () {
         console.log(offsetNum + "offsetNum");
         console.log(offsetString + "offsetString");
         console.log(offsetCSS + "offsetCSS");
+
+        let rectangleSize = ((0.03 * windowWidth) + (0.04 * windowHeight));
         
         if (rand1 > 40) {
           

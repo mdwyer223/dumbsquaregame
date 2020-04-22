@@ -16,7 +16,7 @@ var rooms = [];
 
 let main = this;
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({type: "*"}));
 app.use(express.static('./frontend'));
 //app.engine('html');
 
@@ -31,10 +31,12 @@ app.get('/', (req, res) => {
 });
 
 app.post('/games', (req, res) => {
-  let id = game.create();
-  res.send({
-    gameId: id
-  });
+  let gameId = req.body.gameId;
+  console.log('Creating game...');
+  console.log(req);
+  console.log(req.body);
+  game.create({gameId: gameId});
+  console.log('Game created!');
 });
 
 app.post('/games/:gameId/players', function(req, res) {
@@ -70,6 +72,10 @@ app.post('/players', (req, res) => {
 });
 
 defaultNamespace.on('connection', function(socket) {
+  socket.on('create-room', function(data) {
+    game.create(data);
+  });
+
   socket.on('disconnect', function(client) {
     var gameId = null;
     console.log('user disconnected');
@@ -82,6 +88,19 @@ defaultNamespace.on('connection', function(socket) {
     socket.to(data.gameId).emit('player-disconnecting', data.playerId);
   });
 
+  socket.on('player-joined', (data) => {
+    console.log('Player joined!');
+    console.log(data);
+
+    let gameData = {
+      gameId: data.gameId,
+      player: {
+        id: data.playerId
+      }
+    };
+    game.addPlayer(gameData);
+  });
+
   socket.on('player-ready', (data) => {
     let gameData = {
       gameId: data.gameId,
@@ -89,13 +108,12 @@ defaultNamespace.on('connection', function(socket) {
         id: data.playerId
       }
     };
+    console.log('Player ready: ' + gameData);
     let gameReady = game.readyPlayer(gameData);
 
     if (gameReady) {
-      socket.to(gameData.gameId).emit('round-ready');
-      
-      console.log("game ready");
-      
+      console.log('Round ready!');
+      socket.to(gameData.gameId).emit('round-ready');      
       game.startGame(socket, gameData);
     } else {
       socket.to(gameData.gameId).emit('waiting-for-players');
