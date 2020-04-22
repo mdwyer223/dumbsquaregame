@@ -5,12 +5,29 @@ let gameService = {};
 let players = [];
 
 var gameId = "fakeid";
+var gameCreated = false;
+
+gameService.addPlayer = function (playerId) {
+  gameSocket.emit('player-joined', {gameId: gameId, playerId: playerId})
+};
 
 gameService.createGame = function() {
-  $.post('/games', {}, function(data) {
-    gameSocket = io(data.gameId);
-  });
+  let data = {
+    gameId: gameId
+  };
+  gameSocket.emit('create-room', data);
+  gameCreated = true;
+  //setup socket
 };
+
+gameService.joinRoom = function(gameId) {
+  gameSocket.emit('room', gameId);
+  //setup socket
+}
+
+gameService.setupSocket = function() {
+
+}
 
 gameService.connect = function(gameId) {
   gameSocket = io();
@@ -84,6 +101,9 @@ gameService.sendMessage = function(gameId, player, message) {
 };
 
 gameService.readyCheck = function(gameId, playerId) {
+  if(!gameCreated) {
+    return;
+  }
   let data = {
     gameId: gameId,
     playerId: playerId
@@ -93,6 +113,9 @@ gameService.readyCheck = function(gameId, playerId) {
 };
 
 gameService.unReadyCheck = function(gameId, playerId) {
+  if(!gameCreated) {
+    return;
+  }
   let data = {
     gameId: gameId,
     playerId: playerId

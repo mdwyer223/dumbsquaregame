@@ -24,6 +24,8 @@ game.create = function(opts) {
     players: {},
     squares: []
   };
+  console.log('Created room with id: ' + gameId);
+  console.log(rooms);
 };
 
 // Need a method to add a player
@@ -35,6 +37,8 @@ game.addPlayer = function(opts) {
     ready: false,
     score: 0
   };
+  console.log('Added player to room: ' + player.id);
+  console.log(rooms);
 };
 
 
@@ -51,7 +55,7 @@ game.readyPlayer = function(opts) {
   let playerKeys = Object.keys(players);
 
   for (var i = 0; i < playerKeys.length; i++) {
-    if(~players[playerKeys].ready) {
+    if(!players[playerKeys].ready) {
       gameReady = false;
     }
   }
@@ -110,11 +114,15 @@ game.startGame = (socket, opts) => {
     y: 0
   };
 
+  console.log('Game is started!');
+
   socket.to(gameId).emit('square-spawn', squareData);
 
   for (let i = 0; i < 200; i++) {
-    socket.to(gameId).emit('round-start');
+    let x = i;
   }
+
+  socket.to(gameId).emit('round-start');
 }
 
 
