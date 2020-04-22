@@ -93,11 +93,16 @@ defaultNamespace.on('connection', function(socket) {
 
     if (gameReady) {
       socket.to(gameData.gameId).emit('round-ready');
-
+      
+      console.log("game ready");
+      
       game.startGame(socket, gameData);
     } else {
       socket.to(gameData.gameId).emit('waiting-for-players');
     }
+    
+    console.log(gameData);
+    
   });
 
   socket.on('player-not-ready', (data) => {
@@ -111,6 +116,9 @@ defaultNamespace.on('connection', function(socket) {
     game.unReadyPlayer(gameData);
 
     socket.to(gameData.gameId).emit('waiting-for-players');
+  
+    console.log(gameData);
+    
   });
 
   socket.on('player-scored', (data) => {

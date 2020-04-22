@@ -131,7 +131,7 @@ $(document).ready(function () {
   
   $("#join-game").click(function () {
 
-    // connect to the associated session
+    // Connect to the associated session
     
     gameService.connect('fakeid');
 
