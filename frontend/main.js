@@ -190,6 +190,12 @@ $(document).ready(function () {
       // Reset the input to be empty
       
       $(".chat input").val("");
+      
+      // Add this for enter message send
+      
+      // !!! = !!!
+      // $(".chat input").focus(); 
+      // !!! = !!!
 
     }
 
@@ -283,23 +289,34 @@ $(document).ready(function () {
         let negOrPos2 = "+";
         
         let windowWidth = $(window).width();
-        let windowHeight = $(window).width();
+        let windowHeight = $(window).height();
         
-        let rectangleSize = ((0.03 * windowWidth) + (0.04 * windowHeight);
+        let rectangleSize = ((0.03 * windowWidth) + (0.04 * windowHeight));
+                             
+        let offsetNum = ((rectangleSize/2) + 12);
+        let offsetString = offsetNum.toString();
+        let offsetCSS = (offsetString + "px");
+        
+        console.log(windowWidth + "windowWidth");
+        console.log(windowHeight + "windowHeight");
+        console.log(rectangleSize + "rectangleSize");
+        console.log(offsetNum + "offsetNum");
+        console.log(offsetString + "offsetString");
+        console.log(offsetCSS + "offsetCSS");
         
         if (rand1 > 40) {
           
           // If the random # is very positive
           // Subtract 52px to make sure the rectangle
           // does not position off screen
-          negOrPos1 = "- 52px";
+          negOrPos1 = "-" + offsetCSS;
           
         } else if (rand1 < -40) {
           
           // If the random # is very negative
           // Add 52px to make sure the rectangle
           // does not position off screen
-          negOrPos1 = "+ 52px";
+          negOrPos1 = "+" + offsetCSS;;
           
         } else {
           
@@ -313,14 +330,14 @@ $(document).ready(function () {
           // If the random # is very positive
           // Subtract 52px to make sure the rectangle
           // does not position off screen
-          negOrPos2 = "- 52px";
+          negOrPos2 = "-" + offsetCSS;;
           
         } else if (rand2 < -40) {
           
           // If the random # is very negative
           // Add 52px to make sure the rectangle
           // does not position off screen
-          negOrPos2 = "+ 52px";
+          negOrPos2 = "+" + offsetCSS;;
           
         } else {
           
@@ -339,6 +356,7 @@ $(document).ready(function () {
         
         console.log(rand1);
         console.log(rand2);
+        console.log(offsetCSS);
         console.log(negOrPos1);
         console.log(negOrPos2);
         console.log(fullString1);

@@ -531,7 +531,7 @@ body {
 
 .canvas .square {
   width: calc(3vw + 4vh);
-  width: calc(3vw + 4vh);
+  height: calc(3vw + 4vh);
   background: black;
   position: relative;
   top: 0px;
