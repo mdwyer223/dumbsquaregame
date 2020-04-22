@@ -3,42 +3,68 @@ let utils = require('../utils/utils');
 
 let game = {};
 
+var rooms = {};
+
+/*
+rooms:
+{
+  <game_id>: {
+    players: []
+    squares: []
+    
+  }
+}
+*/
+
+
 // Need a method to create a new game
 game.create = function(opts) {
-  let gameIdLength = 10;
-
-  let gameId = utils.generateId(gameIdLength);
-
-  let newGameContents = {
-    seesionId: gameId,
-    canScore: true,
-    players: []
+  let gameId = opts.gameId;
+  rooms[gameId] = {
+    players: {},
+    squares: []
   };
-
-  files.write(gameId, newGameContents);
-
-  return gameId;
 };
 
 // Need a method to add a player
 game.addPlayer = function(opts) {
-  let that = this;
+  let gameId = opts.gameId;
+  let player = opts.player;
 
-  let newPlayer = {
-    id: opts.player.id,
-    name: opts.player.name,
+  rooms[gameId].players[player.id] = {
+    ready: false,
     score: 0
   };
+};
 
-  let gameContent = files.read(opts.gameId);
 
-  gameContent.players.push(newPlayer);
+game.readyPlayer = function(opts) {
+  let gameId = opts.gameId;
+  let player = opts.player;
 
-  files.write(opts.gameId, gameContent);
+  rooms[gameId].players[player.id].ready = true;
 
-  return newPlayer;
-}
+  // check all players in the room
+  let gameReady = true;
+  let players = rooms[gameId].players;
 
+  let playerKeys = Object.keys(players);
+
+  for (var i = 0; i < playerKeys.length; i++) {
+    if(~players[playerKeys].ready) {
+      gameReady = false;
+    }
+  }
+
+  return gameReady;
+};
+
+game.unReadyPlayer = function(opts) {
+  let gameId = opts.gameId;
+  let player = opts.player;
+
+  rooms[gameId].players[player.id].ready = false;
+};
 
 // Need a method to update the score of an old game
 game.update = function(opts) {
@@ -74,6 +100,21 @@ game.update = function(opts) {
   }
 
   return gameContent;
+}
+
+game.startGame = (socket, opts) => {
+  let gameId = opts.gameId;
+  
+  let squareData = {
+    x: 0,
+    y: 0
+  };
+
+  socket.to(gameId).emit('square-spawn', squareData);
+
+  for (let i = 0; i < 200; i++) {
+    socket.to(gameId).emit('round-start');
+  }
 }
 
 
