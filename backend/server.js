@@ -82,6 +82,44 @@ defaultNamespace.on('connection', function(socket) {
     socket.to(data.gameId).emit('player-disconnecting', data.playerId);
   });
 
+  socket.on('player-ready', (data) => {
+    let gameData = {
+      gameId: data.gameId,
+      player: {
+        id: data.playerId
+      }
+    };
+    let gameReady = game.readyPlayer(gameData);
+
+    if (gameReady) {
+      socket.to(gameData.gameId).emit('round-ready');
+
+      game.startGame(socket, gameData);
+    } else {
+      socket.to(gameData.gameId).emit('waiting-for-players');
+    }
+  });
+
+  socket.on('player-not-ready', (data) => {
+    let gameData = {
+      gameId: data.gameId,
+      player: {
+        id: data.playerId
+      }
+    };
+    
+    game.unReadyPlayer(gameData);
+
+    socket.to(gameData.gameId).emit('waiting-for-players');
+  });
+
+  socket.on('player-scored', (data) => {
+    // update game score
+    console.log('Player scored!');
+    console.log(data);
+    defaultNamespace.to('fakeid').emit('player-scored-confirmed', {playerId: data.playerId, score: data.score});
+  });
+
   socket.on('room', function(gameId) {
     console.log(gameId);
     socket.join(gameId, function() {
@@ -90,13 +128,6 @@ defaultNamespace.on('connection', function(socket) {
     });
     console.log(socket.adapter.rooms);
     console.log(`Player joined the room ${gameId}`);
-  });
-
-  socket.on('player-scored', (data) => {
-    // update game score
-    console.log('Player scored!');
-    console.log(data);
-    defaultNamespace.to('fakeid').emit('player-scored-confirmed', {playerId: data.playerId, score: data.score});
   });
 
   socket.on('send-message', (messageData) => {

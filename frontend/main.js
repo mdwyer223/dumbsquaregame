@@ -222,7 +222,7 @@ $(document).ready(function () {
     // and only take the first digit
     // so that the user only ever sees "3..2..1.." and never 0
 
-    let time = 399;
+    let time = 350;
     
     // The interval actually counts down one unit every 10ms
     // This smooths out the transition between the 
@@ -279,7 +279,7 @@ $(document).ready(function () {
         
         // Set variable that signals whether the random # is negative or positive
         
-        let negOrPos1 = "+"; 
+        let negOrPos1 = "+";
         let negOrPos2 = "+";
         
         let windowWidth = $(window).width();
@@ -369,7 +369,7 @@ $(document).ready(function () {
     // Send the User ID, Name and current points
     
     // !!! Uncomment this 
-    // gameService.score('fakeid', 'matt', winnersPoints);
+    gameService.score('fakeid', playerInfo.id, winnersPoints);
     
     // Add message to show which player scored
     // "X scores +1 to make it match point"
@@ -381,10 +381,4 @@ $(document).ready(function () {
     $(".canvas .square").addClass("display-none");
 
   });
-
-
-
-
-
-
 });
