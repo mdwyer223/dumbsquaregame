@@ -8,10 +8,13 @@ var gameId = "fakeid";
 var gameCreated = false;
 
 gameService.addPlayer = function (playerId) {
-  gameSocket.emit('player-joined', {gameId: gameId, playerId: playerId})
+  gameSocket.emit('player-joined', {
+    gameId: gameId,
+    playerId: playerId
+  })
 };
 
-gameService.createGame = function() {
+gameService.createGame = function () {
   let data = {
     gameId: gameId
   };
@@ -20,24 +23,24 @@ gameService.createGame = function() {
   //setup socket
 };
 
-gameService.joinRoom = function(gameId) {
+gameService.joinRoom = function (gameId) {
   gameSocket.emit('room', gameId);
   //setup socket
 }
 
-gameService.setupSocket = function() {
+gameService.setupSocket = function () {
 
 }
 
-gameService.connect = function(gameId) {
+gameService.connect = function (gameId) {
   gameSocket = io();
   gameSocket.emit('room', gameId);
 
-  gameSocket.on('connect', function() {
-    gameSocket.on('player-scored-confirmed', function(data) {
+  gameSocket.on('connect', function () {
+    gameSocket.on('player-scored-confirmed', function (data) {
       let points = data.score;
       console.log('received event');
-      if(data.playerId === 'jason') {
+      if (data.playerId === 'jason') {
         console.log('Jason scored!');
         $(".color-red .points span").text(points);
       } else {
@@ -46,51 +49,152 @@ gameService.connect = function(gameId) {
       }
     });
 
-    gameSocket.on('message-sent', function(data) {
-      
+    gameSocket.on('message-sent', function (data) {
+
       let messageString = data.msg;
       let playerId = data.playerId;
       let playerName = data.playerName;
-      
+
       if (messageString.length > 0) {
         $('.chat .messages').append(`<p class="message"><strong class="playerColor ${playerId}"> ${playerName}: </strong>${messageString}</p>`);
         $(".chat .messages").scrollTop(9999999999);
       }
     });
 
-    gameSocket.on('round-ready', function(data) {
-      // all players passed ready check
+    gameSocket.on('round-ready', function (data) {
+
+      $(".canvas .ready").text("Get ready");
+
     });
 
-    gameSocket.on('round-start', function(data) {
-      // display the square
+    gameSocket.on('round-start', function (data) {
+
+      $(".canvas .square").removeClass("display-none");
+      $(".canvas .ready").addClass("display-none");
+
     });
 
-    gameSocket.on('square-spawn', function(data) {
-      // set the square coordinates
+    gameSocket.on('square-spawn', function (data) {
+
+      let rand1 = data.x;
+      let rand2 = data.y;
+
+      // Set variable that signals whether the random # is negative or positive
+
+      let negOrPos1 = "+";
+      let negOrPos2 = "+";
+
+      let windowWidth = $(window).width();
+      let windowHeight = $(window).height();
+
+      let rectangleSize = ((0.03 * windowWidth) + (0.04 * windowHeight));
+
+      let offsetNum = ((rectangleSize / 2) + 12);
+      let offsetString = offsetNum.toString();
+      let offsetCSS = (offsetString + "px");
+
+      // console.log(windowWidth + "windowWidth");
+      // console.log(windowHeight + "windowHeight");
+      // console.log(rectangleSize + "rectangleSize");
+      // console.log(offsetNum + "offsetNum");
+      // console.log(offsetString + "offsetString");
+      // console.log(offsetCSS + "offsetCSS");
+
+      if (rand1 > 40) {
+
+        // If the random # is very positive
+        // Subtract 52px to make sure the rectangle
+        // does not position off screen
+        negOrPos1 = "-" + offsetCSS;
+
+      } else if (rand1 < -40) {
+
+        // If the random # is very negative
+        // Add 52px to make sure the rectangle
+        // does not position off screen
+        negOrPos1 = "+" + offsetCSS;;
+
+      } else {
+
+        // If the random # is neutral then we don't reposition
+        negOrPos1 = "+ 0px";
+
+      }
+
+      if (rand2 > 40) {
+
+        // If the random # is very positive
+        // Subtract 52px to make sure the rectangle
+        // does not position off screen
+        negOrPos2 = "-" + offsetCSS;;
+
+      } else if (rand2 < -40) {
+
+        // If the random # is very negative
+        // Add 52px to make sure the rectangle
+        // does not position off screen
+        negOrPos2 = "+" + offsetCSS;;
+
+      } else {
+
+        // If the random # is neutral then we don't reposition
+        negOrPos2 = "+ 0px";
+
+      }
+
+      // Take the random number and the positive or negative compensation
+      // This dictates the final X and Y position of the square
+
+      let fullString1 = "calc(" + rand1 + "% " + negOrPos1 + ")";
+      let fullString2 = "calc(" + rand2 + "% " + negOrPos2 + ")";
+
+      // Log to track all the variables above
+
+      // console.log(rand1);
+      // console.log(rand2);
+      // console.log(offsetCSS);
+      // console.log(negOrPos1);
+      // console.log(negOrPos2);
+      // console.log(fullString1);
+      // console.log(fullString2);
+
+      // Set the CSS to randomly position the square
+
+      $(".canvas .square").css("top", fullString1);
+      $(".canvas .square").css("left", fullString2);
+
     });
 
-    gameSocket.on('waiting-for-players', function(data) {
-      // waiting for people to pass ready check
+    gameSocket.on('waiting-for-players', function (data) {
+
+      $(".canvas .ready").text("Waiting for players");
+
     });
   });
 };
 
-gameService.disconnect = function() {
+gameService.disconnect = function () {
   let gameId = 'fakeid';
   if (gameSocket && gameSocket.connected) {
-    gameSocket.emit('disconnecting', {gameId: gameId, playerId: 'player1'});
+    gameSocket.emit('disconnecting', {
+      gameId: gameId,
+      playerId: 'player1'
+    });
     gameSocket.close();
   }
 };
 
-gameService.score = function(gameId, playerId, score) {
+gameService.score = function (gameId, playerId, score) {
   console.log('attmepting to score');
   score++;
-  gameSocket.emit('player-scored', {gameId: gameId, playerId: playerId, score: score})
+  gameSocket.emit('player-scored', {
+    gameId: gameId,
+    playerId: playerId,
+    score: score
+  })
 };
 
-gameService.sendMessage = function(gameId, player, message) {
+gameService.sendMessage = function (gameId, player, message) {
   let data = {
     gameId: gameId,
     playerId: player.id,
@@ -100,8 +204,8 @@ gameService.sendMessage = function(gameId, player, message) {
   gameSocket.emit('send-message', data);
 };
 
-gameService.readyCheck = function(gameId, playerId) {
-  if(!gameCreated) {
+gameService.readyCheck = function (gameId, playerId) {
+  if (!gameCreated) {
     return;
   }
   let data = {
@@ -112,8 +216,8 @@ gameService.readyCheck = function(gameId, playerId) {
   gameSocket.emit('player-ready', data);
 };
 
-gameService.unReadyCheck = function(gameId, playerId) {
-  if(!gameCreated) {
+gameService.unReadyCheck = function (gameId, playerId) {
+  if (!gameCreated) {
     return;
   }
   let data = {

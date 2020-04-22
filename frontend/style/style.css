@@ -568,10 +568,6 @@ body {
   cursor: pointer;
 }
 
-.canvas .ready:hover {
-  background: black;
-}
-
 .canvas .ready div {
   padding: 28px 0;
 }
