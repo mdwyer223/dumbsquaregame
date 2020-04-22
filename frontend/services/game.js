@@ -4,7 +4,7 @@ let gameService = {};
 
 let players = [];
 
-var gameId;
+var gameId = "fakeid";
 
 gameService.createGame = function() {
   $.post('/games', {}, function(data) {

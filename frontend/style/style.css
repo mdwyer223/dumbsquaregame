@@ -417,7 +417,7 @@ body {
 
 .scoreboard .player {
   display: flex;
-  margin: 8px 0;
+  margin: 6px 0;
   padding: 8px;
   border-radius: 50px;
 }
@@ -428,7 +428,7 @@ body {
 
 .scoreboard .player .name {
   width: auto;
-  padding: 6px 12px;
+  padding: 4px 12px;
   border-radius: 50px;
   font-size: 18px;
   font-weight: 500;
@@ -437,7 +437,7 @@ body {
 .scoreboard .player .points {
   flex: 1;
   text-align: right;
-  padding: 6px;
+  padding: 4px 6px;
 }
 
 .player.color-red .name {
@@ -530,8 +530,8 @@ body {
 }
 
 .canvas .square {
-  width: 80px;
-  height: 80px;
+  width: calc(3vw + 4vh);
+  width: calc(3vw + 4vh);
   background: black;
   position: relative;
   top: 0px;

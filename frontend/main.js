@@ -203,12 +203,14 @@ $(document).ready(function () {
   
   $(".canvas .ready").mouseenter(function () {
     isOnDiv = true;
+    gameService.readyCheck(gameId, playerInfo.id)
   });
 
   // Detects when mouse leaves the "Ready" rectangle
   
   $(".canvas .ready").mouseleave(function () {
     isOnDiv = false;
+    gameService.unReadyCheck(gameId, playerInfo.id)
   });
 
   // When player hover the "Ready" rectangle
@@ -279,6 +281,11 @@ $(document).ready(function () {
         
         let negOrPos1 = "+"; 
         let negOrPos2 = "+";
+        
+        let windowWidth = $(window).width();
+        let windowHeight = $(window).width();
+        
+        let rectangleSize = ((0.03 * windowWidth) + (0.04 * windowHeight);
         
         if (rand1 > 40) {
           
