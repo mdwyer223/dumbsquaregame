@@ -69,8 +69,7 @@ defaultNamespace.on('connection', function (socket) {
   });
 
   socket.on('player-joined', (data) => {
-    console.log('Player joined!');
-    console.log(data);
+    console.log(`Player joined ${data.player.name} ${data.player.id}`);
 
     let gameData = {
       gameId: data.gameId,
@@ -85,6 +84,7 @@ defaultNamespace.on('connection', function (socket) {
   });
 
   socket.on('player-left', (data) => {
+    console.log(`Player left ${data.player.name} ${data.player.id}`)
     let playerInfo = {
       player: data.player
     }
@@ -125,6 +125,7 @@ defaultNamespace.on('connection', function (socket) {
   });
 
   socket.on('send-message', (data) => {
+    console.log(`Sending message ${data.msg}...`);
     defaultNamespace.to(data.gameId).emit('message-sent', data)
   });
 });
