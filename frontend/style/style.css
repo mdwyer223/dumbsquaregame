@@ -170,7 +170,6 @@ body {
 }
 
 
-
 /*  ______
     MAIN MENU
 */
@@ -198,6 +197,13 @@ body {
   background: grey;
   color: white;
   cursor: pointer;
+}
+
+.main-menu-wrapper .player-info span {
+  margin: 24px 0;
+  position: relative;
+  top: 12px;
+  opacity: 0;
 }
 
 
