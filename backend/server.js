@@ -99,6 +99,8 @@ defaultNamespace.on('connection', function(socket) {
       }
     };
     game.addPlayer(gameData);
+
+    defaultNamespace.to(data.gameId).emit('player-joined', gameData);
   });
 
   socket.on('player-ready', (data) => {
