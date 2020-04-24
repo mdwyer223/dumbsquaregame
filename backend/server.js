@@ -85,7 +85,7 @@ defaultNamespace.on('connection', function(socket) {
   });
 
   socket.on('disconnecting', (data) => {
-    socket.to(data.gameId).emit('player-disconnecting', data.playerId);
+    defaultNamespace.to(data.gameId).emit('player-disconnecting', data.playerId);
   });
 
   socket.on('player-joined', (data) => {
