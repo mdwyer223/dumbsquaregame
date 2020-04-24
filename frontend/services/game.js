@@ -29,7 +29,7 @@ gameService.createGame = function () {
 };
 
 gameService.joinRoom = function (gameId) {
-  gameSocket.emit('room', gameId);
+  gameSocket.emit('join-room', gameId);
   //setup socket
 };
 
@@ -39,7 +39,7 @@ gameService.setupSocket = function () {
 
 gameService.connect = function (gameId) {
   gameSocket = io();
-  gameSocket.emit('room', gameId);
+  gameSocket.emit('join-room', gameId);
 
   gameSocket.on('connect', function () {
     gameSocket.on('player-scored-confirmed', function (data) {
@@ -57,8 +57,8 @@ gameService.connect = function (gameId) {
     gameSocket.on('message-sent', function (data) {
 
       let messageString = data.msg;
-      let playerId = data.playerId;
-      let playerName = data.playerName;
+      let playerId = data.player.id;
+      let playerName = data.player.name;
 
       if (messageString.length > 0) {
         $('.chat .messages').append(`<p class="message"><strong class="playerColor ${playerId}"> ${playerName}: </strong>${messageString}</p>`);
@@ -220,11 +220,13 @@ gameService.score = function (gameId, playerId, score) {
   })
 };
 
-gameService.sendMessage = function (gameId, player, message) {
+gameService.sendMessage = function (gameId, playerId, playerName, message) {
   let data = {
     gameId: gameId,
-    playerId: player.id,
-    playerName: player.name,
+    player: {
+      id: playerId,
+      name: playerName
+    },
     msg: sanitize(message)
   };
   gameSocket.emit('send-message', data);

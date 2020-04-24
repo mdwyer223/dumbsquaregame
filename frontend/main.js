@@ -207,7 +207,7 @@ $(document).ready(function () {
 
       // Send to the server the User ID, Player name and message string
       
-      gameService.sendMessage('fakeid', playerInfo, messageString);
+      gameService.sendMessage(gameId, playerInfo, messageString);
       
       // Reset the input to be empty
       

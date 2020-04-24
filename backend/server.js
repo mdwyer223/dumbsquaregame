@@ -130,7 +130,7 @@ defaultNamespace.on('connection', function (socket) {
   });
 
   socket.on('send-message', (data) => {
-    defaultNamespace.to(data.gameId).emit('message-sent', data.message)
+    defaultNamespace.to(data.gameId).emit('message-sent', data)
   });
 });
 
