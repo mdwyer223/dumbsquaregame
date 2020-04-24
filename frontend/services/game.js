@@ -6,6 +6,7 @@ let gameService = {
 };
 
 gameService.addPlayer = function (gameId, playerId, playerName) {
+  console.log('Sending player-joined event...');
   let data = {
     gameId: gameId,
     player: {
@@ -18,11 +19,13 @@ gameService.addPlayer = function (gameId, playerId, playerName) {
 
 
 gameService.createGame = function (gameId) {
-  console.log(gameId);
+  console.log('Creating game...');
   $.post(`/games/${gameId}`, function(data) {
     if (data['message']) {
+      console.warn('Game was not created!');
       gameService.gameCreated = false;
     } else {
+      console.log('Game created successfully!');
       gameService.gameCreated = true;
     }
   });
@@ -30,12 +33,16 @@ gameService.createGame = function (gameId) {
 
 
 gameService.connect = function () {
+  console.log('Connecting socket...');
   gameSocket = io();
+  gameService.setupSocket(gameSocket);
+  console.log('Socket connected!');
 };
 
 
 gameService.disconnect = function (gameId, playerId) {
   if (gameSocket && gameSocket.connected) {
+    console.log('Disconnecting player...');
     let data = {
       gameId: gameId,
       player: {
@@ -46,12 +53,14 @@ gameService.disconnect = function (gameId, playerId) {
 
     $(`#${playerId}`).remove();
     gameSocket.close();
+    console.log('Player disconnected!');
   }
 };
 
 
 gameService.joinRoom = function (gameId) {
   if (gameId) {
+    console.log(`Joining room (${gameId})`);
     gameSocket.emit('join-room', gameId);
   } else {
     // warn the player
@@ -61,7 +70,7 @@ gameService.joinRoom = function (gameId) {
 
 
 gameService.readyCheck = function (gameId, playerId) {
-  if (!gameCreated) {
+  if (!gameService.gameCreated) {
     return;
   }
   let data = {
@@ -88,6 +97,7 @@ gameService.score = function (gameId, playerId, score) {
 
 
 gameService.sendMessage = function (gameId, playerId, playerName, message) {
+  console.log(`Sending message (${message})...`);
   let data = {
     gameId: gameId,
     player: {
@@ -101,21 +111,21 @@ gameService.sendMessage = function (gameId, playerId, playerName, message) {
 
 
 gameService.setupSocket = function () {
+  console.log('Setting up socket...');
   gameSocket.on('connect', function () {
     gameSocket.on('player-scored', function (data) {
+      console.log('Player scored!');
       let points = data.score;
-      console.log('received event');
       if (data.player.id === 'jason') {
-        console.log('Jason scored!');
         $(".color-red .points span").text(points);
       } else {
-        console.log('Matt scored');
         $(".color-green .points span").text(points);
       }
     });
 
-    gameSocket.on('player-joined', function (data) {
 
+    gameSocket.on('player-joined', function (data) {
+      console.log(`New player joined: ${data.player.name} ${data.player.id}`);
       let playerId = data.player.id;
       let playerName = data.player.name;
       
@@ -123,11 +133,15 @@ gameService.setupSocket = function () {
 
     });
 
+
     gameSocket.on('player-left', function (data) {
-      $(`#${playerId}`).remove();
+      console.log(`Player left: ${data.player}`)
+      $(`#${data.player.id}`).remove();
     });
 
+
     gameSocket.on('message-sent', function (data) {
+      console.log(`Message recieved: ${data.msg}`);
       let messageString = data.msg;
       let playerId = data.player.id;
       let playerName = data.player.name;
@@ -138,17 +152,22 @@ gameService.setupSocket = function () {
       }
     });
 
+
     gameSocket.on('round-ready', function (data) {
+      console.log('Round ready!');
       $(".canvas .ready").text("Get ready");
     });
 
+
     gameSocket.on('round-start', function (data) {
+      console.log('Round start!');
       $(".canvas .square").removeClass("display-none");
       $(".canvas .ready").addClass("display-none");
-
     });
 
+
     gameSocket.on('square-spawn', function (data) {
+      console.log(`Recieved square spawn: ${data.x} ${data.y}`);
       let top = data.x;
       let left = data.y;
 
@@ -180,23 +199,28 @@ gameService.setupSocket = function () {
 
       // Create CSS formula for the element
       let cssTop = `calc(${top}% ${calcPercentTop})`;
-      let cssLeft = `calc(${left}% ${calcPercentleft})`;
+      let cssLeft = `calc(${left}% ${calcPercentLeft})`;
 
       $(".canvas .square").css("top", cssTop);
       $(".canvas .square").css("left", cssLeft);
     });
 
+
     gameSocket.on('waiting-for-players', function (data) {
+      console.log('Waiting for others...');
       $(".canvas .ready").text("Waiting for players");
     });
   });
+  console.log('Socket set up!');
 };
 
 
 gameService.unReadyCheck = function (gameId, playerId) {
-  if (!gameCreated) {
+  if (!gameService.gameCreated) {
     return;
   }
+
+  console.log(`Sending unready check (${playerId})`);
 
   let data = {
     gameId: gameId,
@@ -206,7 +230,8 @@ gameService.unReadyCheck = function (gameId, playerId) {
 };
 
 
-gameService.updateId = function(gameId) {
+gameService.updateGameId = function(gameId) {
+  console.log(`Setting game ID (${gameId})...`)
   gameService.id = gameId;
 };
 

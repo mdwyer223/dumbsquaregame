@@ -55,7 +55,6 @@ Check random generated code against active sessions
         <div class="player-info field">
           <script>
             playerService.load();
-            console.log(playerService.playerInfo);
           </script>
           <h3>Player name</h3>
           <input type="text" placeholder="Player1234" onchange="playerService.updateName($('.player-info input').val())" onblur="this.placeholder='Player1234'" onfocus="this.placeholder=''">
@@ -84,8 +83,10 @@ Check random generated code against active sessions
       <div class="container">
 
         <div class="field">
-          <h3>Session name</h3>
-          <input type="text" maxlength="6" value="I6M4J9" contenteditable="false">
+          <div class="session-info">
+            <h3>Session name</h3>
+            <input type="text" placeholder="12345" onchange="gameService.updateGameId($('.session-info input').val())" onblur="this.placeholder='12345'" onfocus="this.placeholder=''">
+          </div>
         </div>
 
         <div class="field">
@@ -151,8 +152,10 @@ Check random generated code against active sessions
       <div class="button-container">
 
         <div class="field">
-          <h3>Session ID</h3>
-          <input type="text" maxlength="6" placeholder="Enter ID" onblur="this.placeholder='Enter ID'" onfocus="this.placeholder=''">
+          <div class="session-info">
+            <h3>Session ID</h3>
+            <input type="text" placeholder="12345" onchange="gameService.updateGameId($('.session-info input').val())" onblur="this.placeholder='12345'" onfocus="this.placeholder=''">
+          </div>
         </div>
 
         <div class="field">

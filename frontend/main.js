@@ -87,7 +87,7 @@ $(document).ready(function () {
     
     let string = $(".main-menu-wrapper input").val();
     
-    if (string.length > 3) {
+    if (string.length >= 3) {
     
       $(createGameWrapper).removeClass("display-none");
       $(mainMenuWrapper).addClass("display-none");
@@ -133,7 +133,7 @@ $(document).ready(function () {
     // Connect to the associated session
     gameService.connect();
     gameService.joinRoom(gameService.id);
-    gameService.addPlayer(playerInfo.id, playerInfo.name);
+    gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name);
 
     // Opens the game board
     $(joinGameWrapper).addClass("display-none");
