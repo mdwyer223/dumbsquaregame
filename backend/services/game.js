@@ -1,6 +1,8 @@
 let files = require('../utils/game-file-system');
 let utils = require('../utils/utils');
 
+const gameIdLength = 10;
+
 let game = {};
 
 var rooms = {};
@@ -15,6 +17,10 @@ rooms:
   }
 }
 */
+
+game.generateNewId = function(opts) {
+  return utils.generateId(gameIdLength);
+};
 
 
 // Need a method to create a new game

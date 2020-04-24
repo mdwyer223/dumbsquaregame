@@ -4,6 +4,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const http = require('http');
+var io = require('socket.io');
 const path = require('path');
 
 /* 
@@ -15,16 +16,14 @@ const game = require('./services/game');
 const app = express();
 const port = 80;
 
-var io = require('socket.io');
-
 app.use(bodyParser.json({
   type: "*"
 }));
 app.use(express.static('./frontend'));
 
 const server = http.Server(app);
-io = io.listen(server);
-let defaultNamespace = io.of('/');
+let socketListener = io.listen(server);
+let defaultNamespace = socketListener.of('/');
 
 /*
   ROUTES
@@ -35,9 +34,13 @@ app.get('/', (req, res) => {
   );
 });
 
-app.post('/games/:gameId', (req, res) => {
-  let gameCreated = game.create(req.params.gameId);
+app.get('/games', (req, res) => {
+  let newGameId = game.generateNewId();
+  res.json({ gameId: newGameId});
+})
 
+app.post('/games/:gameId', (req, res) => {
+  let gameCreated = game.create(req.params);
   if(gameCreated) {
     res.json({gameId: req.params.gameId});
   } else {
@@ -46,11 +49,8 @@ app.post('/games/:gameId', (req, res) => {
 });
 
 app.post('/players', (req, res) => {
-  let playerId = player.generateNewId();
-
-  res.json({
-    playerId: playerId
-  });
+  let newPlayerId = player.generateNewId();
+  res.json({ playerId: newPlayerId });
 });
 
 
@@ -58,17 +58,14 @@ app.post('/players', (req, res) => {
   NAMESPACES
 */
 defaultNamespace.on('connection', function (socket) {
+
   socket.on('disconnect', function (socket) {
     console.log('user disconnected');
   });
 
-  socket.on('player-left', (data) => {
-    let playerInfo = {
-      player: {
-        id: data.playerId,
-      }
-    }
-    defaultNamespace.to(data.gameId).emit('player-left', playerInfo);
+  socket.on('join-room', function (gameId) {
+    socket.join(gameId);
+    console.log(`Player joined the room ${gameId}`);
   });
 
   socket.on('player-joined', (data) => {
@@ -87,23 +84,11 @@ defaultNamespace.on('connection', function (socket) {
     defaultNamespace.to(data.gameId).emit('player-joined', gameData);
   });
 
-  socket.on('player-ready', (data) => {
-    let gameData = {
-      gameId: data.gameId,
-      player: {
-        id: data.playerId
-      }
-    };
-    console.log('Player ready: ' + gameData);
-    let gameReady = game.readyPlayer(gameData);
-
-    if (gameReady) {
-      console.log('Round ready!');
-      defaultNamespace.to(gameData.gameId).emit('round-ready');
-      game.startGame(defaultNamespace, gameData);
-    } else {
-      defaultNamespace.to(gameData.gameId).emit('waiting-for-players');
+  socket.on('player-left', (data) => {
+    let playerInfo = {
+      player: data.player
     }
+    defaultNamespace.to(data.gameId).emit('player-left', playerInfo);
   });
 
   socket.on('player-not-ready', (data) => {
@@ -117,16 +102,26 @@ defaultNamespace.on('connection', function (socket) {
     socket.to(gameData.gameId).emit('waiting-for-players');
   });
 
-  socket.on('player-scored', (data) => {
-    defaultNamespace.to(data.gameId).emit('player-scored-confirmed', {
-      playerId: data.playerId,
-      score: data.score
-    });
+  socket.on('player-ready', (data) => {
+    let gameData = {
+      gameId: data.gameId,
+      player: data.player
+    };
+    let gameReady = game.readyPlayer(gameData);
+
+    if (gameReady) {
+      defaultNamespace.to(gameData.gameId).emit('round-ready');
+      game.startGame(defaultNamespace, gameData);
+    } else {
+      defaultNamespace.to(gameData.gameId).emit('waiting-for-players');
+    }
   });
 
-  socket.on('join-room', function (gameId) {
-    socket.join(gameId);
-    console.log(`Player joined the room ${gameId}`);
+  socket.on('player-scored', (data) => {
+    defaultNamespace.to(data.gameId).emit('player-scored', {
+      player: data.player,
+      score: data.score
+    });
   });
 
   socket.on('send-message', (data) => {

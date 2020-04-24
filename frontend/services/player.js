@@ -5,7 +5,8 @@ var playerInfo = null;
 playerService.load = function() {
   playerInfo = {
     id: null,
-    name: null
+    name: null,
+    color: null
   };
 
   let cookie = document.cookie;
@@ -17,17 +18,12 @@ playerService.load = function() {
   }
 }
 
+playerService.updateColor = function (color) {
+  playerInfo.color = color;
+}
+
 playerService.updateName = function (name) {
-  console.log(name);
   playerInfo.name = name;
-
-  if(document.cookie.includes('playerName')) {
-    let cookies = document.cookie.split('=');
-    let playerNameIndex = cookies.indexOf('playerName') + 1;
-
-    // set the player name
-
-  }
 };
 
 playerService.updateScore = function (score) {
@@ -35,7 +31,6 @@ playerService.updateScore = function (score) {
 };
 
 playerService.getNewId = function () {
-  // call backend service to get a player id
   $.post('/players', function(data) {
     console.log(data);
     playerInfo.id = data.playerId;
