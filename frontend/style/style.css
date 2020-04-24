@@ -73,6 +73,7 @@ body {
   transition-timing-function: ease-out;
   border: 1px solid gray;
   border-radius: 32px;
+  user-select: text;
 }
 
 .main-menu-wrapper input[type=text]:hover,
