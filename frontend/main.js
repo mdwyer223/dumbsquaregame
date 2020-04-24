@@ -4,6 +4,7 @@ var isOnDiv = false;
 var backButton = '.back-button';
 
 var canvas = '.canvas .ready';
+var chatBox = '.chat input';
 var chatSendButton = '.chat .send-button';
 var createGameColorPicker = '.create-game-wrapper .color-picker div';
 var createGameWrapper = '.create-game-wrapper';
@@ -21,7 +22,7 @@ var settingsWrapper = '.settings-wrapper';
 
 $(document).ready(function () {
   $(backButton).click(function () {
-    gameService.disconnect(gameId, playerInfo.id);
+    gameService.disconnect(gameService.id, playerInfo.id);
     
     // brings the page back to the main menu
     $(mainMenuWrapper).removeClass("display-none");
@@ -54,16 +55,16 @@ $(document).ready(function () {
 
 
   $(chatSendButton).click(function () {    
-    let messageString = $(".chat input").val();
+    let messageString = $(chatBox).val();
     
     if (messageString.length > 0) {
       gameService.sendMessage(gameService.id, playerInfo.id, playerInfo.name, messageString);      
-      $(".chat input").val("");
+      $(chatBox).val('');
       
       // Add this for enter message send
       
       // !!! = !!!
-      // $(".chat input").focus(); 
+      // $(chatBox).focus(); 
       // !!! = !!!
       
       $(".chat .starter-message").addClass("display-none");
@@ -73,11 +74,11 @@ $(document).ready(function () {
 
   $(createGameColorPicker).click(function () {
     // Highlight the selected color
-    $(".create-game-wrapper .color-picker div").removeClass("selected");
+    $(createGameColorPicker).removeClass("selected");
     $(this).addClass("selected");
 
     let color = 'blue';
-    playerService.updateColor()
+    playerService.updateColor(color);
   });
 
 
@@ -85,9 +86,6 @@ $(document).ready(function () {
   $("#create-game-menu").click(function () {
     
     let string = $(".main-menu-wrapper input").val();
-    
-    console.log(string);
-    console.log(string.length);
     
     if (string.length > 3) {
     
@@ -200,6 +198,12 @@ $(document).ready(function () {
 
   // When in the create menu, click the start button
   $("#start-game").click(function () {
+
+    gameService.connect();
+    gameService.createGame(gameService.id);
+    gameService.joinRoom(gameService.id);
+    gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name);
+
     // Opens the game board
     $(createGameWrapper).addClass("display-none");
     $(gameWrapper).removeClass("display-none");

@@ -1,4 +1,3 @@
-let files = require('../utils/game-file-system');
 let utils = require('../utils/utils');
 
 const gameIdLength = 10;
@@ -18,12 +17,35 @@ rooms:
 }
 */
 
-game.generateNewId = function(opts) {
-  return utils.generateId(gameIdLength);
+function validateGameRoom(gameId) {
+  if (!rooms) { return false; }
+  if (!rooms[gameId]) { return false; }
+
+  return true;
+}
+
+function validatePlayer(gameId, player) {
+  if (!rooms[gameId].players) { return false; }
+  if (!rooms[gameId].players[player.id]) { return false; }
+
+  return true;
+}
+
+game.addPlayer = function(opts) {
+  let gameId = opts.gameId;
+  let player = opts.player;
+
+  if(!validateGameRoom(gameId)) { return; }
+
+  rooms[gameId].players[player.id] = {
+    ready: false,
+    score: 0
+  };
+  console.log('Added player to room: ' + player.id);
+  console.log(rooms);
 };
 
 
-// Need a method to create a new game
 game.create = function(opts) {
   let gameId = opts.gameId;
 
@@ -41,17 +63,9 @@ game.create = function(opts) {
   return true;
 };
 
-// Need a method to add a player
-game.addPlayer = function(opts) {
-  let gameId = opts.gameId;
-  let player = opts.player;
 
-  rooms[gameId].players[player.id] = {
-    ready: false,
-    score: 0
-  };
-  console.log('Added player to room: ' + player.id);
-  console.log(rooms);
+game.generateNewId = function(opts) {
+  return utils.generateId(gameIdLength);
 };
 
 
@@ -59,17 +73,12 @@ game.readyPlayer = function(opts) {
   let gameId = opts.gameId;
   let player = opts.player;
 
-  if (!rooms) { return; }
-  if (!rooms[gameId]) { return; }
-  if (!rooms[gameId].players) { return; }
-  if (!rooms[gameId].players[player.id]) { return; }
+  if(!validateGameRoom(gameId) && !validatePlayer(gameId, player)) { return; }
 
   rooms[gameId].players[player.id].ready = true;
 
-  // check all players in the room
   let gameReady = true;
   let players = rooms[gameId].players;
-
   let playerKeys = Object.keys(players);
 
   for (var i = 0; i < playerKeys.length; i++) {
@@ -85,49 +94,11 @@ game.unReadyPlayer = function(opts) {
   let gameId = opts.gameId;
   let player = opts.player;
 
-  if (!rooms) { return; }
-  if (!rooms[gameId]) { return; }
-  if (!rooms[gameId].players) { return; }
-  if (!rooms[gameId].players[player.id]) { return; }
+  if (!validateGameRoom(gameId) && !validatePlayer(gameId)) { return; }
 
   rooms[gameId].players[player.id].ready = false;
 };
 
-// Need a method to update the score of an old game
-game.update = function(opts) {
-  let that = this;
-  if (opts.player === null) {
-    console.log('No player defined!');
-    return;
-  } 
-    
-  if (opts.gameId === null) {
-    console.log('No game ID defined');
-    return;
-  }
-
-  let gameContent = files.read(gameId);
-
-  console.log(gameContent);
-
-  let players = gameContent.players;
-  let scoreIncremental = 1;
-  let playerPosition = 0;
-  if(gameContent.canScore) {
-    players.forEach(function(player) {
-      if (player.id === opts.player.id) {
-        return;
-      }
-      that.playerPosition++;
-    });
-
-    gameContent.players[playerPosition].score += scoreIncremental;
-
-    files.write(opts.gameId, gameContent)
-  }
-
-  return gameContent;
-}
 
 game.startGame = (namespace, opts) => {
   let gameId = opts.gameId;
@@ -148,11 +119,8 @@ game.startGame = (namespace, opts) => {
   namespace.to(gameId).emit('round-start');
 };
 
-// Need a way to reset the round for everyone to score
-game.resetRound = function(opts) {
-  
-}
-
-// Need a method to retun the information about the games
+game.update = function(opts) {
+  let that = this;
+};
 
 module.exports = game;
