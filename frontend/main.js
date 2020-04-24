@@ -32,16 +32,25 @@ $(document).ready(function () {
   // Click on the menu button "Create Game"
   
   $("#create-game-menu").click(function () {
-
-    // Open creation menu
     
-    $(".create-game-wrapper").removeClass("display-none");
-    $(".main-menu-wrapper").addClass("display-none");
-
-    // Add the back button
+    let string = $(".main-menu-wrapper input").val();
     
-    $(".back-button").removeClass("display-none");
-    $(".back-button").addClass("back-create-game");
+    console.log(string);
+    console.log(string.length);
+    
+    if (string.length > 3) {
+    
+      $(".create-game-wrapper").removeClass("display-none");
+      $(".main-menu-wrapper").addClass("display-none");
+    
+      $(".back-button").removeClass("display-none");
+      $(".back-button").addClass("back-create-game");
+      
+      $(".main-menu-wrapper span").css("opacity", "0");
+    
+    } else {
+      $(".main-menu-wrapper span").css("opacity", "1");
+    }
 
   });
 
@@ -57,17 +66,28 @@ $(document).ready(function () {
   // Click on the menu button "Join Game"
 
   $("#join-game-menu").click(function () {
-
-    // Open join menu
     
-    $(".join-game-wrapper").removeClass("display-none");
-    $(".main-menu-wrapper").addClass("display-none");
+    let string = $(".main-menu-wrapper input").val();
 
-    // Add the back button
+    console.log(string);
+    console.log(string.length);
     
-    $(".back-button").removeClass("display-none");
-    $(".back-button").addClass("back-join-game");
+    if (string.length > 3) {
+    
+      $(".join-game-wrapper").removeClass("display-none");
+      $(".main-menu-wrapper").addClass("display-none");
 
+      // Add the back button
+    
+      $(".back-button").removeClass("display-none");
+      $(".back-button").addClass("back-join-game");
+      
+      $(".main-menu-wrapper span").css("opacity", "0");
+      
+    } else {
+      $(".main-menu-wrapper span").css("opacity", "1");
+    }
+      
   });
 
   // Click on the menu button "Join Game"
