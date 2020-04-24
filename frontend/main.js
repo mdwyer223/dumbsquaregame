@@ -23,7 +23,7 @@ $(document).ready(function () {
     $(".back-button").removeClass("back-settings");
     $(".back-button").removeClass("back-game");
 
-    // In game the button says "exit", so we're reverting it here
+    // In game the button says "exit", so we're reverting the text here
     
     $(".back-button").text("back");
 
