@@ -198,6 +198,8 @@ $(document).ready(function () {
       // !!! = !!!
       // $(".chat input").focus(); 
       // !!! = !!!
+      
+      $(".chat .starter-message").addClass("display-none");
 
     }
 
