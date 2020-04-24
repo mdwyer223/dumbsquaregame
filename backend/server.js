@@ -16,7 +16,9 @@ var rooms = [];
 
 let main = this;
 
-app.use(bodyParser.json({type: "*"}));
+app.use(bodyParser.json({
+  type: "*"
+}));
 app.use(express.static('./frontend'));
 //app.engine('html');
 
@@ -35,11 +37,13 @@ app.post('/games', (req, res) => {
   console.log('Creating game...');
   console.log(req);
   console.log(req.body);
-  game.create({gameId: gameId});
+  game.create({
+    gameId: gameId
+  });
   console.log('Game created!');
 });
 
-app.post('/games/:gameId/players', function(req, res) {
+app.post('/games/:gameId/players', function (req, res) {
   let opts = {
     gameId: req.params.gameId,
     player: {
@@ -68,15 +72,17 @@ app.post('/games/:gameId/players/:playerId', (req, res) => {
 app.post('/players', (req, res) => {
   let playerId = utils.generateId(playerIdLength);
 
-  res.json({playerId: playerId});
+  res.json({
+    playerId: playerId
+  });
 });
 
-defaultNamespace.on('connection', function(socket) {
-  socket.on('create-room', function(data) {
+defaultNamespace.on('connection', function (socket) {
+  socket.on('create-room', function (data) {
     game.create(data);
   });
 
-  socket.on('disconnect', function(client) {
+  socket.on('disconnect', function (client) {
     var gameId = null;
     console.log('user disconnected');
     console.log(gameId);
@@ -84,8 +90,13 @@ defaultNamespace.on('connection', function(socket) {
     defaultNamespace.to(gameId).emit('player-left', null);
   });
 
-  socket.on('disconnecting', (data) => {
-    defaultNamespace.to(data.gameId).emit('player-disconnecting', data.playerId);
+  socket.on('player-left', (data) => {
+    let playerInfo = {
+      player: {
+        id: data.playerId,
+      }
+    }
+    defaultNamespace.to(data.gameId).emit('player-left', playerInfo);
   });
 
   socket.on('player-joined', (data) => {
@@ -95,7 +106,8 @@ defaultNamespace.on('connection', function(socket) {
     let gameData = {
       gameId: data.gameId,
       player: {
-        id: data.playerId
+        id: data.player.id,
+        name: data.player.name
       }
     };
     game.addPlayer(gameData);
@@ -115,14 +127,14 @@ defaultNamespace.on('connection', function(socket) {
 
     if (gameReady) {
       console.log('Round ready!');
-      defaultNamespace.to(gameData.gameId).emit('round-ready');      
+      defaultNamespace.to(gameData.gameId).emit('round-ready');
       game.startGame(defaultNamespace, gameData);
     } else {
       defaultNamespace.to(gameData.gameId).emit('waiting-for-players');
     }
-    
+
     console.log(gameData);
-    
+
   });
 
   socket.on('player-not-ready', (data) => {
@@ -132,25 +144,28 @@ defaultNamespace.on('connection', function(socket) {
         id: data.playerId
       }
     };
-    
+
     game.unReadyPlayer(gameData);
 
     socket.to(gameData.gameId).emit('waiting-for-players');
-  
+
     console.log(gameData);
-    
+
   });
 
   socket.on('player-scored', (data) => {
     // update game score
     console.log('Player scored!');
     console.log(data);
-    defaultNamespace.to('fakeid').emit('player-scored-confirmed', {playerId: data.playerId, score: data.score});
+    defaultNamespace.to('fakeid').emit('player-scored-confirmed', {
+      playerId: data.playerId,
+      score: data.score
+    });
   });
 
-  socket.on('room', function(gameId) {
+  socket.on('room', function (gameId) {
     console.log(gameId);
-    socket.join(gameId, function() {
+    socket.join(gameId, function () {
       let rooms = Object.keys(socket.rooms);
       console.log(rooms);
     });
@@ -164,6 +179,6 @@ defaultNamespace.on('connection', function(socket) {
   });
 });
 
-server.listen(port, function() {
+server.listen(port, function () {
   console.log(`server started on localhost:${port}`);
 });

@@ -5,7 +5,7 @@ $(document).ready(function () {
     // clicking the back button disconnects from the session
     
     console.log('Disconnecting from game service...');
-    gameService.disconnect();
+    gameService.disconnect(gameId, playerInfo.id);
     
     // brings the page back to the main menu
 
@@ -135,7 +135,7 @@ $(document).ready(function () {
     
     gameService.connect(gameId);
     gameService.createGame();
-    gameService.addPlayer(playerInfo.id);
+    gameService.addPlayer(playerInfo.id, playerInfo.name);
 
     // Opens the game board
     

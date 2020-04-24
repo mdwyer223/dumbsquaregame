@@ -7,10 +7,15 @@ let players = [];
 var gameId = "fakeid";
 var gameCreated = false;
 
-gameService.addPlayer = function (playerId) {
+gameService.addPlayer = function (playerId, playerName) {
   gameSocket.emit('player-joined', {
     gameId: gameId,
-    playerId: playerId
+    
+    player: {
+      id: playerId,
+      name: playerName
+    }
+    
   })
 };
 
@@ -59,6 +64,15 @@ gameService.connect = function (gameId) {
         $('.chat .messages').append(`<p class="message"><strong class="playerColor ${playerId}"> ${playerName}: </strong>${messageString}</p>`);
         $(".chat .messages").scrollTop(9999999999);
       }
+    });
+
+    gameSocket.on('player-joined', function (data) {
+
+      let playerId = data.player.id;
+      let playerName = data.player.name;
+      
+      $('.sidebar .scoreboard').append(`<div id="${playerId}" class="player color-red"><div class="name">${playerName}</div><div class="points"><span>0</span>pts</div></div>`);
+
     });
 
     gameSocket.on('round-ready', function (data) {
@@ -171,22 +185,33 @@ gameService.connect = function (gameId) {
       $(".canvas .ready").text("Waiting for players");
 
     });
+    
+    gameSocket.on('player-left', function (data) {
+      
+      console.log("player left1");
+
+      $(`#${playerId}`).remove();
+
+    });
   });
 };
 
-gameService.disconnect = function () {
-  let gameId = 'fakeid';
+gameService.disconnect = function (gameId, playerId) {
   if (gameSocket && gameSocket.connected) {
-    gameSocket.emit('disconnecting', {
+    gameSocket.emit('player-left', {
       gameId: gameId,
-      playerId: 'player1'
+      playerId: playerId
     });
+    
+    console.log("player left2");
+    $(`#${playerId}`).remove();
+    
     gameSocket.close();
   }
 };
 
 gameService.score = function (gameId, playerId, score) {
-  console.log('attmepting to score');
+  console.log('attempting to score');
   score++;
   gameSocket.emit('player-scored', {
     gameId: gameId,
