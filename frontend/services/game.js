@@ -26,11 +26,11 @@ gameService.createGame = function () {
 gameService.joinRoom = function (gameId) {
   gameSocket.emit('room', gameId);
   //setup socket
-}
+};
 
 gameService.setupSocket = function () {
 
-}
+};
 
 gameService.connect = function (gameId) {
   gameSocket = io();
@@ -62,12 +62,13 @@ gameService.connect = function (gameId) {
     });
 
     gameSocket.on('round-ready', function (data) {
-
+      console.log('Round is ready');
       $(".canvas .ready").text("Get ready");
 
     });
 
     gameSocket.on('round-start', function (data) {
+      console.log('Round started');
 
       $(".canvas .square").removeClass("display-none");
       $(".canvas .ready").addClass("display-none");
@@ -75,7 +76,7 @@ gameService.connect = function (gameId) {
     });
 
     gameSocket.on('square-spawn', function (data) {
-
+      console.log('Square spawn received');
       let rand1 = data.x;
       let rand2 = data.y;
 

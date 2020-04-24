@@ -106,25 +106,24 @@ game.update = function(opts) {
   return gameContent;
 }
 
-game.startGame = (socket, opts) => {
+game.startGame = (namespace, opts) => {
   let gameId = opts.gameId;
   
   let squareData = {
-    x: 0,
-    y: 0
+    x: Math.floor(Math.random() * 100) - 50,
+    y: Math.floor(Math.random() * 100) - 50
   };
 
   console.log('Game is started!');
 
-  socket.to(gameId).emit('square-spawn', squareData);
+  namespace.to(gameId).emit('square-spawn', squareData);
 
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 2000; i++) {
     let x = i;
   }
 
-  socket.to(gameId).emit('round-start');
-}
-
+  namespace.to(gameId).emit('round-start');
+};
 
 // Need a way to reset the round for everyone to score
 game.resetRound = function(opts) {

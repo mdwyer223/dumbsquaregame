@@ -113,10 +113,10 @@ defaultNamespace.on('connection', function(socket) {
 
     if (gameReady) {
       console.log('Round ready!');
-      socket.to(gameData.gameId).emit('round-ready');      
-      game.startGame(socket, gameData);
+      defaultNamespace.to(gameData.gameId).emit('round-ready');      
+      game.startGame(defaultNamespace, gameData);
     } else {
-      socket.to(gameData.gameId).emit('waiting-for-players');
+      defaultNamespace.to(gameData.gameId).emit('waiting-for-players');
     }
     
     console.log(gameData);
