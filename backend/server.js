@@ -1,93 +1,65 @@
-const utils = require('./utils/utils');
-
-const path = require('path');
+/*
+  NPM Libraries
+*/
+const bodyParser = require('body-parser');
 const express = require('express');
 const http = require('http');
-const bodyParser = require('body-parser');
-const app = express();
+const path = require('path');
+
+/* 
+  Services
+*/
+const player = require('./services/player');
 const game = require('./services/game');
+
+const app = express();
 const port = 80;
 
 var io = require('socket.io');
-
-const playerIdLength = 20;
-
-var rooms = [];
-
-let main = this;
 
 app.use(bodyParser.json({
   type: "*"
 }));
 app.use(express.static('./frontend'));
-//app.engine('html');
 
 const server = http.Server(app);
 io = io.listen(server);
 let defaultNamespace = io.of('/');
 
+/*
+  ROUTES
+*/
 app.get('/', (req, res) => {
   res.sendFile(
     path.join(__dirname, './frontend', 'index.html')
   );
 });
 
-app.post('/games', (req, res) => {
-  let gameId = req.body.gameId;
-  console.log('Creating game...');
-  console.log(req);
-  console.log(req.body);
-  game.create({
-    gameId: gameId
-  });
-  console.log('Game created!');
-});
+app.post('/games/:gameId', (req, res) => {
+  let gameCreated = game.create(req.params.gameId);
 
-app.post('/games/:gameId/players', function (req, res) {
-  let opts = {
-    gameId: req.params.gameId,
-    player: {
-      id: req.body.player.id,
-      name: req.body.player.name
-    }
-  };
-
-  let content = game.addPlayer(opts);
-  res.send(content);
-});
-
-app.post('/games/:gameId/players/:playerId', (req, res) => {
-  let opts = {
-    player: {
-      id: req.params.playerId
-    },
-    gameId: req.params.gameId
+  if(gameCreated) {
+    res.json({gameId: req.params.gameId});
+  } else {
+    res.json({message: 'room in use'});
   }
-
-  let content = game.update(opts);
-
-  res.send(content);
 });
 
 app.post('/players', (req, res) => {
-  let playerId = utils.generateId(playerIdLength);
+  let playerId = player.generateNewId();
 
   res.json({
     playerId: playerId
   });
 });
 
-defaultNamespace.on('connection', function (socket) {
-  socket.on('create-room', function (data) {
-    game.create(data);
-  });
 
-  socket.on('disconnect', function (client) {
-    var gameId = null;
+/* 
+  NAMESPACES
+*/
+defaultNamespace.on('connection', function (socket) {
+  socket.on('disconnect', function (socket) {
     console.log('user disconnected');
-    console.log(gameId);
-    console.log(socket.adapter.rooms);
-    defaultNamespace.to(gameId).emit('player-left', null);
   });
 
   socket.on('player-left', (data) => {
@@ -132,9 +104,6 @@ defaultNamespace.on('connection', function (socket) {
     } else {
       defaultNamespace.to(gameData.gameId).emit('waiting-for-players');
     }
-
-    console.log(gameData);
-
   });
 
   socket.on('player-not-ready', (data) => {
@@ -144,41 +113,31 @@ defaultNamespace.on('connection', function (socket) {
         id: data.playerId
       }
     };
-
     game.unReadyPlayer(gameData);
-
     socket.to(gameData.gameId).emit('waiting-for-players');
-
-    console.log(gameData);
-
   });
 
   socket.on('player-scored', (data) => {
-    // update game score
-    console.log('Player scored!');
-    console.log(data);
-    defaultNamespace.to('fakeid').emit('player-scored-confirmed', {
+    defaultNamespace.to(data.gameId).emit('player-scored-confirmed', {
       playerId: data.playerId,
       score: data.score
     });
   });
 
-  socket.on('room', function (gameId) {
-    console.log(gameId);
-    socket.join(gameId, function () {
-      let rooms = Object.keys(socket.rooms);
-      console.log(rooms);
-    });
-    console.log(socket.adapter.rooms);
+  socket.on('join-room', function (gameId) {
+    socket.join(gameId);
     console.log(`Player joined the room ${gameId}`);
   });
 
-  socket.on('send-message', (messageData) => {
-    console.log(messageData);
-    defaultNamespace.to('fakeid').emit('message-sent', messageData)
+  socket.on('send-message', (data) => {
+    defaultNamespace.to(data.gameId).emit('message-sent', data.message)
   });
 });
 
+
+/*
+  SERVER INITIALIZATION
+*/
 server.listen(port, function () {
   console.log(`server started on localhost:${port}`);
 });

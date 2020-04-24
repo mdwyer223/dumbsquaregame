@@ -20,12 +20,19 @@ rooms:
 // Need a method to create a new game
 game.create = function(opts) {
   let gameId = opts.gameId;
+
+  if(Object.keys(rooms).includes(gameId)) {
+    return false;
+  }
+
   rooms[gameId] = {
     players: {},
     squares: []
   };
   console.log('Created room with id: ' + gameId);
   console.log(rooms);
+
+  return true;
 };
 
 // Need a method to add a player
@@ -45,6 +52,11 @@ game.addPlayer = function(opts) {
 game.readyPlayer = function(opts) {
   let gameId = opts.gameId;
   let player = opts.player;
+
+  if (!rooms) { return; }
+  if (!rooms[gameId]) { return; }
+  if (!rooms[gameId].players) { return; }
+  if (!rooms[gameId].players[player.id]) { return; }
 
   rooms[gameId].players[player.id].ready = true;
 
@@ -66,6 +78,11 @@ game.readyPlayer = function(opts) {
 game.unReadyPlayer = function(opts) {
   let gameId = opts.gameId;
   let player = opts.player;
+
+  if (!rooms) { return; }
+  if (!rooms[gameId]) { return; }
+  if (!rooms[gameId].players) { return; }
+  if (!rooms[gameId].players[player.id]) { return; }
 
   rooms[gameId].players[player.id].ready = false;
 };
