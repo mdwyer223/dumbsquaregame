@@ -58,7 +58,7 @@ $(document).ready(function () {
     let messageString = $(chatBox).val();
     
     if (messageString.length > 0) {
-      gameService.sendMessage(gameService.id, playerInfo.id, playerInfo.name, messageString);      
+      gameService.sendMessage(gameService.id, playerInfo.color, playerInfo.id, playerInfo.name, messageString);      
       $(chatBox).val('');
       
       // Add this for enter message send
@@ -76,8 +76,14 @@ $(document).ready(function () {
     // Highlight the selected color
     $(createGameColorPicker).removeClass("selected");
     $(this).addClass("selected");
-
-    let color = ".color-red";
+    
+    console.log(this);
+    
+    let colorClass = $(this).attr("id");
+    
+    console.log(colorClass);
+    
+    let color = `color-${colorClass}`;
     playerService.updateColor(color);
   });
 

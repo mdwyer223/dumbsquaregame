@@ -97,13 +97,14 @@ gameService.score = function (gameId, playerId, score) {
 };
 
 
-gameService.sendMessage = function (gameId, playerId, playerName, message) {
+gameService.sendMessage = function (gameId, playerColor, playerId, playerName, message) {
   console.log(`Sending message (${message})...`);
   let data = {
     gameId: gameId,
     player: {
       id: playerId,
-      name: playerName
+      name: playerName,
+      color: playerColor
     },
     msg: sanitize(message)
   };
@@ -149,11 +150,12 @@ gameService.setupSocket = function () {
     gameSocket.on('message-sent', function (data) {
       console.log(`Message recieved: ${data.msg}`);
       let messageString = data.msg;
+      let playerColor = data.player.color;
       let playerId = data.player.id;
       let playerName = data.player.name;
 
       if (messageString.length > 0) {
-        $('.chat .messages').append(`<p class="message"><strong class="playerColor ${playerId}"> ${playerName}: </strong>${messageString}</p>`);
+        $('.chat .messages').append(`<p class="message"><strong class="${playerColor} ${playerId}"> ${playerName}: </strong>${messageString}</p>`);
         $(".chat .messages").scrollTop(9999999999);
       }
     });

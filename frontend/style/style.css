@@ -334,23 +334,23 @@ body {
   border-radius: 50%;
 }
 
-.color-picker .one div {
+.color-picker .red div {
   background: red;
 }
 
-.color-picker .two div {
+.color-picker .green div {
   background: green;
 }
 
-.color-picker .three div {
+.color-picker .yellow div {
   background: darkgoldenrod;
 }
 
-.color-picker .four div {
+.color-picker .blue div {
   background: blue;
 }
 
-.color-picker .five div {
+.color-picker .purple div {
   background: purple;
 }
 
@@ -441,6 +441,16 @@ body {
   color: white;
 }
 
+.player.color-yellow .name {
+  background: darkgoldenrod;
+  color: white;
+}
+
+.player.color-blue .name {
+  background: #222299;
+  color: white;
+}
+
 .player.color-purple .name {
   background: #662299;
   color: white;
@@ -482,6 +492,14 @@ body {
 
 .message .color-green {
   color: #228833;
+}
+
+.message .color-yellow {
+  color: darkgoldenrod;
+}
+
+.message .color-purple {
+  color: #222299;
 }
 
 .message .color-purple {
