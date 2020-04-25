@@ -133,7 +133,7 @@ $(document).ready(function () {
     // Connect to the associated session
     gameService.connect();
     gameService.joinRoom(gameService.id);
-    gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name);
+    gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color);
 
     // Opens the game board
     $(joinGameWrapper).addClass("display-none");
@@ -202,7 +202,7 @@ $(document).ready(function () {
     gameService.connect();
     gameService.createGame(gameService.id);
     gameService.joinRoom(gameService.id);
-    gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name);
+    gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color);
 
     // Opens the game board
     $(createGameWrapper).addClass("display-none");

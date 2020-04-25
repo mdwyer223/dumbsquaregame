@@ -46,9 +46,11 @@ game.addPlayer = function(opts) {
   rooms[gameId].players[player.id] = {
     id: player.id,
     name: player.name,
+    color: player.color,
     ready: false,
     score: 0
   };
+
   console.log(`Player (${player.id}) joined room (${gameId})!`);
   console.log(rooms);
 
