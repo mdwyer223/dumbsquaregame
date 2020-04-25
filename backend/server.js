@@ -73,10 +73,7 @@ defaultNamespace.on('connection', function (socket) {
 
     let gameData = {
       gameId: data.gameId,
-      player: {
-        id: data.player.id,
-        name: data.player.name
-      },
+      player: data.player,
       players: null
     };
     let players = game.addPlayer(gameData);

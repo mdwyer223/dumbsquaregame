@@ -5,13 +5,14 @@ let gameService = {
   gameCreated: false
 };
 
-gameService.addPlayer = function (gameId, playerId, playerName) {
+gameService.addPlayer = function (gameId, playerId, playerName, playerColor) {
   console.log('Sending player-joined event...');
   let data = {
     gameId: gameId,
     player: {
       id: playerId,
-      name: playerName
+      name: playerName,
+      color: playerColor
     }
   };
   gameSocket.emit('player-joined', data);
