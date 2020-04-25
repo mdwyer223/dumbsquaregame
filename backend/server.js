@@ -76,9 +76,12 @@ defaultNamespace.on('connection', function (socket) {
       player: {
         id: data.player.id,
         name: data.player.name
-      }
+      },
+      players: null
     };
-    game.addPlayer(gameData);
+    let players = game.addPlayer(gameData);
+
+    gameData.players = players;
 
     defaultNamespace.to(data.gameId).emit('player-joined', gameData);
   });

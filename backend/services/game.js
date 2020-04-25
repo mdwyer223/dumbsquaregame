@@ -28,7 +28,7 @@ function validateGameRoom(gameId) {
 }
 
 function validatePlayer(gameId, player) {
-  console.log(`Validating player (${player.id})...`);
+  console.log(`Validating player (${player.id}) for game (${gameId})...`);
   if (!rooms[gameId].players) { return false; }
   if (!rooms[gameId].players[player.id]) { return false; }
 
@@ -49,6 +49,8 @@ game.addPlayer = function(opts) {
   };
   console.log(`Player (${player.id}) joined room (${gameId})!`);
   console.log(rooms);
+
+  return rooms[gameId].players;
 };
 
 

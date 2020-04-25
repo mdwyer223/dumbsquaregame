@@ -10,3 +10,13 @@ function sanitize(string) {
   const reg = /[&<>"'/]/ig;
   return string.replace(reg, (match)=>(map[match]));
 }
+
+function isEmpty(obj) {
+  for(var key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      return false;
+    }
+  }
+
+  return true;
+}
