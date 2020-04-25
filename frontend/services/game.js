@@ -133,7 +133,7 @@ gameService.setupSocket = function () {
         let playerData = players[playerKeys[i]]
         console.log(`Checking if player exists on the scoreboard ${playerData.id} ${playerData.name} ${playerData.score}`);
         if (isEmpty($(`#${playerData.id}`))) {
-          $('.sidebar .scoreboard').append(`<div id="${playerData.id}" class="player color-red"><div class="name">${playerData.name}</div><div class="points"><span>${playerData.score}</span>pts</div></div>`);
+          $('.sidebar .scoreboard').append(`<div id="${playerData.id}" class="player ${playerData.color}"><div class="name">${playerData.name}</div><div class="points"><span>${playerData.score}</span>pts</div></div>`);
         }
       }
     });
