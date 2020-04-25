@@ -44,6 +44,8 @@ game.addPlayer = function(opts) {
   if(!validateGameRoom(gameId)) { return; }
 
   rooms[gameId].players[player.id] = {
+    id: player.id,
+    name: player.name,
     ready: false,
     score: 0
   };

@@ -83,6 +83,8 @@ defaultNamespace.on('connection', function (socket) {
 
     gameData.players = players;
 
+    console.log(gameData.players);
+
     defaultNamespace.to(data.gameId).emit('player-joined', gameData);
   });
 

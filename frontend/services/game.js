@@ -127,10 +127,13 @@ gameService.setupSocket = function () {
     gameSocket.on('player-joined', function (data) {
       console.log(`New player joined: ${data.player.name} ${data.player.id}`);
       let players = data.players;
-
-      for(var player in players) {
-        if (isEmpty($(`#${player.id}`))) {
-          $('.sidebar .scoreboard').append(`<div id="${player.id}" class="player color-red"><div class="name">${player.name}</div><div class="points"><span>0</span>pts</div></div>`);
+      console.log(players);
+      let playerKeys = Object.keys(players);
+      for(let i = 0; i < playerKeys.length; i++) {
+        let playerData = players[playerKeys[i]]
+        console.log(`Checking if player exists on the scoreboard ${playerData.id} ${playerData.name} ${playerData.score}`);
+        if (isEmpty($(`#${playerData.id}`))) {
+          $('.sidebar .scoreboard').append(`<div id="${playerData.id}" class="player color-red"><div class="name">${playerData.name}</div><div class="points"><span>${playerData.score}</span>pts</div></div>`);
         }
       }
     });
