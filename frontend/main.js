@@ -77,7 +77,7 @@ $(document).ready(function () {
     $(createGameColorPicker).removeClass("selected");
     $(this).addClass("selected");
 
-    let color = 'blue';
+    let color = ".color-red";
     playerService.updateColor(color);
   });
 
