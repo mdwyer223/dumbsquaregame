@@ -183,8 +183,14 @@ $(document).ready(function () {
     // Highlight the selected color
     $(joinGameColorPicker).removeClass("selected");
     $(this).addClass("selected");
-
-    let color = 'red';
+    
+    console.log(this);
+    
+    let colorClass = $(this).attr("id");
+    
+    console.log(colorClass);
+    
+    let color = `color-${colorClass}`;
     playerService.updateColor(color);
   });
   

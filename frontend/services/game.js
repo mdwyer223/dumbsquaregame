@@ -157,6 +157,7 @@ gameService.setupSocket = function () {
       if (messageString.length > 0) {
         $('.chat .messages').append(`<p class="message"><strong class="${playerColor} ${playerId}"> ${playerName}: </strong>${messageString}</p>`);
         $(".chat .messages").scrollTop(9999999999);
+        $(".chat .starter-message").addClass("display-none");
       }
     });
 
