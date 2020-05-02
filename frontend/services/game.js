@@ -117,7 +117,8 @@ gameService.setupSocket = function () {
     gameSocket.on('player-scored', function (data) {
       console.log('Player scored!');
       let points = data.score;
-      
+      $(canvasReadyButton).removeClass("display-none");
+      $(gameSquare).addClass("display-none");
       $(`#${data.player.id} .points span`).text(`${points}`);
     });
 

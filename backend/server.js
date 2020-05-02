@@ -124,6 +124,7 @@ defaultNamespace.on('connection', function (socket) {
   });
 
   socket.on('player-scored', (data) => {
+    console.log(`Player (${data.player.id}) scored (${data.score})`);
     defaultNamespace.to(data.gameId).emit('player-scored', {
       player: data.player,
       score: data.score

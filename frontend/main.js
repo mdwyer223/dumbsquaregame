@@ -132,15 +132,11 @@ $("#create-game-menu").click(function () {
 
   $(gameSquare).click(function () {
     // Determine how many points you currently have
-    let winnersPoints = $(`#${playerInfo.id}`).text();
-    let pointsString = parseInt(winnersPoints);
+    let winnersPoints = $(`#${playerInfo.id} .points span`).text();
+    console.log(winnersPoints);
+    let points = parseInt(winnersPoints);
 
-    gameService.score(gameService.id, playerInfo.id, winnersPoints);
-
-    // Reset the game board
-    $(canvasReadyButton).removeClass("display-none");
-    $(gameSquare).addClass("display-none");
-
+    gameService.score(gameService.id, playerInfo.id, points);
   });
 
 
