@@ -93,6 +93,7 @@ gameService.score = function (gameId, playerId, score) {
     score: score
   }
   gameSocket.emit('player-scored', data);
+  gameSocket.emit('player-not-ready', data);
 };
 
 
@@ -161,7 +162,9 @@ gameService.setupSocket = function () {
 
     gameSocket.on('round-ready', function (data) {
       console.log('Round ready!');
-      $(".canvas .ready").text("Get ready");
+      let numReady = data.numReady;
+      let numPlayers = data.numPlayers;
+      $(".canvas .ready").text(`Get ready! ${numReady}/${numPlayers}`);
     });
 
 
@@ -214,7 +217,9 @@ gameService.setupSocket = function () {
 
     gameSocket.on('waiting-for-players', function (data) {
       console.log('Waiting for others...');
-      $(".canvas .ready").text("Waiting for players");
+      let numReady = data.numReady;
+      let numPlayers = data.numPlayers;
+      $(".canvas .ready").text(`Waiting for players ${numReady}/${numPlayers}`);
     });
   });
   console.log('Socket set up!');
@@ -226,7 +231,9 @@ gameService.unReadyCheck = function (gameId, playerId) {
 
   let data = {
     gameId: gameId,
-    playerId: playerId
+    player: {
+      id: playerId
+    }
   };
   gameSocket.emit('player-not-ready', data);
 };
