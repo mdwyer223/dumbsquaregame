@@ -214,7 +214,7 @@ gameService.setupSocket = function () {
 
     gameSocket.on('waiting-for-players', function (data) {
       console.log('Waiting for others...');
-      $(".canvas .ready").text("Waiting for players");
+      $(".canvas .ready div").text("Waiting for players");
     });
   });
   console.log('Socket set up!');
