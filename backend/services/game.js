@@ -92,7 +92,7 @@ game.readyPlayer = function(opts) {
 
   rooms[gameId].players[player.id].ready = true;
 
-  console.log('Player readied!');
+  console.log(`Player readied (${player.id})!`);
 
   let gameReady = true;
   let players = rooms[gameId].players;

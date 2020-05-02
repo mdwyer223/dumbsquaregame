@@ -104,11 +104,15 @@ defaultNamespace.on('connection', function (socket) {
     socket.to(gameData.gameId).emit('waiting-for-players');
   });
 
-  socket.on('player-ready', (data) => {
+  socket.on('player-ready', function(data) {
     let gameData = {
       gameId: data.gameId,
       player: data.player
     };
+
+    console.log('Readying player from socket event!');
+    console.log(gameData.player.id);
+
     let gameReady = game.readyPlayer(gameData);
 
     if (gameReady) {
