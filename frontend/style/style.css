@@ -1,16 +1,11 @@
 /*  Variables for colors  */
 
 :root {
---player-color-1: #BB202C;
---player-color-2: #EB9838;
---player-color-3: #758C14;
---player-color-4: #115567;
---player-color-5: #42297C;
-/*--player-color-1: #D83550;
---player-color-2: #FFA644;
---player-color-3: #8E992F;
---player-color-4: #246177;
---player-color-5: #2F1D6A;*/
+  --player-color-1: #D83550;
+  --player-color-2: #FFA644;
+  --player-color-3: #8E992F;
+  --player-color-4: #246177;
+  --player-color-5: #2F1D6A;
 }
 
 /*  Boilerplate code  */
@@ -24,13 +19,6 @@
   -ms-user-select: none;
   user-select: none;
   overflow-x: hidden;
-}
-
-.select img {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
 .display-none {
@@ -56,6 +44,12 @@ h3 {
 
 /*  Headers  */
 
+body {
+  background: lightgrey;
+  font-family: "Barlow", Futura, sans-serif;
+  font-size: 20px;
+}
+
 .back-button {
   padding: 7px 20px 8px;
   color: white;
@@ -67,10 +61,23 @@ h3 {
   border-radius: 32px;
 }
 
-body {
-  background: lightgrey;
-  font-family: "Barlow", Futura, sans-serif;
-  font-size: 20px;
+.cheater-scrim {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 300%;
+  line-height: 140%;
+  position: fixed;
+  border-radius: 2px;
+  text-align: center;
+  box-sizing: content-box;
+}
+
+.cheater-scrim div {
+  display: inline-block;
+  width: 70vw;
+  height: 20vh;
+  padding: 40vh 15vw;
+  box-sizing: content-box;
 }
 
 .main-menu-wrapper input[type=text],
@@ -184,7 +191,7 @@ body {
 
 .main-menu-wrapper,
 .create-game-wrapper,
- .join-game-wrapper,
+.join-game-wrapper,
 .settings-wrapper {
   text-align: center;
 }
@@ -196,7 +203,7 @@ body {
 }
 
 .main-menu-wrapper .container,
-.create-game-wrapper .container, 
+.create-game-wrapper .container,
 .settings-wrapper .container {
   width: 100%;
   margin: 36px 0;
@@ -280,11 +287,11 @@ body {
     CREATE GAME
 */
 
-.create-game-wrapper .field .difficulty {
+.create-game-wrapper .field .modes {
   margin: 0 24px;
 }
 
-.create-game-wrapper .field .difficulty div {
+.create-game-wrapper .field .modes div {
   padding: 7px 20px 8px;
   color: white;
   border-radius: 30px;
@@ -294,7 +301,7 @@ body {
   cursor: pointer;
 }
 
-.create-game-wrapper .field .difficulty .selected {
+.create-game-wrapper .field .modes .selected {
   background: #444;
 }
 
@@ -347,26 +354,6 @@ body {
   border-radius: 50%;
 }
 
-.color-picker .red div {
-  background: var(--player-color-1);
-}
-
-.color-picker .green div {
-  background: var(--player-color-2);
-}
-
-.color-picker .yellow div {
-  background: var(--player-color-3);
-}
-
-.color-picker .blue div {
-  background: var(--player-color-4);
-}
-
-.color-picker .purple div {
-  background: var(--player-color-5);
-}
-
 .join-game-wrapper .field .join-game {
   text-align: center
 }
@@ -387,9 +374,6 @@ body {
 /*  ______
     SETTINGS
 */
-
-
-
 
 /*  ______
     GAME
@@ -444,27 +428,32 @@ body {
   padding: 4px 6px;
 }
 
-.player.color-red .name {
+.player.color-red .name,
+.color-picker .red div {
   background: var(--player-color-1);
   color: white;
 }
 
-.player.color-green .name {
+.player.color-yellow .name,
+.color-picker .yellow div {
   background: var(--player-color-2);
   color: white;
 }
 
-.player.color-yellow .name {
+.player.color-green .name,
+.color-picker .green div {
   background: var(--player-color-3);
   color: white;
 }
 
-.player.color-blue .name {
+.player.color-blue .name,
+.color-picker .blue div {
   background: var(--player-color-4);
   color: white;
 }
 
-.player.color-purple .name {
+.player.color-purple .name,
+.color-picker .purple div {
   background: var(--player-color-5);
   color: white;
 }
@@ -546,6 +535,7 @@ body {
   padding: 11px 0;
   cursor: pointer;
   font-weight: 600;
+  overflow: hidden;
 }
 
 .game-wrapper .canvas {

@@ -3,6 +3,7 @@ var backButton = '.back-button';
 var canvasReadyButton = '.canvas .ready';
 var chatBox = '.chat input';
 var chatSendButton = '.chat .send-button';
+var cheaterScrim = '.cheater-scrim';
 var createGameColorPicker = '.create-game-wrapper .color-picker div';
 var createGameWrapper = '.create-game-wrapper';
 
@@ -36,6 +37,24 @@ $(document).ready(function () {
 
     // In game the button says "exit", so we're reverting the text here
     $(backButton).text("back");
+  });
+
+
+  // Checks canvas aspect ratio
+  // If player is trying to cheat, this blocks the screen
+  $(window).on('resize', function () {
+    if ($(".canvas").hasClass("status-ready")) {
+      let canvasWidth = $(".canvas").width();
+      let canvasHeight = $(".canvas").height();
+      console.log("width - " + canvasWidth);
+      console.log("height - " + canvasHeight);
+
+      if (canvasWidth / canvasHeight < 1.2 || canvasHeight / canvasWidth < 0.6) {
+        $(cheaterScrim).removeClass("display-none");
+      } else if (canvasWidth / canvasHeight > 1.2 || canvasHeight / canvasWidth > 0.6) {
+        $(cheaterScrim).addClass("display-none");
+      }
+    }
   });
 
 
@@ -96,17 +115,17 @@ $(document).ready(function () {
   });
 
 
-// Click on the menu button "Create Game"
-$("#create-game-menu").click(function () {
-  let valid = validatePlayerName();
+  // Click on the menu button "Create Game"
+  $("#create-game-menu").click(function () {
+    let valid = validatePlayerName();
 
-  if(valid) {
+    if (valid) {
 
-    if ($('.create-game-session-info input').val().length <= 0) {
-      $.get('/games', function(data) {
-        $('.create-game-session-info input').val(data.gameId); 
-      });
-    }
+      if ($('.create-game-session-info input').val().length <= 0) {
+        $.get('/games', function (data) {
+          $('.create-game-session-info input').val(data.gameId);
+        });
+      }
 
       $(createGameWrapper).removeClass("display-none");
       $(mainMenuWrapper).addClass("display-none");
@@ -114,18 +133,18 @@ $("#create-game-menu").click(function () {
       $(backButton).removeClass("display-none");
       $(backButton).addClass("back-create-game");
 
-    $(".main-menu-wrapper span").css("opacity", "0");
-  } else {
-    $(".main-menu-wrapper span").css("opacity", "1");
-  }
-});
+      $(".main-menu-wrapper span").css("opacity", "0");
+    } else {
+      $(".main-menu-wrapper span").css("opacity", "1");
+    }
+  });
 
 
-  // Click on the difficulty button
-  $(".difficulty div").click(function () {
+  // Click on a mode button
+  $(".modes div").click(function () {
 
-    // Highlight the selected difficulty
-    $(".difficulty div").removeClass("selected");
+    // Highlight the selected mode
+    $(".modes div").removeClass("selected");
     $(this).addClass("selected");
   });
 
@@ -143,17 +162,17 @@ $("#create-game-menu").click(function () {
   // When in the join menu, click the join button
   $("#join-game").click(function () {
 
-  let valid = validateSessionId('.join-game-session-info');
+    let valid = validateSessionId('.join-game-session-info');
 
-  if(!valid) {
-    console.warn('Please enter a valid session ID');
-    return;
-  }
+    if (!valid) {
+      console.warn('Please enter a valid session ID');
+      return;
+    }
 
-  // Connect to the associated session
-  gameService.connect();
-  gameService.joinRoom(gameService.id);
-  gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color);
+    // Connect to the associated session
+    gameService.connect();
+    gameService.joinRoom(gameService.id);
+    gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color);
 
     // Opens the game board
     $(joinGameWrapper).addClass("display-none");
@@ -171,13 +190,13 @@ $("#create-game-menu").click(function () {
   });
 
 
-// Click on the menu button "Join Game"
-$("#join-game-menu").click(function () {
-  let valid = validatePlayerName();
+  // Click on the menu button "Join Game"
+  $("#join-game-menu").click(function () {
+    let valid = validatePlayerName();
 
-  if (valid) {
-    $(joinGameWrapper).removeClass("display-none");
-    $(mainMenuWrapper).addClass("display-none");
+    if (valid) {
+      $(joinGameWrapper).removeClass("display-none");
+      $(mainMenuWrapper).addClass("display-none");
 
       // Add the back button
       $(backButton).removeClass("display-none");
@@ -225,18 +244,18 @@ $("#join-game-menu").click(function () {
   // When in the create menu, click the start button
   $("#start-game").click(function () {
 
-  let valid = validateSessionId('.create-game-session-info');
+    let valid = validateSessionId('.create-game-session-info');
 
-  if (!valid) {
-    // display error message here
-    console.warn('Please enter a valid session ID');
-    return;
-  }
+    if (!valid) {
+      // display error message here
+      console.warn('Please enter a valid session ID');
+      return;
+    }
 
-  gameService.connect();
-  gameService.createGame(gameService.id);
-  gameService.joinRoom(gameService.id);
-  gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color);
+    gameService.connect();
+    gameService.createGame(gameService.id);
+    gameService.joinRoom(gameService.id);
+    gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color);
 
     // Opens the game board
     $(createGameWrapper).addClass("display-none");
@@ -246,8 +265,8 @@ $("#join-game-menu").click(function () {
     $(backButton).addClass("back-game");
     $(backButton).removeClass("back-create-game back-join-game");
 
-  $(backButton).text("exit");
-});
+    $(backButton).text("exit");
+  });
 });
 
 function validatePlayerName() {
