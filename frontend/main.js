@@ -23,6 +23,8 @@ $(document).ready(function () {
   $(backButton).click(function () {
     gameService.disconnect(gameService.id, playerInfo.id);
 
+    resetGameRoom();
+
     // brings the page back to the main menu
     $(mainMenuWrapper).removeClass("display-none");
     $(createGameWrapper).addClass("display-none");
@@ -274,4 +276,10 @@ function validateSessionId(page) {
   }
 
   return false;
+}
+
+function resetGameRoom() {
+  $('.sidebar .scoreboard *').remove();
+  $('.chat .player-message').remove();
+  $('.chat .starter-message').removeClass('display-none');
 }
