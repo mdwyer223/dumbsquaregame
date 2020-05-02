@@ -12,7 +12,6 @@ rooms:
   <game_id>: {
     players: []
     squares: []
-    
   }
 }
 */
@@ -100,7 +99,7 @@ game.readyPlayer = function(opts) {
   let playerKeys = Object.keys(players);
 
   for (var i = 0; i < playerKeys.length; i++) {
-    if(!players[playerKeys].ready) {
+    if(!players[playerKeys[i]].ready) {
       gameReady = false;
     }
   }
