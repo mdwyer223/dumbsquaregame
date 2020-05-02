@@ -71,9 +71,8 @@ gameService.joinRoom = function (gameId) {
 
 
 gameService.readyCheck = function (gameId, playerId) {
-  if (!gameService.gameCreated) {
-    return;
-  }
+  console.log(`Sending ready check (${playerId})`);
+
   let data = {
     gameId: gameId,
     player: {
@@ -225,10 +224,6 @@ gameService.setupSocket = function () {
 
 
 gameService.unReadyCheck = function (gameId, playerId) {
-  if (!gameService.gameCreated) {
-    return;
-  }
-
   console.log(`Sending unready check (${playerId})`);
 
   let data = {

@@ -1,8 +1,6 @@
-var isOnDiv = false;
-
 var backButton = '.back-button';
 
-var canvas = '.canvas .ready';
+var canvasReadyButton = '.canvas .ready';
 var chatBox = '.chat input';
 var chatSendButton = '.chat .send-button';
 var createGameColorPicker = '.create-game-wrapper .color-picker div';
@@ -42,15 +40,15 @@ $(document).ready(function () {
 
 
   // Detects when mouse is in the "Ready" rectangle
-  $(canvas).mouseenter(function () {
-    isOnDiv = true;
+  $(canvasReadyButton).mouseenter(function () {
+    console.log('Mouse entered, sending ready check');
     gameService.readyCheck(gameService.id, playerInfo.id)
   });
 
 
   // Detects when mouse leaves the "Ready" rectangle
-  $(canvas).mouseleave(function () {
-    isOnDiv = false;
+  $(canvasReadyButton).mouseleave(function () {
+    console.log('Mouse left, sending unready check');
     gameService.unReadyCheck(gameService.id, playerInfo.id)
   });
 
