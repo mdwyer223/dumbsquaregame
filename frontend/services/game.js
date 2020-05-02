@@ -119,9 +119,6 @@ gameService.setupSocket = function () {
       let points = data.score;
       $(canvasReadyButton).removeClass("display-none");
       $(gameSquare).addClass("display-none");
-      
-      $('.canvas').append(`<div class="square relic ${playerData.color}"><div class="name">${playerData.name}</div><div class="points"><span>${playerData.score}</span>pts</div></div>`);
-      
       $(`#${data.player.id} .points span`).text(`${points}`);
     });
 
