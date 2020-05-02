@@ -279,7 +279,7 @@ function validateSessionId(page) {
 }
 
 function resetGameRoom() {
-  $('.sidebar .scoreboard *').remove();
+  $('.sidebar .scoreboard .player').remove();
   $('.chat .player-message').remove();
   $('.chat .starter-message').removeClass('display-none');
 }
