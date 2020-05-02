@@ -268,7 +268,7 @@ function validatePlayerName() {
 function validateSessionId(page) {
   let sessionId = $(`${page} input`).val();
 
-  if (sessionId > 2) {
+  if (sessionId.length > 2) {
     gameService.updateGameId(sessionId);
     return true;
   }
