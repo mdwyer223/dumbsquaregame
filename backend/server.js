@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 app.get('/games', (req, res) => {
   let newGameId = game.generateNewId();
   res.json({ gameId: newGameId});
-})
+});
 
 app.post('/games/:gameId', (req, res) => {
   let gameCreated = game.create(req.params);

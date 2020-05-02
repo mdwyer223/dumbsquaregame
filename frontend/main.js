@@ -102,10 +102,15 @@ $(createGameColorPicker).click(function () {
 
 // Click on the menu button "Create Game"
 $("#create-game-menu").click(function () {
+  let valid = validatePlayerName();
 
-  let string = $(".main-menu-wrapper input").val();
+  if(valid) {
 
-  if (string.length > 2) {
+    if ($('.create-game-session-info input').val().length <= 0) {
+      $.get('/games', function(data) {
+        $('.create-game-session-info input').val(data.gameId); 
+      });
+    }
 
     $(createGameWrapper).removeClass("display-none");
     $(mainMenuWrapper).addClass("display-none");
@@ -114,11 +119,9 @@ $("#create-game-menu").click(function () {
     $(backButton).addClass("back-create-game");
 
     $(".main-menu-wrapper span").css("opacity", "0");
-
   } else {
     $(".main-menu-wrapper span").css("opacity", "1");
   }
-
 });
 
 
@@ -148,6 +151,13 @@ $(gameSquare).click(function () {
 // When in the join menu, click the join button
 $("#join-game").click(function () {
 
+  let valid = validateSessionId('.join-game-session-info');
+
+  if(!valid) {
+    console.warn('Please enter a valid session ID');
+    return;
+  }
+
   // Connect to the associated session
   gameService.connect();
   gameService.joinRoom(gameService.id);
@@ -171,9 +181,9 @@ $("#join-game").click(function () {
 
 // Click on the menu button "Join Game"
 $("#join-game-menu").click(function () {
-  let string = $(".main-menu-wrapper input").val();
+  let valid = validatePlayerName();
 
-  if (string.length > 2) {
+  if (valid) {
     $(joinGameWrapper).removeClass("display-none");
     $(mainMenuWrapper).addClass("display-none");
 
@@ -223,6 +233,14 @@ $("#settings-menu").click(function () {
 // When in the create menu, click the start button
 $("#start-game").click(function () {
 
+  let valid = validateSessionId('.create-game-session-info');
+
+  if (!valid) {
+    // display error message here
+    console.warn('Please enter a valid session ID');
+    return;
+  }
+
   gameService.connect();
   gameService.createGame(gameService.id);
   gameService.joinRoom(gameService.id);
@@ -239,3 +257,25 @@ $("#start-game").click(function () {
   $(backButton).text("exit");
 });
 });
+
+function validatePlayerName() {
+  let playerName = $('.main-menu-wrapper input').val();
+
+  if (playerName.length > 2) {
+    playerService.updateName(playerName);
+    return true;
+  }
+
+  return false;
+}
+
+function validateSessionId(page) {
+  let sessionId = $(`${page} input`).val();
+
+  if (sessionId > 2) {
+    gameService.updateGameId(sessionId);
+    return true;
+  }
+
+  return false;
+}

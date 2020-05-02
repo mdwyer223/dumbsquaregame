@@ -8,7 +8,7 @@ playerService.load = function() {
   playerInfo = {
     id: null,
     name: null,
-    color: null
+    color: 'color-red'
   };
 
   let cookie = document.cookie;
