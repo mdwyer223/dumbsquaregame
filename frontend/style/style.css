@@ -1,3 +1,20 @@
+/*  Variables for colors  */
+
+:root {
+--player-color-1: #BB202C;
+--player-color-2: #EB9838;
+--player-color-3: #758C14;
+--player-color-4: #115567;
+--player-color-5: #42297C;
+/*--player-color-1: #D83550;
+--player-color-2: #FFA644;
+--player-color-3: #8E992F;
+--player-color-4: #246177;
+--player-color-5: #2F1D6A;*/
+}
+
+/*  Boilerplate code  */
+
 * {
   padding: 0;
   margin: 0;
@@ -9,20 +26,18 @@
   overflow-x: hidden;
 }
 
-.select,
-.select * {
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-
 .select img {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
+
+.display-none {
+  display: none !important;
+}
+
+/*  Headers  */
 
 h1 {
   font-weight: 400;
@@ -39,9 +54,7 @@ h3 {
   font-size: 20px;
 }
 
-.display-none {
-  display: none !important;
-}
+/*  Headers  */
 
 .back-button {
   padding: 7px 20px 8px;
@@ -64,6 +77,7 @@ body {
 .create-game-wrapper input[type=text],
 .join-game-wrapper input[type=text] {
   text-align: center;
+  margin-bottom: 12px;
   font-size: 20px;
   font-weight: 500;
   padding: 8px 0;
@@ -112,7 +126,6 @@ body {
 }
 
 .number-input {
-  /* border: 2px solid #ddd; */
   display: inline-flex;
 }
 
@@ -335,23 +348,23 @@ body {
 }
 
 .color-picker .red div {
-  background: red;
+  background: var(--player-color-1);
 }
 
 .color-picker .green div {
-  background: green;
+  background: var(--player-color-2);
 }
 
 .color-picker .yellow div {
-  background: darkgoldenrod;
+  background: var(--player-color-3);
 }
 
 .color-picker .blue div {
-  background: blue;
+  background: var(--player-color-4);
 }
 
 .color-picker .purple div {
-  background: purple;
+  background: var(--player-color-5);
 }
 
 .join-game-wrapper .field .join-game {
@@ -432,27 +445,27 @@ body {
 }
 
 .player.color-red .name {
-  background: #992233;
+  background: var(--player-color-1);
   color: white;
 }
 
 .player.color-green .name {
-  background: #228833;
+  background: var(--player-color-2);
   color: white;
 }
 
 .player.color-yellow .name {
-  background: darkgoldenrod;
+  background: var(--player-color-3);
   color: white;
 }
 
 .player.color-blue .name {
-  background: #222299;
+  background: var(--player-color-4);
   color: white;
 }
 
 .player.color-purple .name {
-  background: #662299;
+  background: var(--player-color-5);
   color: white;
 }
 
@@ -487,23 +500,23 @@ body {
 }
 
 .message .color-red {
-  color: #992233;
+  color: var(--player-color-1);
 }
 
 .message .color-green {
-  color: #228833;
+  color: var(--player-color-2);
 }
 
 .message .color-yellow {
-  color: darkgoldenrod;
+  color: var(--player-color-3);
 }
 
 .message .color-blue {
-  color: #222299;
+  color: var(--player-color-4);
 }
 
 .message .color-purple {
-  color: #662299;
+  color: var(--player-color-5);
 }
 
 .game-wrapper .chat .message-bar {

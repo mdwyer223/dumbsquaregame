@@ -1,4 +1,7 @@
-  
+// press enter for chat
+// refocus input after message
+// change min name 3 characters
+
 var isOnDiv = false;
 
 var backButton = '.back-button';
@@ -23,7 +26,7 @@ var settingsWrapper = '.settings-wrapper';
 $(document).ready(function () {
   $(backButton).click(function () {
     gameService.disconnect(gameService.id, playerInfo.id);
-    
+
     // brings the page back to the main menu
     $(mainMenuWrapper).removeClass("display-none");
     $(createGameWrapper).addClass("display-none");
@@ -54,176 +57,185 @@ $(document).ready(function () {
   });
 
 
-  $(chatSendButton).click(function () {    
+  $(chatSendButton).click(function () {
     let messageString = $(chatBox).val();
-    
+
     if (messageString.length > 0) {
-      gameService.sendMessage(gameService.id, playerInfo.color, playerInfo.id, playerInfo.name, messageString);      
+      gameService.sendMessage(gameService.id, playerInfo.color, playerInfo.id, playerInfo.name, messageString);
       $(chatBox).val('');
-      
-      // Add this for enter message send
-      
-      // !!! = !!!
-      // $(chatBox).focus(); 
-      // !!! = !!!
-      
+
+      $(chatBox).focus();
+
       $(".chat .starter-message").addClass("display-none");
     }
   });
 
+  $(chatBox).keypress(function (event) {
+      let messageString = $(chatBox).val();
 
-  $(createGameColorPicker).click(function () {
-    // Highlight the selected color
-    $(createGameColorPicker).removeClass("selected");
-    $(this).addClass("selected");
-    
-    console.log(this);
-    
-    let colorClass = $(this).attr("id");
-    
-    console.log(colorClass);
-    
-    let color = `color-${colorClass}`;
-    playerService.updateColor(color);
+      if (event.keyCode == 13 && messageString.length > 0) {
+
+        gameService.sendMessage(gameService.id, playerInfo.color, playerInfo.id, playerInfo.name, messageString);
+        $(chatBox).val('');
+
+        $(chatBox).focus();
+
+        $(".chat .starter-message").addClass("display-none");
+      }
   });
 
+$(createGameColorPicker).click(function () {
+  // Highlight the selected color
+  $(createGameColorPicker).removeClass("selected");
+  $(this).addClass("selected");
 
-  // Click on the menu button "Create Game"
-  $("#create-game-menu").click(function () {
-    
-    let string = $(".main-menu-wrapper input").val();
-    
-    if (string.length >= 3) {
-    
-      $(createGameWrapper).removeClass("display-none");
-      $(mainMenuWrapper).addClass("display-none");
-    
-      $(backButton).removeClass("display-none");
-      $(backButton).addClass("back-create-game");
-      
-      $(".main-menu-wrapper span").css("opacity", "0");
-    
-    } else {
-      $(".main-menu-wrapper span").css("opacity", "1");
-    }
+  console.log(this);
 
-  });
+  let colorClass = $(this).attr("id");
+
+  console.log(colorClass);
+
+  let color = `color-${colorClass}`;
+  playerService.updateColor(color);
+});
 
 
-  // Click on the difficulty button
-  $(".difficulty div").click(function () {
-    
-    // Highlight the selected difficulty
-    $(".difficulty div").removeClass("selected");
-    $(this).addClass("selected");
-  });
+// Click on the menu button "Create Game"
+$("#create-game-menu").click(function () {
+
+  let string = $(".main-menu-wrapper input").val();
+
+  if (string.length > 2) {
+
+    $(createGameWrapper).removeClass("display-none");
+    $(mainMenuWrapper).addClass("display-none");
+
+    $(backButton).removeClass("display-none");
+    $(backButton).addClass("back-create-game");
+
+    $(".main-menu-wrapper span").css("opacity", "0");
+
+  } else {
+    $(".main-menu-wrapper span").css("opacity", "1");
+  }
+
+});
 
 
-  $(gameSquare).click(function () {
-    // Determine how many points you currently have
-    let winnersPoints = $(`#${playerInfo.id}`).text();
-    let pointsString = parseInt(winnersPoints);
+// Click on the difficulty button
+$(".difficulty div").click(function () {
 
-    gameService.score(gameService.id, playerInfo.id, winnersPoints);
-    
-    // Reset the game board
-    $(canvas).removeClass("display-none");
-    $(gameSquare).addClass("display-none");
-
-  });
+  // Highlight the selected difficulty
+  $(".difficulty div").removeClass("selected");
+  $(this).addClass("selected");
+});
 
 
-  // When in the join menu, click the join button
-  $("#join-game").click(function () {
+$(gameSquare).click(function () {
+  // Determine how many points you currently have
+  let winnersPoints = $(`#${playerInfo.id}`).text();
+  let pointsString = parseInt(winnersPoints);
 
-    // Connect to the associated session
-    gameService.connect();
-    gameService.joinRoom(gameService.id);
-    gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color);
+  gameService.score(gameService.id, playerInfo.id, winnersPoints);
 
-    // Opens the game board
-    $(joinGameWrapper).addClass("display-none");
-    $(gameWrapper).removeClass("display-none");
+  // Reset the game board
+  $(canvas).removeClass("display-none");
+  $(gameSquare).addClass("display-none");
 
-    // Modifies the back button to be an "exit" button
-    $(backButton).addClass("back-game");
-    $(backButton).removeClass("back-create-game back-join-game");
+});
 
-    $(backButton).text("exit");
-    
-    // Scrolls the chatlist to the most recent message
-    $(".chat .messages").scrollTop(9999999999);
 
-  });
-  
+// When in the join menu, click the join button
+$("#join-game").click(function () {
 
-  // Click on the menu button "Join Game"
-  $("#join-game-menu").click(function () {
-    let string = $(".main-menu-wrapper input").val();
-    
-    if (string.length > 3) {
-      $(joinGameWrapper).removeClass("display-none");
-      $(mainMenuWrapper).addClass("display-none");
+  // Connect to the associated session
+  gameService.connect();
+  gameService.joinRoom(gameService.id);
+  gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color);
 
-      // Add the back button
-      $(backButton).removeClass("display-none");
-      $(backButton).addClass("back-join-game");
-      
-      $(".main-menu-wrapper span").css("opacity", "0");
-      
-    } else {
-      $(".main-menu-wrapper span").css("opacity", "1");
-    }
-      
-  });
-  
+  // Opens the game board
+  $(joinGameWrapper).addClass("display-none");
+  $(gameWrapper).removeClass("display-none");
 
-  // Click on the menu button "Join Game"
-  $(joinGameColorPicker).click(function () {
-    // Highlight the selected color
-    $(joinGameColorPicker).removeClass("selected");
-    $(this).addClass("selected");
-    
-    console.log(this);
-    
-    let colorClass = $(this).attr("id");
-    
-    console.log(colorClass);
-    
-    let color = `color-${colorClass}`;
-    playerService.updateColor(color);
-  });
-  
+  // Modifies the back button to be an "exit" button
+  $(backButton).addClass("back-game");
+  $(backButton).removeClass("back-create-game back-join-game");
 
-  // Click on the menu button "Settings"
-  $("#settings-menu").click(function () {
+  $(backButton).text("exit");
 
-    // Open the settings
-    $(settingsWrapper).removeClass("display-none");
+  // Scrolls the chatlist to the most recent message
+  $(".chat .messages").scrollTop(9999999999);
+
+});
+
+
+// Click on the menu button "Join Game"
+$("#join-game-menu").click(function () {
+  let string = $(".main-menu-wrapper input").val();
+
+  if (string.length > 2) {
+    $(joinGameWrapper).removeClass("display-none");
     $(mainMenuWrapper).addClass("display-none");
 
     // Add the back button
     $(backButton).removeClass("display-none");
-    $(backButton).addClass("back-settings");
-  });
-  
+    $(backButton).addClass("back-join-game");
 
-  // When in the create menu, click the start button
-  $("#start-game").click(function () {
+    $(".main-menu-wrapper span").css("opacity", "0");
 
-    gameService.connect();
-    gameService.createGame(gameService.id);
-    gameService.joinRoom(gameService.id);
-    gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color);
+  } else {
+    $(".main-menu-wrapper span").css("opacity", "1");
+  }
 
-    // Opens the game board
-    $(createGameWrapper).addClass("display-none");
-    $(gameWrapper).removeClass("display-none");
+});
 
-    // Modifies the back button to be an "exit" button
-    $(backButton).addClass("back-game");
-    $(backButton).removeClass("back-create-game back-join-game");
 
-    $(backButton).text("exit");
-  });
+// Click on the menu button "Join Game"
+$(joinGameColorPicker).click(function () {
+  // Highlight the selected color
+  $(joinGameColorPicker).removeClass("selected");
+  $(this).addClass("selected");
+
+  console.log(this);
+
+  let colorClass = $(this).attr("id");
+
+  console.log(colorClass);
+
+  let color = `color-${colorClass}`;
+  playerService.updateColor(color);
+});
+
+
+// Click on the menu button "Settings"
+$("#settings-menu").click(function () {
+
+  // Open the settings
+  $(settingsWrapper).removeClass("display-none");
+  $(mainMenuWrapper).addClass("display-none");
+
+  // Add the back button
+  $(backButton).removeClass("display-none");
+  $(backButton).addClass("back-settings");
+});
+
+
+// When in the create menu, click the start button
+$("#start-game").click(function () {
+
+  gameService.connect();
+  gameService.createGame(gameService.id);
+  gameService.joinRoom(gameService.id);
+  gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color);
+
+  // Opens the game board
+  $(createGameWrapper).addClass("display-none");
+  $(gameWrapper).removeClass("display-none");
+
+  // Modifies the back button to be an "exit" button
+  $(backButton).addClass("back-game");
+  $(backButton).removeClass("back-create-game back-join-game");
+
+  $(backButton).text("exit");
+});
 });
