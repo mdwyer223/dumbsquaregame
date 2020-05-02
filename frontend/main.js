@@ -138,7 +138,7 @@ $("#create-game-menu").click(function () {
     gameService.score(gameService.id, playerInfo.id, winnersPoints);
 
     // Reset the game board
-    $(canvas).removeClass("display-none");
+    $(canvasReadyButton).removeClass("display-none");
     $(gameSquare).addClass("display-none");
 
   });

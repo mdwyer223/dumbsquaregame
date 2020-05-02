@@ -117,11 +117,8 @@ gameService.setupSocket = function () {
     gameSocket.on('player-scored', function (data) {
       console.log('Player scored!');
       let points = data.score;
-      if (data.player.id === 'jason') {
-        $(".color-red .points span").text(points);
-      } else {
-        $(".color-green .points span").text(points);
-      }
+      
+      $(`#${data.player.id} .points span`).text(`${points}`);
     });
 
 
