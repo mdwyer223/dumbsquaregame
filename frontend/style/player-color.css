@@ -1,0 +1,59 @@
+/*  Variables for colors  */
+
+:root {
+  --player-color-1: #D83550;
+  --player-color-2: #FFA644;
+  --player-color-3: #8E992F;
+  --player-color-4: #246177;
+  --player-color-5: #2F1D6A;
+}
+
+.player.color-red .name,
+.color-picker .red div {
+  background: var(--player-color-1);
+  color: white;
+}
+
+.player.color-yellow .name,
+.color-picker .yellow div {
+  background: var(--player-color-2);
+  color: white;
+}
+
+.player.color-green .name,
+.color-picker .green div {
+  background: var(--player-color-3);
+  color: white;
+}
+
+.player.color-blue .name,
+.color-picker .blue div {
+  background: var(--player-color-4);
+  color: white;
+}
+
+.player.color-purple .name,
+.color-picker .purple div {
+  background: var(--player-color-5);
+  color: white;
+}
+
+.message .color-red {
+  color: var(--player-color-1);
+}
+
+.message .color-yellow {
+  color: var(--player-color-2);
+}
+
+.message .color-green {
+  color: var(--player-color-3);
+}
+
+.message .color-blue {
+  color: var(--player-color-4);
+}
+
+.message .color-purple {
+  color: var(--player-color-5);
+}

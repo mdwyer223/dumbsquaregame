@@ -161,7 +161,7 @@ gameService.setupSocket = function () {
 
     gameSocket.on('round-ready', function (data) {
       console.log('Round ready!');
-      $(".canvas .ready").text("Get ready");
+      $(".canvas .ready div").text("Get ready");
     });
 
 
