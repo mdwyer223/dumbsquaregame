@@ -94,19 +94,16 @@ game.readyPlayer = function(opts) {
 
   console.log(`Player readied (${player.id})!`);
 
-  let gameReady = true;
   let players = rooms[gameId].players;
   let playerKeys = Object.keys(players);
-  let playerReadyCount = 0;
-  let numPlayers = 0;
-
+  let playerReadyCount = playerKeys.length;
+  let numPlayers = playerKeys.length;
+  let gameReady = true;
   for (var i = 0; i < playerKeys.length; i++) {
     if(!players[playerKeys[i]].ready) {
       gameReady = false;
-    } else {
-      playerReadyCount++;
+      playerReadyCount--;
     }
-    numPlayers++;
   }
 
   console.log('Ready state:');
@@ -130,16 +127,14 @@ game.unReadyPlayer = function(opts) {
 
   let players = rooms[gameId].players;
   let playerKeys = Object.keys(players);
-  let playerReadyCount = 0;
-  let numPlayers = 0;
+  let playerReadyCount = playerKeys.length;
+  let numPlayers = playerKeys.length;
   let gameReady = true;
   for (var i = 0; i < playerKeys.length; i++) {
     if(!players[playerKeys[i]].ready) {
       gameReady = false;
-    } else {
-      playerReadyCount++;
+      playerReadyCount--;
     }
-    numPlayers++;
   }
 
   rooms[gameId].players[player.id].ready = false;
