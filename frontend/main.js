@@ -1,14 +1,15 @@
 var backButton = '.back-button';
 
+var canvas = '.canvas';
 var canvasReadyButton = '.canvas .ready';
 var chatBox = '.chat input';
 var chatSendButton = '.chat .send-button';
 var cheaterScrim = '.cheater-scrim';
 var createGameColorPicker = '.create-game-wrapper .color-picker div';
 var createGameWrapper = '.create-game-wrapper';
+var exitButton = '.exit-button';
 
 var gameSquare = '.canvas .square';
-var relicWrapper = '.canvas .relic-wrapper';
 var gameWrapper = '.game-wrapper';
 
 var joinGameColorPicker = '.join-game-wrapper .color-picker div';
@@ -16,32 +17,40 @@ var joinGameWrapper = '.join-game-wrapper';
 
 var mainMenuWrapper = '.main-menu-wrapper';
 
+var relicWrapper = '.canvas .relic-wrapper';
 var settingsWrapper = '.settings-wrapper';
 
 
 $(document).ready(function () {
   $(backButton).click(function () {
-    gameService.disconnect(gameService.id, playerInfo.id);
-
-    resetGameRoom();
 
     // brings the page back to the main menu
     $(mainMenuWrapper).removeClass("display-none");
     $(createGameWrapper).addClass("display-none");
     $(joinGameWrapper).addClass("display-none");
     $(settingsWrapper).addClass("display-none");
-    $(gameWrapper).addClass("display-none");
 
     // removes the back button and any associated classes
     $(backButton).addClass("display-none");
     $(backButton).removeClass("back-create-game back-game back-join-game back-settings");
+  });
 
-    // In game the button says "exit", so we're reverting the text here
-    $(backButton).text("back");
+  $(exitButton).click(function () {
+    gameService.disconnect(gameService.id, playerInfo.id);
+
+    resetGameRoom();
+
+    // brings the page back to the main menu
+    $(mainMenuWrapper).removeClass("display-none");
+    $(gameWrapper).addClass("display-none");
+    $(canvas).removeClass("status-ready");
+    $(".relic-wrapper div").remove();
   });
 
 
-  // Checks canvas aspect ratio
+  // This can be made into a function !!!
+
+  // Checks canvas aspect ratio on resize
   // If player is trying to cheat, this blocks the screen
   $(window).on('resize', function () {
     if ($(".canvas").hasClass("status-ready")) {
@@ -49,12 +58,12 @@ $(document).ready(function () {
       let canvasWidth = $(".canvas").width();
       let canvasHeight = $(".canvas").height();
 
-      $(".canvas .relic-wrapper").css("width", canvasWidth);
-      $(".canvas .relic-wrapper").css("height", canvasHeight);
+      $(relicWrapper).css("width", canvasWidth);
+      $(relicWrapper).css("height", canvasHeight);
 
-      if (canvasWidth / canvasHeight < 1.2 || canvasHeight / canvasWidth < 0.6) {
+      if (canvasWidth / canvasHeight < 1.1 || canvasHeight / canvasWidth < 0.55) {
         $(cheaterScrim).removeClass("display-none");
-      } else if (canvasWidth / canvasHeight > 1.2 || canvasHeight / canvasWidth > 0.6) {
+      } else if (canvasWidth / canvasHeight > 1.1 || canvasHeight / canvasWidth > 0.55) {
         $(cheaterScrim).addClass("display-none");
       }
     }
@@ -138,16 +147,20 @@ $(document).ready(function () {
     }
   });
 
-
-  // Click on a mode button
-  $(".modes div").click(function () {
-
-    // Highlight the selected mode
-    $(".modes div").removeClass("selected");
-    $(this).addClass("selected");
+  
+  $('.field input').on('focus', function () {
+    var selection = $(this)
+      .one('mouseup.mouseupSelect', function () {
+        selection.select();
+        return false;
+      })
+      .one('mousedown', function () {
+        $this.off('mouseup.mouseupSelect');
+      })
+      .select();
   });
 
-
+  
   $(gameSquare).click(function () {
     // Determine how many points you currently have
     let winnersPoints = $(`#${playerInfo.id} .points span`).text();
@@ -157,7 +170,7 @@ $(document).ready(function () {
     gameService.score(gameService.id, playerInfo.color, playerInfo.id, points);
   });
 
-
+  
   // When in the join menu, click the join button
   $("#join-game").click(function () {
 
@@ -176,19 +189,22 @@ $(document).ready(function () {
     // Opens the game board
     $(joinGameWrapper).addClass("display-none");
     $(gameWrapper).removeClass("display-none");
+    $(canvas).addClass("status-ready");
+
+    // This can be made into a function !!!
 
     // Resizes the relic wrapper to fit in the canvas
     let canvasWidth = $(".canvas").width();
     let canvasHeight = $(".canvas").height();
 
-    $(".canvas .relic-wrapper").css("width", canvasWidth);
-    $(".canvas .relic-wrapper").css("height", canvasHeight);
+    $(relicWrapper).css("width", canvasWidth);
+    $(relicWrapper).css("height", canvasHeight);
 
-    // Modifies the back button to be an "exit" button
-    $(backButton).addClass("back-game");
-    $(backButton).removeClass("back-create-game back-join-game");
+    let sessionName = $('.join-game-session-info input').val();
+    $('.game-wrapper .title h3').text(sessionName);
 
-    $(backButton).text("exit");
+    // removes the back button
+    $(backButton).addClass("display-none");
 
     // Scrolls the chatlist to the most recent message
     $(".chat .messages").scrollTop(9999999999);
@@ -228,6 +244,15 @@ $(document).ready(function () {
     let color = `color-${colorClass}`;
     playerService.updateColor(color);
   });
+  
+  
+  // Click on a mode button
+  $(".modes div").click(function () {
+
+    // Highlight the selected mode
+    $(".modes div").removeClass("selected");
+    $(this).addClass("selected");
+  });
 
 
   // Click on the menu button "Settings"
@@ -263,18 +288,22 @@ $(document).ready(function () {
     $(createGameWrapper).addClass("display-none");
     $(gameWrapper).removeClass("display-none");
 
+
+    // This can be made into a function !!!
+
     // Resizes the relic wrapper to fit in the canvas
-    let canvasWidth = $(".canvas").width();
-    let canvasHeight = $(".canvas").height();
+    let canvasWidth = $(canvas).width();
+    let canvasHeight = $(canvas).height();
 
-    $(".canvas .relic-wrapper").css("width", canvasWidth);
-    $(".canvas .relic-wrapper").css("height", canvasHeight);
+    $(canvas).addClass("status-ready");
+    $(relicWrapper).css("width", canvasWidth);
+    $(relicWrapper).css("height", canvasHeight);
 
-    // Modifies the back button to be an "exit" button
-    $(backButton).addClass("back-game");
-    $(backButton).removeClass("back-create-game back-join-game");
+    let sessionName = $('.create-game-session-info input').val();
+    $('.game-wrapper .title h3').text(sessionName);
 
-    $(backButton).text("exit");
+    // removes the back button
+    $(backButton).addClass("display-none");
   });
 });
 

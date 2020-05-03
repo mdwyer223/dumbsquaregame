@@ -1,8 +1,18 @@
 <!--
+
 Change session code system
 Make it Letter-#-Letter-#
 this is 1/67000
 Check random generated code against active sessions
+
+Attempting to join a session that doesn't exist should throw you an error, also names should only allow letters, numbers, some symbols. session IDs should not be case sensitive and just be letters numbers, hyphen, underscore 
+
+Add media queries for most text, some padding
+
+add exit/name bar to the game board
+
+If one player is in the lobby, then "waiting for players to join"
+
 -->
 
 <!DOCTYPE html>
@@ -67,7 +77,7 @@ Check random generated code against active sessions
             playerService.load();
           </script>
           <h3>Player name</h3>
-          <input type="text" placeholder="Player1234" onblur="this.placeholder='Player1234'" onfocus="this.placeholder=''">
+          <input type="text" maxlength="15" placeholder="Player1234" onblur="this.placeholder='Player1234'" onfocus="this.placeholder=''">
           <br>
           <span>Name must be<br>at least 3 characters</span>
         </div>
@@ -95,7 +105,7 @@ Check random generated code against active sessions
         <div class="field">
           <div class="create-game-session-info">
             <h3>Session name</h3>
-            <input type="text" placeholder="12345" onblur="this.placeholder='12345'" onfocus="this.placeholder=''">
+            <input type="text" maxlength="12" placeholder="12345" onblur="this.placeholder='12345'" onfocus="this.placeholder=''">
           </div>
         </div>
 
@@ -112,7 +122,7 @@ Check random generated code against active sessions
           <h3>Max. players</h3>
           <div class="number-input">
             <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
-            <input class="quantity" min="2" name="quantity" max="8" maxlength="1" value="2" type="number" onKeyDown="return false">
+            <input class="quantity" min="2" name="quantity" max="20" maxlength="1" value="4" type="number" onKeyDown="return false">
             <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
           </div>
         </div>
@@ -164,7 +174,7 @@ Check random generated code against active sessions
         <div class="field">
           <div class="join-game-session-info">
             <h3>Session name</h3>
-            <input type="text" placeholder="Enter name" onblur="this.placeholder='Enter name'" onfocus="this.placeholder=''">
+            <input type="text" maxlength="12" placeholder="Enter name" onblur="this.placeholder='Enter name'" onfocus="this.placeholder=''">
           </div>
         </div>
 
@@ -209,13 +219,10 @@ Check random generated code against active sessions
     <div class="content">
 
       <h1>Settings</h1>
-
       <div class="container">
-
         <div class="button">setting 1</div>
         <div class="button">setting 2</div>
         <div class="button">setting 3</div>
-
       </div>
 
     </div>
@@ -230,39 +237,31 @@ Check random generated code against active sessions
 
       <div class="sidebar">
 
+        <div class="title">
+          <div class="exit-button">exit</div>
+          <h3>Session: poop-room</h3>
+        </div>
+        
         <div class="scoreboard">
-
           <h3>Scoreboard</h3>
-
-<!--
-          <div class="player color-red">
-            <div class="name">JDog69</div>
-            <div class="points"><span>247</span>pts</div>
-          </div>
--->
-
         </div>
 
         <div class="chat">
-
+          
           <div class="messages">
-
             <h3>Chat</h3>
-            
             <div class="message starter-message">Messages show up here</div>
-
           </div>
 
           <div class="message-bar">
             <input type="text" placeholder="Send message" onblur="this.placeholder='Send message'" onfocus="this.placeholder=''">
             <div class="send-button">Send</div>
           </div>
-
+          
         </div>
-
       </div>
 
-      <div class="canvas status-ready">
+      <div class="canvas">
         <div class="ready">
           <div>Hold mouse here to start</div>
         </div>
@@ -271,13 +270,8 @@ Check random generated code against active sessions
         <div class="relic-wrapper">
           <div></div>
         </div>
-        
       </div>
-
     </div>
-
   </div>
-
 </body>
-
 </html>

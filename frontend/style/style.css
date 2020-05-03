@@ -29,14 +29,3 @@ body {
   font-family: "Barlow", Futura, sans-serif;
   font-size: 20px;
 }
-
-.back-button {
-  padding: 7px 20px 8px;
-  color: white;
-  background: black;
-  position: fixed;
-  left: 25px;
-  top: 25px;
-  cursor: pointer;
-  border-radius: 32px;
-}
