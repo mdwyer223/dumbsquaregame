@@ -13,6 +13,7 @@
   border-radius: 2px;
   text-align: center;
   box-sizing: content-box;
+  z-index: 99;
 }
 
 .cheater-scrim div {
@@ -145,6 +146,25 @@
   top: 0px;
   left: 0px;
   cursor: pointer;
+  z-index: 3;
+}
+
+.canvas .relic-wrapper {
+  width: 5px;
+  height: 5px;
+  background: pink;
+  z-index: 1;
+  position: absolute;
+}
+
+.canvas .relic-square {
+  width: calc(3vw + 4vh);
+  height: calc(3vw + 4vh);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  opacity: 0.3;
+  z-index: 1;
 }
 
 .canvas .timer {
@@ -152,6 +172,7 @@
   background: red;
   display: inline-block;
   font-size: 20px;
+  z-index: 2;
 }
 
 .canvas .waiting {
@@ -161,10 +182,12 @@
   border-radius: 1px;
   width: 300px;
   cursor: pointer;
+  z-index: 2;
 }
 
 .canvas .waiting p {
   padding: 28px 0;
+  z-index: 2;
 }
 
 .canvas .ready {
@@ -174,6 +197,7 @@
   border-radius: 1px;
   width: 325px;
   cursor: pointer;
+  z-index: 2;
 }
 
 .canvas .ready div {

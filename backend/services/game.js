@@ -94,20 +94,28 @@ game.readyPlayer = function(opts) {
 
   console.log(`Player readied (${player.id})!`);
 
-  let gameReady = true;
   let players = rooms[gameId].players;
   let playerKeys = Object.keys(players);
-
+  let playerReadyCount = playerKeys.length;
+  let numPlayers = playerKeys.length;
+  let gameReady = true;
   for (var i = 0; i < playerKeys.length; i++) {
     if(!players[playerKeys[i]].ready) {
       gameReady = false;
+      playerReadyCount--;
     }
   }
 
   console.log('Ready state:');
   console.log(players);
 
-  return gameReady;
+  let readyState = {
+    gameReady: gameReady,
+    numReady: playerReadyCount,
+    numPlayers: numPlayers
+  };
+
+  return readyState;
 };
 
 game.unReadyPlayer = function(opts) {
@@ -115,12 +123,47 @@ game.unReadyPlayer = function(opts) {
   let gameId = opts.gameId;
   let player = opts.player;
 
-  if (!validateGameRoom(gameId) && !validatePlayer(gameId)) { return; }
+  if (!validateGameRoom(gameId) && !validatePlayer(gameId, player)) { return; }
+
+  let players = rooms[gameId].players;
+  let playerKeys = Object.keys(players);
+  let playerReadyCount = playerKeys.length;
+  let numPlayers = playerKeys.length;
+  let gameReady = true;
+  for (var i = 0; i < playerKeys.length; i++) {
+    if(!players[playerKeys[i]].ready) {
+      gameReady = false;
+      playerReadyCount--;
+    }
+  }
 
   rooms[gameId].players[player.id].ready = false;
   console.log('Player unreadied!');
+  console.log(rooms[gameId].players);
+
+  let readyState = {
+    gameReady: gameReady,
+    numReady: playerReadyCount,
+    numPlayers: numPlayers
+  };
+
+  return readyState;
 };
 
+
+game.removePlayer = function(opts) {
+  console.log(`Removing player ${opts.player.id} from room ${opts.gameId}`);
+
+  let gameId = opts.gameId;
+  let player = opts.player;
+
+  if (!validateGameRoom(gameId) && !validatePlayer(gameId, player)) { return; }
+
+  delete rooms[gameId].players[player.id];
+
+  console.log(`Player state after removing:`);
+  console.log(rooms[gameId].players);
+};
 
 game.startGame = (namespace, opts) => {
   console.log(`Starting game (${opts.gameId})...`);

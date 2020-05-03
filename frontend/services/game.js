@@ -5,6 +5,10 @@ let gameService = {
   gameCreated: false
 };
 
+var squarePos = [];
+
+let squareCounter = 0;
+
 gameService.addPlayer = function (gameId, playerId, playerName, playerColor) {
   console.log('Sending player-joined event...');
   let data = {
@@ -21,7 +25,7 @@ gameService.addPlayer = function (gameId, playerId, playerName, playerColor) {
 
 gameService.createGame = function (gameId) {
   console.log('Creating game...');
-  $.post(`/games/${gameId}`, function(data) {
+  $.post(`/games/${gameId}`, function (data) {
     if (data['message']) {
       console.warn('Game was not created!');
       gameService.gameCreated = false;
@@ -83,16 +87,18 @@ gameService.readyCheck = function (gameId, playerId) {
 };
 
 
-gameService.score = function (gameId, playerId, score) {
+gameService.score = function (gameId, playerColor, playerId, score) {
   score++;
   let data = {
     gameId: gameId,
     player: {
+      color: playerColor,
       id: playerId
     },
     score: score
   }
   gameSocket.emit('player-scored', data);
+  gameSocket.emit('player-not-ready', data);
 };
 
 
@@ -117,6 +123,37 @@ gameService.setupSocket = function () {
     gameSocket.on('player-scored', function (data) {
       console.log('Player scored!');
       let points = data.score;
+      let playerColor = data.player.color;
+
+      $('.relic-wrapper').append(`<div class="relic-square counter-${squareCounter} ${playerColor}"></div>`);
+
+      let canvasWidth = $(".canvas").width();
+      let canvasHeight = $(".canvas").height();
+      
+      let windowWidth = $(window).width();
+      let windowHeight = $(window).height();
+
+      let rectangleSize = ((0.03 * windowWidth) + (0.04 * windowHeight));
+
+      let offsetNum = (rectangleSize / 2);
+      
+      let top = squarePos[squareCounter].top;
+      let left = squarePos[squareCounter].left;
+      
+      let offsetPercentTop = 50 + top;
+      let offsetPercentLeft = 50 + left;
+      
+      let offsetTop = squarePos[squareCounter].offsetTop;
+      let offsetLeft = squarePos[squareCounter].offsetLeft;
+      
+      let offsetCSSTop = (`calc(${offsetPercentTop}% ${offsetTop} - ${offsetNum}px)`);
+      let offsetCSSLeft = (`calc(${offsetPercentLeft}% ${offsetLeft} - ${offsetNum}px)`);
+      
+      $(`.counter-${squareCounter}`).css("top", offsetCSSTop);
+      $(`.counter-${squareCounter}`).css("left", offsetCSSLeft);
+      
+      squareCounter++;
+
       $(canvasReadyButton).removeClass("display-none");
       $(gameSquare).addClass("display-none");
       $(`#${data.player.id} .points span`).text(`${points}`);
@@ -128,7 +165,7 @@ gameService.setupSocket = function () {
       let players = data.players;
       console.log(players);
       let playerKeys = Object.keys(players);
-      for(let i = 0; i < playerKeys.length; i++) {
+      for (let i = 0; i < playerKeys.length; i++) {
         let playerData = players[playerKeys[i]]
         console.log(`Checking if player exists on the scoreboard ${playerData.id} ${playerData.name} ${playerData.score}`);
         if (isEmpty($(`#${playerData.id}`))) {
@@ -145,7 +182,7 @@ gameService.setupSocket = function () {
 
 
     gameSocket.on('message-sent', function (data) {
-      console.log(`Message recieved: ${data.msg}`);
+      console.log(`Message received: ${data.msg}`);
       let messageString = data.msg;
       let playerColor = data.player.color;
       let playerId = data.player.id;
@@ -161,7 +198,9 @@ gameService.setupSocket = function () {
 
     gameSocket.on('round-ready', function (data) {
       console.log('Round ready!');
-      $(".canvas .ready div").text("Get ready");
+      let numReady = data.numReady;
+      let numPlayers = data.numPlayers;
+      $(".canvas .ready div").text(`Get ready! ${numReady}/${numPlayers}`);
     });
 
 
@@ -173,13 +212,15 @@ gameService.setupSocket = function () {
 
 
     gameSocket.on('square-spawn', function (data) {
-      console.log(`Recieved square spawn: ${data.x} ${data.y}`);
+      console.log(`Received square spawn: ${data.x} ${data.y}`);
       let top = data.x;
       let left = data.y;
+      
+      
 
       // Set variable that signals whether the random # is negative or positive
-      let calcPercentTop = "+ 0px";
-      let calcPercentLeft = "+ 0px";
+      let pixelOffsetTop = "+ 0px";
+      let pixelOffsetLeft = "+ 0px";
 
       let windowWidth = $(window).width();
       let windowHeight = $(window).height();
@@ -192,21 +233,33 @@ gameService.setupSocket = function () {
 
       // Check upper and lower limit of the bounds
       if (top > 40) {
-        calcPercentTop = `- ${offsetCSS}`;
+        pixelOffsetTop = `- ${offsetCSS}`;
       } else if (top < -40) {
-        calcPercentTop = `+ ${offsetCSS}`;
+        pixelOffsetTop = `+ ${offsetCSS}`;
       }
 
       if (left > 40) {
-        calcPercentLeft = `- ${offsetCSS}`;
+        pixelOffsetLeft = `- ${offsetCSS}`;
       } else if (left < -40) {
-        calcPercentLeft = `+ ${offsetCSS}`;
+        pixelOffsetLeft = `+ ${offsetCSS}`;
       }
 
       // Create CSS formula for the element
-      let cssTop = `calc(${top}% ${calcPercentTop})`;
-      let cssLeft = `calc(${left}% ${calcPercentLeft})`;
+      let cssTop = `calc(${top}% ${pixelOffsetTop})`;
+      let cssLeft = `calc(${left}% ${pixelOffsetLeft})`;
 
+      var squareData = {
+        top:top, 
+        left:left, 
+        offsetTop:pixelOffsetTop, 
+        offsetLeft:pixelOffsetLeft
+      };
+      
+      squarePos.push(squareData);
+      
+      console.log(squareData.top);
+      console.log(squarePos[0].top);
+      
       $(".canvas .square").css("top", cssTop);
       $(".canvas .square").css("left", cssLeft);
     });
@@ -214,7 +267,11 @@ gameService.setupSocket = function () {
 
     gameSocket.on('waiting-for-players', function (data) {
       console.log('Waiting for others...');
-      $(".canvas .ready div").text("Waiting for players");
+
+      let numReady = data.numReady;
+      let numPlayers = data.numPlayers;
+
+      $(".canvas .ready div").text(`Waiting for players ${numReady}/${numPlayers}`);
     });
   });
   console.log('Socket set up!');
@@ -226,13 +283,15 @@ gameService.unReadyCheck = function (gameId, playerId) {
 
   let data = {
     gameId: gameId,
-    playerId: playerId
+    player: {
+      id: playerId
+    }
   };
   gameSocket.emit('player-not-ready', data);
 };
 
 
-gameService.updateGameId = function(gameId) {
+gameService.updateGameId = function (gameId) {
   console.log(`Setting game ID (${gameId})...`)
   gameService.id = gameId;
 };

@@ -8,6 +8,7 @@ var createGameColorPicker = '.create-game-wrapper .color-picker div';
 var createGameWrapper = '.create-game-wrapper';
 
 var gameSquare = '.canvas .square';
+var relicWrapper = '.canvas .relic-wrapper';
 var gameWrapper = '.game-wrapper';
 
 var joinGameColorPicker = '.join-game-wrapper .color-picker div';
@@ -44,10 +45,12 @@ $(document).ready(function () {
   // If player is trying to cheat, this blocks the screen
   $(window).on('resize', function () {
     if ($(".canvas").hasClass("status-ready")) {
+
       let canvasWidth = $(".canvas").width();
       let canvasHeight = $(".canvas").height();
-      console.log("width - " + canvasWidth);
-      console.log("height - " + canvasHeight);
+
+      $(".canvas .relic-wrapper").css("width", canvasWidth);
+      $(".canvas .relic-wrapper").css("height", canvasHeight);
 
       if (canvasWidth / canvasHeight < 1.2 || canvasHeight / canvasWidth < 0.6) {
         $(cheaterScrim).removeClass("display-none");
@@ -104,11 +107,7 @@ $(document).ready(function () {
     $(createGameColorPicker).removeClass("selected");
     $(this).addClass("selected");
 
-    console.log(this);
-
     let colorClass = $(this).attr("id");
-
-    console.log(colorClass);
 
     let color = `color-${colorClass}`;
     playerService.updateColor(color);
@@ -155,7 +154,7 @@ $(document).ready(function () {
     console.log(winnersPoints);
     let points = parseInt(winnersPoints);
 
-    gameService.score(gameService.id, playerInfo.id, points);
+    gameService.score(gameService.id, playerInfo.color, playerInfo.id, points);
   });
 
 
@@ -177,6 +176,13 @@ $(document).ready(function () {
     // Opens the game board
     $(joinGameWrapper).addClass("display-none");
     $(gameWrapper).removeClass("display-none");
+
+    // Resizes the relic wrapper to fit in the canvas
+    let canvasWidth = $(".canvas").width();
+    let canvasHeight = $(".canvas").height();
+
+    $(".canvas .relic-wrapper").css("width", canvasWidth);
+    $(".canvas .relic-wrapper").css("height", canvasHeight);
 
     // Modifies the back button to be an "exit" button
     $(backButton).addClass("back-game");
@@ -217,11 +223,7 @@ $(document).ready(function () {
     $(joinGameColorPicker).removeClass("selected");
     $(this).addClass("selected");
 
-    console.log(this);
-
     let colorClass = $(this).attr("id");
-
-    console.log(colorClass);
 
     let color = `color-${colorClass}`;
     playerService.updateColor(color);
@@ -260,6 +262,13 @@ $(document).ready(function () {
     // Opens the game board
     $(createGameWrapper).addClass("display-none");
     $(gameWrapper).removeClass("display-none");
+
+    // Resizes the relic wrapper to fit in the canvas
+    let canvasWidth = $(".canvas").width();
+    let canvasHeight = $(".canvas").height();
+
+    $(".canvas .relic-wrapper").css("width", canvasWidth);
+    $(".canvas .relic-wrapper").css("height", canvasHeight);
 
     // Modifies the back button to be an "exit" button
     $(backButton).addClass("back-game");

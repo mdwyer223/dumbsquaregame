@@ -163,8 +163,8 @@ Check random generated code against active sessions
 
         <div class="field">
           <div class="join-game-session-info">
-            <h3>Session ID</h3>
-            <input type="text" placeholder="Enter game ID" onblur="this.placeholder='Enter game ID'" onfocus="this.placeholder=''">
+            <h3>Session name</h3>
+            <input type="text" placeholder="Enter name" onblur="this.placeholder='Enter name'" onfocus="this.placeholder=''">
           </div>
         </div>
 
@@ -263,13 +263,15 @@ Check random generated code against active sessions
       </div>
 
       <div class="canvas status-ready">
-        <div class="square display-none"></div>
         <div class="ready">
           <div>Hold mouse here to start</div>
         </div>
-        <div class="winner display-none">
-          <p>Player 1<br>+1 point</p>
+        <div class="square display-none"></div>
+        
+        <div class="relic-wrapper">
+          <div></div>
         </div>
+        
       </div>
 
     </div>

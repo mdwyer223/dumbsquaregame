@@ -9,30 +9,35 @@
 }
 
 .player.color-red .name,
+.relic-square.color-red,
 .color-picker .red div {
   background: var(--player-color-1);
   color: white;
 }
 
 .player.color-yellow .name,
+.relic-square.color-yellow,
 .color-picker .yellow div {
   background: var(--player-color-2);
   color: white;
 }
 
 .player.color-green .name,
+.relic-square.color-green,
 .color-picker .green div {
   background: var(--player-color-3);
   color: white;
 }
 
 .player.color-blue .name,
+.relic-square.color-blue,
 .color-picker .blue div {
   background: var(--player-color-4);
   color: white;
 }
 
 .player.color-purple .name,
+.relic-square.color-purple,
 .color-picker .purple div {
   background: var(--player-color-5);
   color: white;

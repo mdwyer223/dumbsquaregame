@@ -90,18 +90,23 @@ defaultNamespace.on('connection', function (socket) {
     let playerInfo = {
       player: data.player
     }
+
+    let gameData = {
+      gameId: data.gameId,
+      player: data.player
+    };
+    game.removePlayer(gameData);
+
     defaultNamespace.to(data.gameId).emit('player-left', playerInfo);
   });
 
   socket.on('player-not-ready', (data) => {
     let gameData = {
       gameId: data.gameId,
-      player: {
-        id: data.playerId
-      }
+      player: data.player
     };
-    game.unReadyPlayer(gameData);
-    socket.to(gameData.gameId).emit('waiting-for-players');
+    let readyState = game.unReadyPlayer(gameData);
+    defaultNamespace.to(gameData.gameId).emit('waiting-for-players', readyState);
   });
 
   socket.on('player-ready', function(data) {
@@ -113,13 +118,13 @@ defaultNamespace.on('connection', function (socket) {
     console.log('Readying player from socket event!');
     console.log(gameData.player.id);
 
-    let gameReady = game.readyPlayer(gameData);
+    let readyState = game.readyPlayer(gameData);
 
-    if (gameReady) {
-      defaultNamespace.to(gameData.gameId).emit('round-ready');
+    if (readyState.gameReady) {
+      defaultNamespace.to(gameData.gameId).emit('round-ready', readyState);
       game.startGame(defaultNamespace, gameData);
     } else {
-      defaultNamespace.to(gameData.gameId).emit('waiting-for-players');
+      defaultNamespace.to(gameData.gameId).emit('waiting-for-players', readyState);
     }
   });
 
