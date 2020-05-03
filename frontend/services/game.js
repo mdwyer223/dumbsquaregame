@@ -156,6 +156,7 @@ gameService.setupSocket = function () {
 
       $(canvasReadyButton).removeClass("display-none");
       $(gameSquare).addClass("display-none");
+
       $(`#${data.player.id} .points span`).text(`${points}`);
     });
 
