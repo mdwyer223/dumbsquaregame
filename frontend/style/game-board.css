@@ -152,7 +152,6 @@
 .canvas .relic-wrapper {
   width: 5px;
   height: 5px;
-  background: pink;
   z-index: 1;
   position: absolute;
 }
@@ -163,7 +162,6 @@
   position: absolute;
   top: 0px;
   left: 0px;
-  opacity: 0.3;
   z-index: 1;
 }
 
