@@ -53,7 +53,8 @@ $(document).ready(function () {
   // Checks canvas aspect ratio on resize
   // If player is trying to cheat, this blocks the screen
   $(window).on('resize', function () {
-    if ($(".canvas").hasClass("status-ready")) {
+  // if ($(".canvas").hasClass("status-ready")) {
+    if ($(".canvas").hasClass("uncomment and delete this line")) {
 
       let canvasWidth = $(".canvas").width();
       let canvasHeight = $(".canvas").height();
@@ -147,7 +148,7 @@ $(document).ready(function () {
     }
   });
 
-  
+
   $('.field input').on('focus', function () {
     var selection = $(this)
       .one('mouseup.mouseupSelect', function () {
@@ -160,7 +161,7 @@ $(document).ready(function () {
       .select();
   });
 
-  
+
   $(gameSquare).click(function () {
     // Determine how many points you currently have
     let winnersPoints = $(`#${playerInfo.id} .points span`).text();
@@ -170,7 +171,7 @@ $(document).ready(function () {
     gameService.score(gameService.id, playerInfo.color, playerInfo.id, points);
   });
 
-  
+
   // When in the join menu, click the join button
   $("#join-game").click(function () {
 
@@ -244,8 +245,8 @@ $(document).ready(function () {
     let color = `color-${colorClass}`;
     playerService.updateColor(color);
   });
-  
-  
+
+
   // Click on a mode button
   $(".modes div").click(function () {
 
