@@ -14,7 +14,7 @@ playerService.load = function() {
   let cookie = document.cookie;
 
   if (cookie && cookie.includes('playerId')) {
-    playerInfo.id = cookie.substring(cookie.indexOf('playerId') + 'playerId'.length + 1);
+    playerInfo.id = cookie.substring(cookie.indexOf('playerId') + 'playerId'.length + 1, 20);
     console.log(`Player ID found! (${playerInfo.id})`);
   } else {
     this.getNewId();
