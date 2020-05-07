@@ -23,13 +23,7 @@ $(document).ready(function () {
     gameService.disconnect(gameService.id, playerInfo.id);
 
     resetGameRoom();
-
-    // brings the page back to the main menu
-    $(mainMenuWrapper).removeClass("display-none");
-    $(createGameWrapper).addClass("display-none");
-    $(joinGameWrapper).addClass("display-none");
-    $(settingsWrapper).addClass("display-none");
-    $(gameWrapper).addClass("display-none");
+    switchToMainMenu();
 
     // removes the back button and any associated classes
     $(backButton).addClass("display-none");
@@ -45,9 +39,7 @@ $(document).ready(function () {
   $(window).on('resize', function () {
     if ($(".canvas").hasClass("status-ready")) {
       let canvasWidth = $(".canvas").width();
-      let canvasHeight = $(".canvas").height();
-      console.log("width - " + canvasWidth);
-      console.log("height - " + canvasHeight);
+      let canvasHeight = $(".canvas").height();;
 
       if (canvasWidth / canvasHeight < 1.2 || canvasHeight / canvasWidth < 0.6) {
         $(cheaterScrim).removeClass("display-none");
@@ -174,9 +166,7 @@ $(document).ready(function () {
     gameService.joinRoom(gameService.id);
     gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color);
 
-    // Opens the game board
-    $(joinGameWrapper).addClass("display-none");
-    $(gameWrapper).removeClass("display-none");
+    switchToGameBoard();
 
     // Modifies the back button to be an "exit" button
     $(backButton).addClass("back-game");
@@ -186,7 +176,6 @@ $(document).ready(function () {
 
     // Scrolls the chatlist to the most recent message
     $(".chat .messages").scrollTop(9999999999);
-
   });
 
 
@@ -295,4 +284,49 @@ function resetGameRoom() {
   $('.sidebar .scoreboard .player').remove();
   $('.chat .player-message').remove();
   $('.chat .starter-message').removeClass('display-none');
+}
+
+function switchToMainMenu() {
+  $(mainMenuWrapper).removeClass("display-none");
+
+  $(createGameWrapper).addClass("display-none");
+  $(gameWrapper).addClass("display-none");
+  $(joinGameWrapper).addClass("display-none");
+  $(settingsWrapper).addClass("display-none");
+}
+
+function switchToJoinGameMenu() {
+  $(joinGameWrapper).removeClass("display-none");
+
+  $(createGameWrapper).addClass("display-none");
+  $(gameWrapper).addClass("display-none");
+  $(mainMenuWrapper).addClass("display-none");
+  $(settingsWrapper).addClass("display-none");
+}
+
+function switchToSettingsMenu() {
+  $(settingsWrapper).removeClass("display-none");
+
+  $(createGameWrapper).addClass("display-none");
+  $(gameWrapper).addClass("display-none");
+  $(joinGameWrapper).addClass("display-none");
+  $(mainMenuWrapper).addClass("display-none");
+}
+
+function switchToCreateGameMenu() {
+  $(createGameWrapper).removeClass("display-none");
+
+  $(gameWrapper).addClass("display-none");
+  $(joinGameWrapper).addClass("display-none");
+  $(mainMenuWrapper).addClass("display-none");
+  $(settingsWrapper).addClass("display-none");
+}
+
+function switchToGameBoard() {
+  $(gameWrapper).removeClass("display-none");
+  
+  $(createGameWrapper).addClass("display-none");
+  $(joinGameWrapper).addClass("display-none");
+  $(mainMenuWrapper).addClass("display-none");
+  $(settingsWrapper).addClass("display-none");
 }

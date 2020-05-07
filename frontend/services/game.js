@@ -115,6 +115,8 @@ gameService.sendMessage = function (gameId, playerColor, playerId, playerName, m
 gameService.setupSocket = function () {
   console.log('Setting up socket...');
   gameSocket.on('connect', function () {
+
+    
     gameSocket.on('player-scored', function (data) {
       console.log('Player scored!');
       let points = data.score;
@@ -165,7 +167,7 @@ gameService.setupSocket = function () {
       console.log('Round ready!');
       let numReady = data.numReady;
       let numPlayers = data.numPlayers;
-      $(".canvas .ready").text(`Get ready! ${numReady}/${numPlayers}`);
+      $(".canvas .ready div").text(`Get ready! ${numReady}/${numPlayers}`);
     });
 
 
@@ -220,7 +222,7 @@ gameService.setupSocket = function () {
       console.log('Waiting for others...');
       let numReady = data.numReady;
       let numPlayers = data.numPlayers;
-      $(".canvas .ready").text(`Waiting for players ${numReady}/${numPlayers}`);
+      $(".canvas .ready div").text(`Waiting for players ${numReady}/${numPlayers}`);
     });
   });
   console.log('Socket set up!');
