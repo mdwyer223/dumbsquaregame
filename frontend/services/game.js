@@ -282,7 +282,11 @@ gameService.setupSocket = function () {
 
       let numReady = data.numReady;
       let numPlayers = data.numPlayers;
-      $(".canvas .ready div").text(`Waiting for players ${numReady}/${numPlayers}`);
+      if (numReady === 0) {
+        $(".canvas .ready div").text(`Hold mouse here to start`);
+      } else {
+        $(".canvas .ready div").text(`Waiting for players ${numReady}/${numPlayers}`);
+      }
     });
   });
   console.log('Socket set up!');
