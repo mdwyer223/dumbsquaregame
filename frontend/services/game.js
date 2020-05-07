@@ -168,6 +168,7 @@ gameService.setupSocket = function () {
         console.log('Could not join the game...');
         gameSocket.close();
         switchToJoinGameMenu();
+        console.log(data.error);
 
         if (data.error === "room-invalid") {
           $(".join-game-wrapper span").text("Game does not exist");

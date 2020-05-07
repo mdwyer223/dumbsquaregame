@@ -177,11 +177,18 @@
     MAIN MENU
 */
 
-.main-menu-wrapper .player-info span {
+.main-menu-wrapper .player-info span,
+.create-game-wrapper .create-game-session-info span,
+.join-game-wrapper .join-game-session-info span {
   margin: 24px 0;
   position: relative;
   top: 12px;
   opacity: 0;
+}
+
+.create-game-session-info,
+.join-game-session-info {
+  padding-bottom: 24px;
 }
 
 
