@@ -83,10 +83,11 @@ defaultNamespace.on('connection', function (socket) {
     };
     let players = game.addPlayer(gameData);
 
-    if (!players) {
+    if (players.error) {
       let rejectData = {
         gameId: gameData.gameId,
-        player: data.player
+        player: data.player,
+        error: players
       };
       defaultNamespace.to(data.gameId).emit('player-cannot-join', rejectData);
     }

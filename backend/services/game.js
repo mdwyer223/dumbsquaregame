@@ -40,12 +40,12 @@ game.addPlayer = function(opts) {
   let gameId = opts.gameId;
   let player = opts.player;
 
-  if(!validateGameRoom(gameId)) { return; }
+  if(!validateGameRoom(gameId)) { return {error: 'room-invalid'}; }
 
   if (Object.keys(rooms[gameId].players).length >= rooms[gameId].maxPlayers) {
     console.log(`Player (${player.id}) cannot join room (${gameId})!`);
     console.log(rooms);
-    return false;
+    return {error: 'room-full'};
   }
 
   rooms[gameId].players[player.id] = {
