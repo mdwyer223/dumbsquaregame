@@ -83,11 +83,10 @@ $(document).ready(function () {
   });
 
 
+  $(chatSendButton).click(function() {
+    sendGameMessage()
+  });
 
-  /*
-   * Message Section
-   */
-  $(chatSendButton).click(sendGameMessage());
   $(chatBox).keypress(function (event) {
     if (event.keyCode == 13) { sendGameMessage(); }
   });
@@ -218,7 +217,9 @@ $(document).ready(function () {
 
 
   // Click on the menu button "Settings"
-  $("#settings-menu").click(switchToSettingsMenu());
+  $("#settings-menu").click(function() {
+    switchToSettingsMenu()
+  });
 
 
   // When in the create menu, click the start button
@@ -263,7 +264,6 @@ function resetGameRoom() {
 }
 
 function sendGameMessage() {
-
   let messageString = $(chatBox).val();
   if (messageString.length < 1) { return; }
 
@@ -337,7 +337,6 @@ function validatePlayerName() {
     playerService.updateName(playerName);
     return true;
   }
-
   return false;
 }
 
@@ -345,9 +344,8 @@ function validateSessionId(page) {
   let sessionId = $(`${page} input`).val();
 
   if (sessionId.length > 2) {
-    gameService.updateGameId(sessionId);
+    gameService.updateGameId(sessionId.toUpperCase());
     return true;
   }
-
   return false;
 }
