@@ -53,6 +53,11 @@ app.post('/players', (req, res) => {
   res.json({ playerId: newPlayerId });
 });
 
+app.get('/players/names', (req, res) => {
+  let newPlayerName = player.generateName();
+  res.json({ playerName: newPlayerName });
+});
+
 
 /* 
   NAMESPACES

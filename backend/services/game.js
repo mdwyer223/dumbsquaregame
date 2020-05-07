@@ -1,6 +1,6 @@
 let utils = require('../utils/utils');
 
-const gameIdLength = 10;
+const gameIdLength = 4;
 
 let game = {};
 

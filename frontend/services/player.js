@@ -47,4 +47,12 @@ playerService.getNewId = function () {
   });
 };
 
+playerService.getRandomName = function () {
+  $.get('/players/names', function(data) {
+    console.log('Getting random name...');
+    playerInfo.name = data.playerName;
+    $('.player-info input').val(playerInfo.name);
+  });
+}
+
 exports = playerService;

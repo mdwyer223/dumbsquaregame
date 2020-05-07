@@ -2,9 +2,14 @@ let utils = {};
 
 utils.generateId = function generateId(length) {
   let result = '';
-  let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let numbers = '0123456789';
   for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * characters.length));
+      if (i % 2 == 0) {
+        result += letters.charAt(Math.floor(Math.random() * letters.length));
+      } else {
+        result += numbers.charAt(Math.floor(Math.random() * numbers.length));
+      }
   }
   return result;
 };

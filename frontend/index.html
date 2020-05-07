@@ -75,6 +75,7 @@ If one player is in the lobby, then "waiting for players to join"
         <div class="player-info field">
           <script>
             playerService.load();
+            playerService.getRandomName();
           </script>
           <h3>Player name</h3>
           <input type="text" maxlength="15" placeholder="Player1234" onblur="this.placeholder='Player1234'" onfocus="this.placeholder=''">
