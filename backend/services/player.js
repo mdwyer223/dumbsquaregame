@@ -16,11 +16,11 @@ player.generateName = function() {
   randomAdj = adjs[Math.floor(Math.random() * adjs.length)];
   randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
 
-  while (randomAdj.length < 10) {
+  while (randomAdj.length > 10) {
     randomAdj = adjs[Math.floor(Math.random() * adjs.length)];
   }
 
-  while (randomNoun.length < 10) {
+  while (randomNoun.length > 10) {
     randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
   }
 
