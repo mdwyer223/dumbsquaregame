@@ -185,18 +185,7 @@ $(document).ready(function () {
     gameService.joinRoom(gameService.id);
     gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color);
 
-<<<<<<< HEAD
     switchToGameBoard();
-=======
-    // Opens the game board
-    $(joinGameWrapper).addClass("display-none");
-    $(gameWrapper).removeClass("display-none");
-    $(canvas).addClass("status-ready");
-
-    // This can be made into a function !!!
-
-    
->>>>>>> 55a517f8c87f613b46831692fb6776b75520259f
 
     // Resizes the relic wrapper to fit in the canvas
     let canvasWidth = $(".canvas").width();
