@@ -154,7 +154,7 @@ $(document).ready(function () {
         return false;
       })
       .one('mousedown', function () {
-        $this.off('mouseup.mouseupSelect');
+        $(this).off('mouseup.mouseupSelect');
       })
       .select();
   });
@@ -272,8 +272,10 @@ $(document).ready(function () {
       return;
     }
 
+    let maxPlayers = $('.create-game-wrapper .number-input input').val();
+
     gameService.connect();
-    gameService.createGame(gameService.id);
+    gameService.createGame(gameService.id, maxPlayers);
     gameService.joinRoom(gameService.id);
     gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color);
 

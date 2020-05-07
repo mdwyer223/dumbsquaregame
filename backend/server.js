@@ -39,7 +39,7 @@ app.get('/games', (req, res) => {
   res.json({ gameId: newGameId});
 });
 
-app.post('/games/:gameId', (req, res) => {
+app.post('/games/:gameId/:maxPlayers', (req, res) => {
   let gameCreated = game.create(req.params);
   if(gameCreated) {
     res.json({gameId: req.params.gameId});
@@ -82,6 +82,14 @@ defaultNamespace.on('connection', function (socket) {
       players: null
     };
     let players = game.addPlayer(gameData);
+
+    if (!players) {
+      let rejectData = {
+        gameId: gameData.gameId,
+        player: data.player
+      };
+      defaultNamespace.to(data.gameId).emit('player-cannot-join', rejectData);
+    }
 
     gameData.players = players;
 

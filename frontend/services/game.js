@@ -23,9 +23,9 @@ gameService.addPlayer = function (gameId, playerId, playerName, playerColor) {
 };
 
 
-gameService.createGame = function (gameId) {
+gameService.createGame = function (gameId, maxPlayers) {
   console.log('Creating game...');
-  $.post(`/games/${gameId}`, function (data) {
+  $.post(`/games/${gameId}/${maxPlayers}`, function (data) {
     if (data['message']) {
       console.warn('Game was not created!');
       gameService.gameCreated = false;
@@ -161,6 +161,15 @@ gameService.setupSocket = function () {
 
       $(`#${data.player.id} .points span`).text(`${points}`);
     });
+
+
+    gameSocket.on('player-cannot-join', function (data) {
+      if (data.player.id == playerInfo.id) {
+        console.log('Could not join the game...');
+        gameSocket.close();
+        switchToJoinGameMenu();
+      }
+    })
 
 
     gameSocket.on('player-joined', function (data) {
