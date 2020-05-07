@@ -7,7 +7,15 @@ Check random generated code against active sessions
 
 Attempting to join a session that doesn't exist should throw you an error, also names should only allow letters, numbers, some symbols. session IDs should not be case sensitive and just be letters numbers, hyphen, underscore 
 
+Joining a full session should say "Room is full"
+
 Add media queries for most text, some padding
+
+Relic reposition on window resize
+
+"Waiting for players 0/3" should revert to "hover here" box
+
+Add player name above square when you win
 
 -->
 
@@ -20,9 +28,9 @@ Add media queries for most text, some padding
   <title>Square Game</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="Description" content="Dumb square game where you race your friends to click squares.">
+  <meta name="Description" content="A dumb square game where you race your friends to click squares">
   <meta name="Author" content="Jason Proleika">
-  <meta name="Keywords" content="jason proleika, designer, freelance, design, web design, developer, web, website, front end, mobile, app design, ux, user experience, ui, user interface, game, game design, ny, nyc, new york city, new jersey, nj">
+  <meta name="Keywords" content="jason proleika, matt dwyer">
 
   <link rel="icon" href="favicon.png" type="image/ico">
 
@@ -51,7 +59,7 @@ Add media queries for most text, some padding
   <div class="back-button display-none">
     back
   </div>
-  
+
   <!--CHEAT SCRIM-->
 
   <div class="cheater-scrim display-none">
@@ -67,10 +75,11 @@ Add media queries for most text, some padding
       <h1>Dumb square game</h1>
 
       <div class="container">
-        
+
         <div class="player-info field">
           <script>
             playerService.load();
+
           </script>
           <h3>Player name</h3>
           <input type="text" maxlength="18" placeholder="Player1234" onblur="this.placeholder='Player1234'" onfocus="this.placeholder=''">
@@ -171,6 +180,8 @@ Add media queries for most text, some padding
           <div class="join-game-session-info">
             <h3>Session name</h3>
             <input type="text" maxlength="12" placeholder="Enter name" onblur="this.placeholder='Enter name'" onfocus="this.placeholder=''">
+            <br>
+            <span>Name must be<br>at least 3 characters</span>
           </div>
         </div>
 
@@ -237,13 +248,13 @@ Add media queries for most text, some padding
           <div class="exit-button">exit</div>
           <h2>Session name</h2>
         </div>
-        
+
         <div class="scoreboard">
           <h2>Scoreboard</h2>
         </div>
 
         <div class="chat">
-          
+
           <div class="messages">
             <h2>Chat</h2>
             <div class="message starter-message">Messages show up here</div>
@@ -253,7 +264,7 @@ Add media queries for most text, some padding
             <input type="text" placeholder="Send message" onblur="this.placeholder='Send message'" onfocus="this.placeholder=''">
             <div class="send-button">Send</div>
           </div>
-          
+
         </div>
       </div>
 
@@ -262,7 +273,7 @@ Add media queries for most text, some padding
           <div>Hold mouse here to start</div>
         </div>
         <div class="square display-none"></div>
-        
+
         <div class="relic-wrapper">
           <div></div>
         </div>
@@ -270,4 +281,5 @@ Add media queries for most text, some padding
     </div>
   </div>
 </body>
+
 </html>
