@@ -47,7 +47,7 @@
   padding-top: calc(3.5vh - 15px);
 }
 
-.game-wrapper .title h3 {
+.game-wrapper .title h2 {
   flex: 4;
   margin-left: 16px;
   height: auto;
@@ -62,7 +62,7 @@
   padding: 16px 16px 12px 12px;
 }
 
-.game-wrapper .scoreboard h3 {
+.game-wrapper .scoreboard h2 {
   margin-bottom: 4px;
   padding: 4px 4px 16px 8px;
 }
@@ -100,7 +100,7 @@
   border-bottom: 2px solid gray;
 }
 
-.chat h3 {
+.chat h2 {
   margin-bottom: 4px;
   padding: 20px 50% 16px 20px;
 }

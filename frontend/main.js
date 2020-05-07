@@ -53,9 +53,8 @@ $(document).ready(function () {
   // Checks canvas aspect ratio on resize
   // If player is trying to cheat, this blocks the screen
   $(window).on('resize', function () {
-  // if ($(".canvas").hasClass("status-ready")) {
-    if ($(".canvas").hasClass("uncomment and delete this line")) {
-
+    if ($(".canvas").hasClass("status-ready")) {
+    
       let canvasWidth = $(".canvas").width();
       let canvasHeight = $(".canvas").height();
 
@@ -202,7 +201,7 @@ $(document).ready(function () {
     $(relicWrapper).css("height", canvasHeight);
 
     let sessionName = $('.join-game-session-info input').val();
-    $('.game-wrapper .title h3').text(sessionName);
+    $('.game-wrapper .title h2').text(sessionName);
 
     // removes the back button
     $(backButton).addClass("display-none");
@@ -301,7 +300,7 @@ $(document).ready(function () {
     $(relicWrapper).css("height", canvasHeight);
 
     let sessionName = $('.create-game-session-info input').val();
-    $('.game-wrapper .title h3').text(sessionName);
+    $('.game-wrapper .title h2').text(sessionName);
 
     // removes the back button
     $(backButton).addClass("display-none");

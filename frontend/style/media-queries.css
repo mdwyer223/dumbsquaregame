@@ -1,12 +1,31 @@
-/*
-@media (max-width: 780px) {
+@media (min-width: 1500px) {
 
-    .section {
-        text-align: center;
-    }
+  h1 {
+    font-size: 28px;
+  }
+  
+  .create-game-wrapper h3,
+  .main-menu-wrapper h3,
+  .join-game-wrapper h3,
+  .setting-wrapper h3 {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
 
-    .section-wrapper {
-        padding-left: 0;
-    }
+  .main-menu-wrapper .content,
+  .settings-wrapper .content {
+    width: 400px;
+  }
 
-}*/
+  .main-menu-wrapper .button,
+  .settings-wrapper .button {
+    margin: 32px 0;
+    padding: 16px 0;
+    font-size: 22px;
+  }
+
+}
+
+@media (max-width: 1200px) {}
+
+@media (max-width: 900px) {}
