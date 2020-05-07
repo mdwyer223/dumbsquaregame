@@ -23,9 +23,9 @@ gameService.addPlayer = function (gameId, playerId, playerName, playerColor) {
 };
 
 
-gameService.createGame = function (gameId) {
+gameService.createGame = function (gameId, maxPlayers) {
   console.log('Creating game...');
-  $.post(`/games/${gameId}`, function (data) {
+  $.post(`/games/${gameId}/${maxPlayers}`, function (data) {
     if (data['message']) {
       console.warn('Game was not created!');
       gameService.gameCreated = false;
@@ -120,6 +120,8 @@ gameService.sendMessage = function (gameId, playerColor, playerId, playerName, m
 gameService.setupSocket = function () {
   console.log('Setting up socket...');
   gameSocket.on('connect', function () {
+
+    
     gameSocket.on('player-scored', function (data) {
       console.log('Player scored!');
       let points = data.score;
@@ -159,6 +161,27 @@ gameService.setupSocket = function () {
 
       $(`#${data.player.id} .points span`).text(`${points}`);
     });
+
+
+    gameSocket.on('player-cannot-join', function (data) {
+      if (data.player.id == playerInfo.id) {
+        console.log('Could not join the game...');
+        gameSocket.close();
+        switchToJoinGameMenu();
+
+        if (data.error === "room-invalid") {
+          $(".join-game-wrapper span").text("Game does not exist");
+          $(".join-game-wrapper span").css("opacity", "1");
+        } else if (data.error === "room-full") {
+          $(".join-game-wrapper span").text("Game is full");
+          $(".join-game-wrapper span").css("opacity", "1");
+        } else {
+          $(".join-game-wrapper span").text("Unknown error");
+          $(".join-game-wrapper span").css("opacity", "1");
+        }
+        
+      }
+    })
 
 
     gameSocket.on('player-joined', function (data) {
@@ -271,8 +294,11 @@ gameService.setupSocket = function () {
 
       let numReady = data.numReady;
       let numPlayers = data.numPlayers;
-
-      $(".canvas .ready div").text(`Waiting for players ${numReady}/${numPlayers}`);
+      if (numReady === 0) {
+        $(".canvas .ready div").text(`Hold mouse here to start`);
+      } else {
+        $(".canvas .ready div").text(`Waiting for players ${numReady}/${numPlayers}`);
+      }
     });
   });
   console.log('Socket set up!');

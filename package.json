@@ -10,8 +10,10 @@
   "author": "mdwyer844@gmail.com",
   "license": "ISC",
   "dependencies": {
+    "adjectives": "^1.0.2",
     "body-parser": "^1.19.0",
     "express": "*",
+    "nouns": "^1.0.1",
     "socket.io": "^2.3.0"
   }
 }

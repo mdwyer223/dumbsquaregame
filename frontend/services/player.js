@@ -14,7 +14,7 @@ playerService.load = function() {
   let cookie = document.cookie;
 
   if (cookie && cookie.includes('playerId')) {
-    playerInfo.id = cookie.substring(cookie.indexOf('playerId') + 'playerId'.length + 1);
+    playerInfo.id = cookie.substring(cookie.indexOf('playerId') + 'playerId'.length + 1, 20);
     console.log(`Player ID found! (${playerInfo.id})`);
   } else {
     this.getNewId();
@@ -46,5 +46,13 @@ playerService.getNewId = function () {
     console.log(`New player ID added to cookies! (${playerInfo.id})`);
   });
 };
+
+playerService.getRandomName = function () {
+  $.get('/players/names', function(data) {
+    console.log('Getting random name...');
+    playerInfo.name = data.playerName;
+    $('.player-info input').val(playerInfo.name);
+  });
+}
 
 exports = playerService;

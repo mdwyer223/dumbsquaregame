@@ -21,14 +21,19 @@ var relicWrapper = '.canvas .relic-wrapper';
 var settingsWrapper = '.settings-wrapper';
 
 
-$(document).ready(function () {
-  $(backButton).click(function () {
 
-    // brings the page back to the main menu
-    $(mainMenuWrapper).removeClass("display-none");
-    $(createGameWrapper).addClass("display-none");
-    $(joinGameWrapper).addClass("display-none");
-    $(settingsWrapper).addClass("display-none");
+
+$(document).ready(function () {
+
+  $(window).on('unload', function() {
+    gameService.disconnect(gameService.id, playerInfo.id);
+  });
+
+  $(backButton).click(function () {
+    gameService.disconnect(gameService.id, playerInfo.id);
+
+    resetGameRoom();
+    switchToMainMenu();
 
     // removes the back button and any associated classes
     $(backButton).addClass("display-none");
@@ -155,7 +160,7 @@ $(document).ready(function () {
         return false;
       })
       .one('mousedown', function () {
-        $this.off('mouseup.mouseupSelect');
+        $(this).off('mouseup.mouseupSelect');
       })
       .select();
   });
@@ -186,12 +191,7 @@ $(document).ready(function () {
     gameService.joinRoom(gameService.id);
     gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color);
 
-    // Opens the game board
-    $(joinGameWrapper).addClass("display-none");
-    $(gameWrapper).removeClass("display-none");
-    $(canvas).addClass("status-ready");
-
-    // This can be made into a function !!!
+    switchToGameBoard();
 
     // Resizes the relic wrapper to fit in the canvas
     let canvasWidth = $(".canvas").width();
@@ -208,7 +208,6 @@ $(document).ready(function () {
 
     // Scrolls the chatlist to the most recent message
     $(".chat .messages").scrollTop(9999999999);
-
   });
 
 
@@ -279,8 +278,10 @@ $(document).ready(function () {
       return;
     }
 
+    let maxPlayers = $('.create-game-wrapper .number-input input').val();
+
     gameService.connect();
-    gameService.createGame(gameService.id);
+    gameService.createGame(gameService.id, maxPlayers);
     gameService.joinRoom(gameService.id);
     gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color);
 
@@ -333,4 +334,49 @@ function resetGameRoom() {
   $('.sidebar .scoreboard .player').remove();
   $('.chat .player-message').remove();
   $('.chat .starter-message').removeClass('display-none');
+}
+
+function switchToMainMenu() {
+  $(mainMenuWrapper).removeClass("display-none");
+
+  $(createGameWrapper).addClass("display-none");
+  $(gameWrapper).addClass("display-none");
+  $(joinGameWrapper).addClass("display-none");
+  $(settingsWrapper).addClass("display-none");
+}
+
+function switchToJoinGameMenu() {
+  $(joinGameWrapper).removeClass("display-none");
+
+  $(createGameWrapper).addClass("display-none");
+  $(gameWrapper).addClass("display-none");
+  $(mainMenuWrapper).addClass("display-none");
+  $(settingsWrapper).addClass("display-none");
+}
+
+function switchToSettingsMenu() {
+  $(settingsWrapper).removeClass("display-none");
+
+  $(createGameWrapper).addClass("display-none");
+  $(gameWrapper).addClass("display-none");
+  $(joinGameWrapper).addClass("display-none");
+  $(mainMenuWrapper).addClass("display-none");
+}
+
+function switchToCreateGameMenu() {
+  $(createGameWrapper).removeClass("display-none");
+
+  $(gameWrapper).addClass("display-none");
+  $(joinGameWrapper).addClass("display-none");
+  $(mainMenuWrapper).addClass("display-none");
+  $(settingsWrapper).addClass("display-none");
+}
+
+function switchToGameBoard() {
+  $(gameWrapper).removeClass("display-none");
+  
+  $(createGameWrapper).addClass("display-none");
+  $(joinGameWrapper).addClass("display-none");
+  $(mainMenuWrapper).addClass("display-none");
+  $(settingsWrapper).addClass("display-none");
 }

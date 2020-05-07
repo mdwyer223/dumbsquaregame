@@ -1,6 +1,6 @@
 let utils = require('../utils/utils');
 
-const gameIdLength = 10;
+const gameIdLength = 4;
 
 let game = {};
 
@@ -42,6 +42,12 @@ game.addPlayer = function(opts) {
 
   if(!validateGameRoom(gameId)) { return; }
 
+  if (Object.keys(rooms[gameId].players).length >= rooms[gameId].maxPlayers) {
+    console.log(`Player (${player.id}) cannot join room (${gameId})!`);
+    console.log(rooms);
+    return false;
+  }
+
   rooms[gameId].players[player.id] = {
     id: player.id,
     name: player.name,
@@ -60,6 +66,7 @@ game.addPlayer = function(opts) {
 game.create = function(opts) {
   console.log(`Creating room (${opts.gameId})`);
   let gameId = opts.gameId;
+  let maxPlayers = opts.maxPlayers;
 
   if(Object.keys(rooms).includes(gameId)) {
     console.log('Room is occupied!');
@@ -67,9 +74,11 @@ game.create = function(opts) {
   }
 
   rooms[gameId] = {
+    maxPlayers: maxPlayers,
+    password: '',
     players: {},
-    squares: []
   };
+  
   console.log(`Created room (${gameId})!`);
   console.log(rooms);
 
@@ -109,6 +118,8 @@ game.readyPlayer = function(opts) {
   console.log('Ready state:');
   console.log(players);
 
+  if (numPlayers < 2) { gameReady = false; }
+
   let readyState = {
     gameReady: gameReady,
     numReady: playerReadyCount,
@@ -124,7 +135,9 @@ game.unReadyPlayer = function(opts) {
   let player = opts.player;
 
   if (!validateGameRoom(gameId) && !validatePlayer(gameId, player)) { return; }
-
+  
+  rooms[gameId].players[player.id].ready = false;
+  
   let players = rooms[gameId].players;
   let playerKeys = Object.keys(players);
   let playerReadyCount = playerKeys.length;
@@ -137,7 +150,8 @@ game.unReadyPlayer = function(opts) {
     }
   }
 
-  rooms[gameId].players[player.id].ready = false;
+  if (numPlayers < 2) { gameReady = false; }
+
   console.log('Player unreadied!');
   console.log(rooms[gameId].players);
 
