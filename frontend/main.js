@@ -21,7 +21,14 @@ var relicWrapper = '.canvas .relic-wrapper';
 var settingsWrapper = '.settings-wrapper';
 
 
+
+
 $(document).ready(function () {
+
+  $(window).on('unload', function() {
+    gameService.disconnect(gameService.id, playerInfo.id);
+  });
+
   $(backButton).click(function () {
     gameService.disconnect(gameService.id, playerInfo.id);
 
