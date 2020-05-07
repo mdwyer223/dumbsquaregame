@@ -1,0 +1,278 @@
+.back-button {
+  padding: 9px 18px 10px;
+  color: white;
+  background: black;
+  position: fixed;
+  left: 3vh;
+  top: 3vh;
+  cursor: pointer;
+  border-radius: 2px;
+  font-size: 22px;
+}
+
+.main-menu-wrapper,
+.create-game-wrapper,
+.join-game-wrapper,
+.settings-wrapper {
+  text-align: center;
+}
+
+.main-menu-wrapper .content,
+.create-game-wrapper .content,
+.join-game-wrapper .content,
+.settings-wrapper .content {
+  width: 60vw;
+  margin-top: 10vh;
+  display: inline-block;
+}
+
+.main-menu-wrapper .content,
+.settings-wrapper .content {
+  width: 350px;
+}
+
+.main-menu-wrapper .container,
+.create-game-wrapper .container,
+.settings-wrapper .container,
+.join-game-wrapper .container {
+  width: 100%;
+  margin: 36px 0;
+  display: inline-block;
+}
+
+.main-menu-wrapper .button,
+.settings-wrapper .button {
+  margin: 24px 0;
+  padding: 14px 0;
+  border-radius: 50px;
+  background: grey;
+  color: white;
+  cursor: pointer;
+}
+
+.main-menu-wrapper .field,
+.create-game-wrapper .field,
+.join-game-wrapper .field {
+  padding: 36px 0;
+}
+
+.create-game-wrapper h3,
+.main-menu-wrapper h3,
+.join-game-wrapper h3,
+.setting-wrapper h3 {
+  margin-bottom: 12px;
+}
+
+.main-menu-wrapper input[type=text],
+.create-game-wrapper input[type=text],
+.join-game-wrapper input[type=text] {
+  text-align: center;
+  margin-bottom: 12px;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 8px 0;
+  width: 200px;
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+  border: 1px solid gray;
+  border-radius: 32px;
+  user-select: text;
+}
+
+.main-menu-wrapper input[type=text]:hover,
+.create-game-wrapper input[type=text]:hover,
+.join-game-wrapper input[type=text]:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.main-menu-wrapper input[type=text]:focus,
+.create-game-wrapper input[type=text]:focus,
+.join-game-wrapper input[type=text]:focus {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  outline: none;
+}
+
+.create-game-wrapper input[type=number] {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 4px 0;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+  caret-color: transparent;
+  cursor: default;
+  user-select: none;
+}
+
+.create-game-wrapper input[type=number]:focus {
+  outline: none;
+}
+
+.create-game-wrapper input[type=number]::-webkit-inner-spin-button,
+.create-game-wrapper input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.number-input {
+  display: inline-flex;
+}
+
+.number-input,
+.number-input * {
+  box-sizing: border-box;
+}
+
+.number-input button {
+  outline: none;
+  -webkit-appearance: none;
+  background-color: #999;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+}
+
+.number-input button:first-child {
+  border-radius: 50% 0 0 50%;
+}
+
+.number-input button:last-child {
+  border-radius: 0 50% 50% 0;
+}
+
+.number-input button:before,
+.number-input button:after {
+  display: inline-block;
+  position: absolute;
+  content: '';
+  width: 1rem;
+  height: 3px;
+  background-color: white;
+  transform: translate(-50%, -50%);
+}
+
+.number-input button.plus:after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.number-input input[type=number] {
+  max-width: 5rem;
+  padding: 0.5rem 0.75rem 0.4rem 0.75rem;
+  border: none;
+  /* border-width: 0 2px; */
+  font-size: 20px;
+  height: 2.5rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+
+/*  ______
+    MAIN MENU
+*/
+
+.main-menu-wrapper .player-info span {
+  margin: 24px 0;
+  position: relative;
+  top: 12px;
+  opacity: 0;
+}
+
+
+/*  ______
+    CREATE GAME
+*/
+
+.create-game-wrapper .field .modes {
+  margin: 0 24px;
+}
+
+.create-game-wrapper .field .modes div {
+  padding: 7px 20px 8px;
+  color: white;
+  border-radius: 30px;
+  margin-right: 8px;
+  display: inline-block;
+  background: #888;
+  cursor: pointer;
+}
+
+.create-game-wrapper .field .modes .selected {
+  background: #444;
+}
+
+.create-game-wrapper .field .start-game {
+  text-align: center
+}
+
+.create-game-wrapper .field .start-game div {
+  display: inline-block;
+  max-width: 300px;
+  padding: 12px 48px;
+  font-size: 24px;
+  font-weight: 600;
+  background: black;
+  color: white;
+  border-radius: 48px;
+  cursor: pointer;
+}
+
+
+/*  ______
+    JOIN GAME
+*/
+
+.color-picker div {
+  margin: 4px;
+  display: inline-block;
+  border: 2px solid rgba(0, 0, 0, 0);
+  border-radius: 50%;
+}
+
+.color-picker .selected {
+  border: 2px solid rgba(0, 0, 0, 1);
+}
+
+.color-picker > div:hover {
+  border: 2px solid rgba(0, 0, 0, 0.25);
+}
+
+.color-picker .selected:hover {
+  border: 2px solid rgba(0, 0, 0, 1);
+}
+
+.color-picker div div {
+  width: 48px;
+  height: 48px;
+  border: none;
+  margin: 6px 6px 3px 6px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.join-game-wrapper .field .join-game {
+  text-align: center
+}
+
+.join-game-wrapper .field .join-game div {
+  display: inline-block;
+  max-width: 300px;
+  padding: 12px 48px;
+  font-size: 24px;
+  font-weight: 600;
+  background: black;
+  color: white;
+  border-radius: 48px;
+  cursor: pointer;
+}
+
+
+/*  ______
+    SETTINGS
+*/

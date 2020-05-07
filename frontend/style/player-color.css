@@ -1,0 +1,89 @@
+/*  Variables for colors  */
+
+:root {
+  --player-color-1: #D83550;
+  --player-color-2: #FFA644;
+  --player-color-3: #8E992F;
+  --player-color-4: #246177;
+  --player-color-5: #2F1D6A;
+  --player-color-1-transparent: #F0AFB9;
+  --player-color-2-transparent: #FFDCB5;
+  --player-color-3-transparent: #D2D7AC;
+  --player-color-4-transparent: #A8C0C9;
+  --player-color-5-transparent: #ACA5C4;
+}
+
+.player.color-red .name,
+/*.relic-square.color-red,*/
+.color-picker .red div {
+  background: var(--player-color-1);
+  color: white;
+}
+
+.player.color-yellow .name,
+/*.relic-square.color-yellow,*/
+.color-picker .yellow div {
+  background: var(--player-color-2);
+  color: white;
+}
+
+.player.color-green .name,
+/*.relic-square.color-green,*/
+.color-picker .green div {
+  background: var(--player-color-3);
+  color: white;
+}
+
+.player.color-blue .name,
+/*.relic-square.color-blue,*/
+.color-picker .blue div {
+  background: var(--player-color-4);
+  color: white;
+}
+
+.player.color-purple .name,
+/*.relic-square.color-purple,*/
+.color-picker .purple div {
+  background: var(--player-color-5);
+  color: white;
+}
+
+.message .color-red {
+  color: var(--player-color-1);
+}
+
+.message .color-yellow {
+  color: var(--player-color-2);
+}
+
+.message .color-green {
+  color: var(--player-color-3);
+}
+
+.message .color-blue {
+  color: var(--player-color-4);
+}
+
+.message .color-purple {
+  color: var(--player-color-5);
+}
+
+.relic-square.color-red {
+  background: var(--player-color-1-transparent);
+}
+
+.relic-square.color-yellow {
+  background: var(--player-color-2-transparent);
+}
+
+.relic-square.color-green {
+  background: var(--player-color-3-transparent);
+}
+
+.relic-square.color-blue {
+  background: var(--player-color-4-transparent);
+}
+
+.relic-square.color-purple {
+  background: var(--player-color-5-transparent);
+}
