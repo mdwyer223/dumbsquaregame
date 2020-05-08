@@ -138,12 +138,7 @@ $(document).ready(function () {
 
 
   $(gameSquare).click(function () {
-    // Determine how many points you currently have
-    let winnersPoints = $(`#${playerInfo.id} .points span`).text();
-    console.log(winnersPoints);
-    let points = parseInt(winnersPoints);
-
-    gameService.score(gameService.id, playerInfo.color, playerInfo.id, points);
+    gameService.score(gameService.id, playerInfo.color, playerInfo.id, playerInfo.name);
   });
 
 

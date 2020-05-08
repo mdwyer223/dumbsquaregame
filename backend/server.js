@@ -43,7 +43,7 @@ app.get('/games/count', (req, res) => {
   res.json(game.getRoomsAndPlayers());
 })
 
-app.post('/games/:gameId/:maxPlayers', (req, res) => {
+app.post('/games/:gameId/:maxPlayers/:pointsPerRound', (req, res) => {
   let gameCreated = game.create(req.params);
   if(gameCreated) {
     res.json({gameId: req.params.gameId});
@@ -139,19 +139,33 @@ defaultNamespace.on('connection', function (socket) {
     let readyState = game.readyPlayer(gameData);
 
     if (readyState.gameReady) {
+      let squareData = game.spawnSquare(gameData);
+      defaultNamespace.to(gameData.gameId).emit('square-spawn', squareData);
       defaultNamespace.to(gameData.gameId).emit('round-ready', readyState);
-      game.startGame(defaultNamespace, gameData);
+      defaultNamespace.to(gameData.gameId).emit('round-start');
     } else {
       defaultNamespace.to(gameData.gameId).emit('waiting-for-players', readyState);
     }
   });
 
   socket.on('player-scored', (data) => {
-    console.log(`Player (${data.player.id}) scored (${data.score})`);
-    defaultNamespace.to(data.gameId).emit('player-scored', {
-      player: data.player,
-      score: data.score
-    });
+    console.log(`Player (${data.player.id}) scored`);
+
+    let scoreData = {
+      gameId: data.gameId,
+      player: data.player
+    };
+
+    scoreData = game.score(scoreData);
+
+    if(!scoreData) { return; }
+
+    if (scoreData.winner) {
+      defaultNamespace.to(scoreData.gameId).emit('player-won-round', scoreData);
+      game.resetRounds({gameId: scoreData.gameId});
+    } else {
+      defaultNamespace.to(data.gameId).emit('player-scored', scoreData);
+    }    
   });
 
   socket.on('send-message', (data) => {
