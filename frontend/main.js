@@ -5,6 +5,7 @@ var canvasReadyButton = '.canvas .ready';
 var chatBox = '.chat input';
 var chatSendButton = '.chat .send-button';
 var cheaterScrim = '.cheater-scrim';
+var createGameMenuButton = '#create-game-menu';
 var createGameColorPicker = '.create-game-wrapper .color-picker div';
 var createGameWrapper = '.create-game-wrapper';
 var exitButton = '.exit-button';
@@ -44,12 +45,7 @@ $(document).ready(function () {
     gameService.disconnect(gameService.id, playerInfo.id);
 
     resetGameRoom();
-
-    // brings the page back to the main menu
-    $(mainMenuWrapper).removeClass("display-none");
-    $(gameWrapper).addClass("display-none");
-    $(canvas).removeClass("status-ready");
-    $(".relic-wrapper div").remove();
+    switchToMainMenu();
   });
 
 
@@ -77,43 +73,22 @@ $(document).ready(function () {
 
   // Detects when mouse is in the "Ready" rectangle
   $(canvasReadyButton).mouseenter(function () {
-    console.log('Mouse entered, sending ready check');
     gameService.readyCheck(gameService.id, playerInfo.id)
   });
 
 
   // Detects when mouse leaves the "Ready" rectangle
   $(canvasReadyButton).mouseleave(function () {
-    console.log('Mouse left, sending unready check');
     gameService.unReadyCheck(gameService.id, playerInfo.id)
   });
 
 
-  $(chatSendButton).click(function () {
-    let messageString = $(chatBox).val();
-
-    if (messageString.length > 0) {
-      gameService.sendMessage(gameService.id, playerInfo.color, playerInfo.id, playerInfo.name, messageString);
-      $(chatBox).val('');
-
-      $(chatBox).focus();
-
-      $(".chat .starter-message").addClass("display-none");
-    }
+  $(chatSendButton).click(function() {
+    sendGameMessage()
   });
 
   $(chatBox).keypress(function (event) {
-    let messageString = $(chatBox).val();
-
-    if (event.keyCode == 13 && messageString.length > 0) {
-
-      gameService.sendMessage(gameService.id, playerInfo.color, playerInfo.id, playerInfo.name, messageString);
-      $(chatBox).val('');
-
-      $(chatBox).focus();
-
-      $(".chat .starter-message").addClass("display-none");
-    }
+    if (event.keyCode == 13) { sendGameMessage(); }
   });
 
   $(createGameColorPicker).click(function () {
@@ -129,7 +104,7 @@ $(document).ready(function () {
 
 
   // Click on the menu button "Create Game"
-  $("#create-game-menu").click(function () {
+  $(createGameMenuButton).click(function () {
     let valid = validatePlayerName();
 
     if (valid) {
@@ -140,11 +115,7 @@ $(document).ready(function () {
         });
       }
 
-      $(createGameWrapper).removeClass("display-none");
-      $(mainMenuWrapper).addClass("display-none");
-
-      $(backButton).removeClass("display-none");
-      $(backButton).addClass("back-create-game");
+      switchToCreateGameMenu();
 
       $(".main-menu-wrapper span").css("opacity", "0");
     } else {
@@ -216,23 +187,14 @@ $(document).ready(function () {
     let valid = validatePlayerName();
 
     if (valid) {
-      $(joinGameWrapper).removeClass("display-none");
-      $(mainMenuWrapper).addClass("display-none");
-
-      // Add the back button
-      $(backButton).removeClass("display-none");
-      $(backButton).addClass("back-join-game");
-
+      switchToJoinGameMenu();
       $(".main-menu-wrapper span").css("opacity", "0");
-
     } else {
       $(".main-menu-wrapper span").css("opacity", "1");
     }
-
   });
 
 
-  // Click on the menu button "Join Game"
   $(joinGameColorPicker).click(function () {
     // Highlight the selected color
     $(joinGameColorPicker).removeClass("selected");
@@ -255,15 +217,8 @@ $(document).ready(function () {
 
 
   // Click on the menu button "Settings"
-  $("#settings-menu").click(function () {
-
-    // Open the settings
-    $(settingsWrapper).removeClass("display-none");
-    $(mainMenuWrapper).addClass("display-none");
-
-    // Add the back button
-    $(backButton).removeClass("display-none");
-    $(backButton).addClass("back-settings");
+  $("#settings-menu").click(function() {
+    switchToSettingsMenu()
   });
 
 
@@ -285,12 +240,7 @@ $(document).ready(function () {
     gameService.joinRoom(gameService.id);
     gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color);
 
-    // Opens the game board
-    $(createGameWrapper).addClass("display-none");
-    $(gameWrapper).removeClass("display-none");
-
-
-    // This can be made into a function !!!
+    switchToGameBoard();
 
     // Resizes the relic wrapper to fit in the canvas
     let canvasWidth = $(canvas).width();
@@ -302,38 +252,26 @@ $(document).ready(function () {
 
     let sessionName = $('.create-game-session-info input').val();
     $('.game-wrapper .title h2').text(sessionName);
-
-    // removes the back button
-    $(backButton).addClass("display-none");
   });
 });
-
-function validatePlayerName() {
-  let playerName = $('.main-menu-wrapper input').val();
-
-  if (playerName.length > 2) {
-    playerService.updateName(playerName);
-    return true;
-  }
-
-  return false;
-}
-
-function validateSessionId(page) {
-  let sessionId = $(`${page} input`).val();
-
-  if (sessionId.length > 2) {
-    gameService.updateGameId(sessionId);
-    return true;
-  }
-
-  return false;
-}
 
 function resetGameRoom() {
   $('.sidebar .scoreboard .player').remove();
   $('.chat .player-message').remove();
   $('.chat .starter-message').removeClass('display-none');
+  $(canvas).removeClass("status-ready");
+  $(".relic-wrapper div").remove();
+}
+
+function sendGameMessage() {
+  let messageString = $(chatBox).val();
+  if (messageString.length < 1) { return; }
+
+  gameService.sendMessage(gameService.id, playerInfo.color, playerInfo.id, playerInfo.name, messageString);
+
+  $(".chat .starter-message").addClass("display-none");
+  $(chatBox).val('');
+  $(chatBox).focus();
 }
 
 function switchToMainMenu() {
@@ -352,6 +290,9 @@ function switchToJoinGameMenu() {
   $(gameWrapper).addClass("display-none");
   $(mainMenuWrapper).addClass("display-none");
   $(settingsWrapper).addClass("display-none");
+
+  $(backButton).removeClass("display-none");
+  $(backButton).addClass("back-join-game");
 }
 
 function switchToSettingsMenu() {
@@ -361,6 +302,9 @@ function switchToSettingsMenu() {
   $(gameWrapper).addClass("display-none");
   $(joinGameWrapper).addClass("display-none");
   $(mainMenuWrapper).addClass("display-none");
+
+  $(backButton).removeClass("display-none");
+  $(backButton).addClass("back-create-game");
 }
 
 function switchToCreateGameMenu() {
@@ -370,6 +314,9 @@ function switchToCreateGameMenu() {
   $(joinGameWrapper).addClass("display-none");
   $(mainMenuWrapper).addClass("display-none");
   $(settingsWrapper).addClass("display-none");
+
+  $(backButton).removeClass("display-none");
+  $(backButton).addClass("back-create-game");
 }
 
 function switchToGameBoard() {
@@ -379,4 +326,26 @@ function switchToGameBoard() {
   $(joinGameWrapper).addClass("display-none");
   $(mainMenuWrapper).addClass("display-none");
   $(settingsWrapper).addClass("display-none");
+
+  $(backButton).addClass("display-none");
+}
+
+function validatePlayerName() {
+  let playerName = $('.main-menu-wrapper input').val();
+
+  if (playerName.length > 2) {
+    playerService.updateName(playerName);
+    return true;
+  }
+  return false;
+}
+
+function validateSessionId(page) {
+  let sessionId = $(`${page} input`).val();
+
+  if (sessionId.length > 2) {
+    gameService.updateGameId(sessionId.toUpperCase());
+    return true;
+  }
+  return false;
 }
