@@ -53,7 +53,8 @@ game.addPlayer = function(opts) {
     name: player.name,
     color: player.color,
     ready: false,
-    score: 0
+    score: 0,
+    roundWins: 0
   };
 
   console.log(`Player (${player.id}) joined room (${gameId})!`);
@@ -67,6 +68,7 @@ game.create = function(opts) {
   console.log(`Creating room (${opts.gameId})`);
   let gameId = opts.gameId;
   let maxPlayers = opts.maxPlayers;
+  let pointsPerRound = opts.pointsPerRound;
 
   if(Object.keys(rooms).includes(gameId)) {
     console.log('Room is occupied!');
@@ -75,8 +77,11 @@ game.create = function(opts) {
 
   rooms[gameId] = {
     maxPlayers: maxPlayers,
+    pointsPerRound: pointsPerRound,
+    currRound: 0,
     password: '',
     players: {},
+    rounds: []
   };
   
   console.log(`Created room (${gameId})!`);
@@ -88,8 +93,26 @@ game.create = function(opts) {
 
 game.generateNewId = function(opts) {
   console.log('Generating ID...');
-  return utils.generateId(gameIdLength);
+  let newGameId = utils.generateId(gameIdLength);
+  while (Object.keys(rooms).includes(newGameId)) {
+    newGameId = utils.generateId(gameIdLength);
+  }
+
+  return newGameId;
 };
+
+
+game.getRoomsAndPlayers = function(opts) {
+  let currRooms = Object.keys(rooms);
+  let numRooms = Object.keys(rooms).length;
+  let numPlayers = 0;
+
+  for (let i = 0; i < currRooms.length; i++) {
+    numPlayers += rooms[currRooms[i]].players.length;
+  }
+
+  return { numRooms: numRooms, numPlayers: numPlayers};
+}
 
 
 game.readyPlayer = function(opts) {
@@ -118,7 +141,7 @@ game.readyPlayer = function(opts) {
   console.log('Ready state:');
   console.log(players);
 
-  if (numPlayers < 2) { gameReady = false; }
+  if (gameId !== 'DEV' && numPlayers < 2) { gameReady = false; }
 
   let readyState = {
     gameReady: gameReady,
@@ -177,6 +200,18 @@ game.removePlayer = function(opts) {
 
   console.log(`Player state after removing:`);
   console.log(rooms[gameId].players);
+
+  if(rooms[gameId].players.length === 0) {
+    delete rooms[gameId];
+  }
+};
+
+
+game.score = function(opts) {
+  let gameId = opts.gameId;
+  let player = opts.player;
+
+
 };
 
 game.startGame = (namespace, opts) => {
@@ -191,10 +226,6 @@ game.startGame = (namespace, opts) => {
   console.log(`Spawning square (${squareData.x} ${squareData.y})...`);
   namespace.to(gameId).emit('square-spawn', squareData);
   console.log('Square spawned!');
-
-  for (let i = 0; i < 2000; i++) {
-    let x = i;
-  }
 
   console.log('Starting round...');
   namespace.to(gameId).emit('round-start');

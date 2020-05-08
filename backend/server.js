@@ -39,6 +39,10 @@ app.get('/games', (req, res) => {
   res.json({ gameId: newGameId});
 });
 
+app.get('/games/count', (req, res) => {
+  res.json(game.getRoomsAndPlayers());
+})
+
 app.post('/games/:gameId/:maxPlayers', (req, res) => {
   let gameCreated = game.create(req.params);
   if(gameCreated) {
