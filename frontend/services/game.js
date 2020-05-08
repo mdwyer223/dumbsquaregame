@@ -7,7 +7,7 @@ let gameService = {
 
 var squarePos = [];
 
-let squareCounter = 0;
+var squareCounter = 0;
 
 gameService.addPlayer = function (gameId, playerId, playerName, playerColor) {
   console.log('Sending player-joined event...');
@@ -25,7 +25,7 @@ gameService.addPlayer = function (gameId, playerId, playerName, playerColor) {
 
 gameService.createGame = function (gameId, maxPlayers) {
   console.log('Creating game...');
-  $.post(`/games/${gameId}/${maxPlayers}`, function (data) {
+  $.post(`/games/${gameId}/${maxPlayers}/10`, function (data) {
     if (data['message']) {
       console.warn('Game was not created!');
       gameService.gameCreated = false;
@@ -87,15 +87,14 @@ gameService.readyCheck = function (gameId, playerId) {
 };
 
 
-gameService.score = function (gameId, playerColor, playerId, score) {
-  score++;
+gameService.score = function (gameId, playerColor, playerId, playerName) {
   let data = {
     gameId: gameId,
     player: {
+      name: playerName,
       color: playerColor,
       id: playerId
-    },
-    score: score
+    }
   }
   gameSocket.emit('player-scored', data);
   gameSocket.emit('player-not-ready', data);
@@ -127,11 +126,9 @@ gameService.setupSocket = function () {
       let playerName = data.player.name;
       let points = data.score;
       let playerColor = data.player.color;
+      console.log(`Player scored! (${data.player.id}) (${points})`);
 
       $('.relic-wrapper').append(`<div class="relic-square counter-${squareCounter} ${playerColor}"></div>`);
-
-      let canvasWidth = $(".canvas").width();
-      let canvasHeight = $(".canvas").height();
       
       let windowWidth = $(window).width();
       let windowHeight = $(window).height();
@@ -166,7 +163,7 @@ gameService.setupSocket = function () {
       $(`.counter-name-${squareCounter}`).css(`top`, `${relicNamePositionTop}px`);
       $(`.counter-name-${squareCounter}`).css(`left`, `${relicNamePositionLeft}px`);
 
-      $(`.counter-name-${squareCounter}`).text(playerName);
+      $(`.counter-name-${squareCounter}`).text(`${playerName} + 1pt`);
       
       squareCounter++;
 

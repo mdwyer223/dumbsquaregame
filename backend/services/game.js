@@ -35,6 +35,7 @@ function validatePlayer(gameId, player) {
   return true;
 }
 
+
 game.addPlayer = function(opts) {
   console.log(`Adding player (${opts.player.id})...`);
   let gameId = opts.gameId;
@@ -78,7 +79,7 @@ game.create = function(opts) {
   rooms[gameId] = {
     maxPlayers: maxPlayers,
     pointsPerRound: pointsPerRound,
-    currRound: 0,
+    currRound: -1,
     password: '',
     players: {},
     rounds: []
@@ -152,6 +153,7 @@ game.readyPlayer = function(opts) {
   return readyState;
 };
 
+
 game.unReadyPlayer = function(opts) {
   console.log(`Unreadying a player (${opts.player.id})...`);
   let gameId = opts.gameId;
@@ -211,29 +213,60 @@ game.score = function(opts) {
   let gameId = opts.gameId;
   let player = opts.player;
 
+  let currRound = rooms[gameId].currRound;
+  
+  if (rooms[gameId].rounds[currRound]) {
+    return false;
+  }
 
+  rooms[gameId].players[player.id].score++;
+  rooms[gameId].rounds[currRound] = true;
+
+  let isWinner = false;
+
+  if (rooms[gameId].players[player.id].score >= rooms[gameId].pointsPerRound) {
+    rooms[gameId].players[player.id].roundWins++;
+    isWinner = true;
+  }
+
+  let scoreData = {
+    player: player,
+    gameId: gameId,
+    score: rooms[gameId].players[player.id].score,
+    winner: isWinner
+  }
+
+  return scoreData;
 };
 
-game.startGame = (namespace, opts) => {
-  console.log(`Starting game (${opts.gameId})...`);
+
+game.spawnSquare = function(opts) {
   let gameId = opts.gameId;
-  
+
   let squareData = {
     x: Math.floor(Math.random() * 100) - 50,
     y: Math.floor(Math.random() * 100) - 50
   };
 
+  rooms[gameId].rounds.push(false);
+  rooms[gameId].currRound++;
+
   console.log(`Spawning square (${squareData.x} ${squareData.y})...`);
-  namespace.to(gameId).emit('square-spawn', squareData);
-  console.log('Square spawned!');
 
-  console.log('Starting round...');
-  namespace.to(gameId).emit('round-start');
-  console.log('Game started!');
+  return squareData;
 };
 
-game.update = function(opts) {
-  let that = this;
-};
+
+game.resetRounds = function(opts) {
+  let gameId = opts.gameId;
+
+  rooms[gameId].currRound = -1;
+  rooms[gameId].rounds = [];
+
+  let playersLength = rooms[gameId].players.length;
+  for (let i = 0; i < playersLength; i++) {
+    rooms[gameId].players[i].score = 0;
+  }
+}
 
 module.exports = game;
