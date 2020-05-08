@@ -1,10 +1,19 @@
 <!--
 
+Change session code system
+Make it Letter-#-Letter-#
+this is 1/67000
+Check random generated code against active sessions
+
 Attempting to join a session that doesn't exist should throw you an error, also names should only allow letters, numbers, some symbols. session IDs should not be case sensitive and just be letters numbers, hyphen, underscore 
+
+Joining a full session should say "Room is full"
 
 Add media queries for most text, some padding
 
 Relic reposition on window resize
+
+"Waiting for players 0/3" should revert to "hover here" box
 
 Add player name above square when you win
 
@@ -18,7 +27,7 @@ add back button on failed game join
 
 <head>
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script src="https://www.googletagmanager.com/gtag/js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-165850163-1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -279,7 +288,6 @@ add back button on failed game join
         <div class="square display-none"></div>
 
         <div class="relic-wrapper">
-          <div></div>
         </div>
       </div>
     </div>

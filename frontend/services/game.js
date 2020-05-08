@@ -124,6 +124,7 @@ gameService.setupSocket = function () {
     
     gameSocket.on('player-scored', function (data) {
       console.log('Player scored!');
+      let playerName = data.player.name;
       let points = data.score;
       let playerColor = data.player.color;
 
@@ -153,6 +154,19 @@ gameService.setupSocket = function () {
       
       $(`.counter-${squareCounter}`).css("top", offsetCSSTop);
       $(`.counter-${squareCounter}`).css("left", offsetCSSLeft);
+
+      let relicPosition = $(`.counter-${squareCounter}`).position();
+      let canvasPosition = $(`.canvas`).position();
+
+      $('.game-wrapper').append(`<div class="relic-name counter-name-${squareCounter} ${playerColor}"></div>`);
+
+      let relicNamePositionTop = canvasPosition.top + relicPosition.top - 32;
+      let relicNamePositionLeft = canvasPosition.left + relicPosition.left - 125 + (rectangleSize / 2);
+
+      $(`.counter-name-${squareCounter}`).css(`top`, `${relicNamePositionTop}px`);
+      $(`.counter-name-${squareCounter}`).css(`left`, `${relicNamePositionLeft}px`);
+
+      $(`.counter-name-${squareCounter}`).text(playerName);
       
       squareCounter++;
 
@@ -240,8 +254,6 @@ gameService.setupSocket = function () {
       console.log(`Received square spawn: ${data.x} ${data.y}`);
       let top = data.x;
       let left = data.y;
-      
-      
 
       // Set variable that signals whether the random # is negative or positive
       let pixelOffsetTop = "+ 0px";
