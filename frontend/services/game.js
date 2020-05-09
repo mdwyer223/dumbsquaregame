@@ -163,8 +163,8 @@ gameService.setupSocket = function () {
       $(`.counter-name-${squareCounter}`).css(`top`, `${relicNamePositionTop}px`);
       $(`.counter-name-${squareCounter}`).css(`left`, `${relicNamePositionLeft}px`);
 
-      $(`.counter-name-${squareCounter}`).text(`${playerName} + 1pt`);
-      
+      $(`.counter-name-${squareCounter}`).text(`${playerName} +1pt`);
+
       squareCounter++;
 
       $(canvasReadyButton).removeClass("display-none");

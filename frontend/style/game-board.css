@@ -192,9 +192,32 @@
 
 .game-wrapper .relic-name {
   position: fixed;
-  background: red;
   width: 250px;
   height: 32px;
+  text-align: center;
+  animation: pointScored 0.7s;
+  transition-timing-function: ease-out;
+  opacity: 0;
+}
+
+@keyframes pointScored {
+  0%   {
+    transform: translateY(0px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-18px);
+    opacity: 0;
+  }
 }
 
 .canvas .timer {

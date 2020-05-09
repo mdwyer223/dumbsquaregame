@@ -165,6 +165,7 @@ $(document).ready(function () {
 
     $(relicWrapper).css("width", canvasWidth);
     $(relicWrapper).css("height", canvasHeight);
+    $(".relic-name").remove();
 
     let sessionName = $('.join-game-session-info input').val();
     $('.game-wrapper .title h2').text(sessionName);
@@ -244,6 +245,7 @@ $(document).ready(function () {
     $(canvas).addClass("status-ready");
     $(relicWrapper).css("width", canvasWidth);
     $(relicWrapper).css("height", canvasHeight);
+    $(".relic-name").remove();
 
     let sessionName = $('.create-game-session-info input').val();
     $('.game-wrapper .title h2').text(sessionName);

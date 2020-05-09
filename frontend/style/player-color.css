@@ -48,23 +48,28 @@
   color: white;
 }
 
-.message .color-red {
+.message .color-red,
+.relic-name.color-red {
   color: var(--player-color-1);
 }
 
-.message .color-yellow {
+.message .color-yellow,
+.relic-name.color-yellow {
   color: var(--player-color-2);
 }
 
-.message .color-green {
+.message .color-green,
+.relic-name.color-green {
   color: var(--player-color-3);
 }
 
-.message .color-blue {
+.message .color-blue,
+.relic-name.color-blue {
   color: var(--player-color-4);
 }
 
-.message .color-purple {
+.message .color-purple,
+.relic-name.color-purple {
   color: var(--player-color-5);
 }
 
