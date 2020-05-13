@@ -40,8 +40,15 @@ game.addPlayer = function(opts) {
   console.log(`Adding player (${opts.player.id})...`);
   let gameId = opts.gameId;
   let player = opts.player;
+  let password = opts.password;
 
   if(!validateGameRoom(gameId)) { return {error: 'room-invalid'}; }
+
+  if (rooms[gameId].password.length > 0) {
+    if (password !== rooms[gameId].password) {
+      return {error: 'wrong-password'};
+    }
+  }
 
   if (Object.keys(rooms[gameId].players).length >= rooms[gameId].maxPlayers) {
     console.log(`Player (${player.id}) cannot join room (${gameId})!`);
@@ -65,7 +72,7 @@ game.addPlayer = function(opts) {
 };
 
 
-game.create = function(opts) {
+game.create = function(opts, password) {
   console.log(`Creating room (${opts.gameId})`);
   let gameId = opts.gameId;
   let maxPlayers = opts.maxPlayers;
@@ -76,11 +83,13 @@ game.create = function(opts) {
     return false;
   }
 
+  if (!password) { password = ''; }
+
   rooms[gameId] = {
     maxPlayers: maxPlayers,
     pointsPerRound: pointsPerRound,
     currRound: -1,
-    password: '',
+    password: password,
     players: {},
     rounds: []
   };

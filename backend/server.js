@@ -16,9 +16,8 @@ const game = require('./services/game');
 const app = express();
 const port = 80;
 
-app.use(bodyParser.json({
-  type: "*"
-}));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 app.use(express.static('./frontend'));
 
 const server = http.Server(app);
@@ -43,8 +42,12 @@ app.get('/games/count', (req, res) => {
   res.json(game.getRoomsAndPlayers());
 })
 
+/*
+  /games/dog/2/10?p=123
+*/
 app.post('/games/:gameId/:maxPlayers/:pointsPerRound', (req, res) => {
-  let gameCreated = game.create(req.params);
+  let password = req.query.p;
+  let gameCreated = game.create(req.params, password);
   if(gameCreated) {
     res.json({gameId: req.params.gameId});
   } else {
@@ -83,7 +86,8 @@ defaultNamespace.on('connection', function (socket) {
     let gameData = {
       gameId: data.gameId,
       player: data.player,
-      players: null
+      players: null,
+      password: data.password,
     };
     let players = game.addPlayer(gameData);
 
