@@ -24,6 +24,32 @@
     font-size: 22px;
   }
 
+  .game-wrapper h2 {
+    font-size: 24px;
+  }
+
+  .scoreboard .player .name {
+    padding: 6px 12px 8px;
+    font-size: 21px;
+}
+
+  .scoreboard .player .points {
+    font-size: 21px;
+}
+
+  .chat .message {
+    font-size: 21px;
+  }
+
+  .game-wrapper .chat .send-button {
+    font-size: 21px;
+    line-height: 215%;
+  }
+
+  .game-wrapper .chat input {
+    font-size: 18px;
+  }
+
 }
 
 @media (max-width: 1200px) {}
