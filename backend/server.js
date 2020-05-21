@@ -47,6 +47,12 @@ app.get('/games/count', (req, res) => {
   res.json(game.getRoomsAndPlayers());
 });
 
+app.get('/games/:gameId', (req, res) => {
+  res.sendFile(
+    path.join(__dirname, './frontend', 'index.html')
+  );
+});
+
 /*
   /games/dog/2/10?p=123
 */

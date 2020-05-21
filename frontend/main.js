@@ -26,6 +26,15 @@ var settingsWrapper = '.settings-wrapper';
 
 $(document).ready(function () {
 
+  $(window).on('load', function() {
+    currentUrl = window.location.href;
+
+    // PUT YOUR STUFF HERE
+    if (currentUrl.includes('games')) {
+
+    }
+  });
+
   $(window).on('unload', function() {
     gameService.disconnect(gameService.id, playerInfo.id);
   });
