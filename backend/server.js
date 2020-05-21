@@ -34,13 +34,18 @@ app.get('/', (req, res) => {
 });
 
 app.get('/games', (req, res) => {
+  let roomResponse = game.getRooms();
+  res.json(roomResponse);
+});
+
+app.post('/games', (req, res) => {
   let newGameId = game.generateNewId();
   res.json({ gameId: newGameId});
 });
 
 app.get('/games/count', (req, res) => {
   res.json(game.getRoomsAndPlayers());
-})
+});
 
 /*
   /games/dog/2/10?p=123

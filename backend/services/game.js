@@ -112,6 +112,12 @@ game.generateNewId = function(opts) {
 };
 
 
+game.getRooms = function(opts) {
+  let roomList = Object.keys(rooms);
+  return { rooms: roomList };
+};
+
+
 game.getRoomsAndPlayers = function(opts) {
   let currRooms = Object.keys(rooms);
   let numRooms = Object.keys(rooms).length;
