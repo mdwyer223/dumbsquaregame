@@ -113,8 +113,21 @@ game.generateNewId = function(opts) {
 
 
 game.getRooms = function(opts) {
+  let self = this;
   let roomList = Object.keys(rooms);
-  return { rooms: roomList };
+  let currRooms = [];
+
+  roomList.forEach(function(room) {
+    let roomData = {
+      gameId: room,
+      numPlayers: Object.keys(rooms[room].players).length,
+      maxPlayers: rooms[room].maxPlayers,
+      public: rooms[room].password == '',
+    };
+    currRooms.push(roomData);
+  });
+
+  return {rooms: currRooms};
 };
 
 
@@ -127,7 +140,10 @@ game.getRoomsAndPlayers = function(opts) {
     numPlayers += rooms[currRooms[i]].players.length;
   }
 
-  return { numRooms: numRooms, numPlayers: numPlayers};
+  return { 
+    numRooms: numRooms, 
+    numPlayers: numPlayers,
+  };
 }
 
 
