@@ -1,5 +1,5 @@
 .game-wrapper .content {
-  padding: 3vh;
+  padding: 16px;
   width: 100%;
   display: flex;
 }
@@ -25,41 +25,93 @@
 }
 
 .game-wrapper .sidebar {
-  flex: 1;
-  height: 94vh;
-}
-
-.game-wrapper .title {
-  height: 8%;
-  background: white;
-  border-left: 2px solid gray;
-  border-top: 2px solid gray;
-  display: flex;
-}
-
-.game-wrapper .title .exit-button {
-  flex: 1;
-  color: white;
-  background: black;
-  cursor: pointer;
-  text-align: center;
-  font-size: 22px;
-  padding-top: calc(3.5vh - 15px);
-}
-
-.game-wrapper .title h2 {
   flex: 4;
-  margin-left: 16px;
-  height: auto;
-  padding-top: calc(3.5vh - 12px);
+  height: calc(100vh - 32px);
+}
+
+.game-wrapper .title-bar {
+  height: 50px;
+  display: flex;
+  text-align: center;
+}
+
+.game-wrapper .title-bar .logo {
+  width: 50px;
+  background: var(--bg-level-2);
+  border-radius: 16px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.game-wrapper .title-bar .logo img {
+  width: 100%;
+  height: 100%;
+  user-select: none;
+}
+
+.game-wrapper .title-bar .exit-button {
+  flex: 4;
+  margin: 0 16px;
+  background: var(--bg-level-2);
+  border-radius: 16px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 16px;
+}
+
+.game-wrapper .title-bar .exit-button:hover {
+  background: var(--bg-level-3);
+}
+
+.game-wrapper .exit-button .icon {
+  width: 20px;
+  height: 18px;
+  margin: 16px 6px 16px 0;
+  background-image: url("exit-icon.png");
+  background-size: 20px 18px;
+  display: inline-block;
+  opacity: 0.4;
+}
+
+.game-wrapper .exit-button .text {
+  display: inline-block;
+  line-height: 50px;
+}
+
+.game-wrapper .title-bar .settings-button {
+  flex: 5;
+  background: var(--bg-level-2);
+  border-radius: 16px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 16px;
+}
+
+.game-wrapper .title-bar .settings-button:hover {
+  background: var(--bg-level-3);
+}
+
+.game-wrapper .settings-button .icon {
+  width: 19px;
+  height: 18px;
+  margin: 16px 7px 16px 0;
+  background-image: url("settings-icon.png");
+  background-size: contain;
+  display: inline-block;
+  opacity: 0.4;
+}
+
+.game-wrapper .settings-button .text {
+  display: inline-block;
+  line-height: 50px;
 }
 
 .game-wrapper .scoreboard {
-  height: 55%;
-  background: white;
-  border-left: 2px solid gray;
-  border-top: 2px solid gray;
+  margin: 16px 0;
+  height: calc(58% - 66px);
+  background: var(--bg-level-2);
   padding: 16px 16px 12px 12px;
+  border-radius: 16px;
 }
 
 .game-wrapper .scoreboard h2 {
@@ -69,13 +121,17 @@
 
 .scoreboard .player {
   display: flex;
-  margin: 6px 0;
+  margin: 0.25vh 0;
   padding: 8px;
   border-radius: 50px;
 }
 
 .scoreboard .player:hover {
-  background: #eee;
+  background: var(--bg-level-3);
+}
+
+.scoreboard .player:hover .points {
+  color: var(--text-100);
 }
 
 .scoreboard .player .name {
@@ -83,6 +139,23 @@
   padding: 4px 12px;
   border-radius: 50px;
   font-size: 18px;
+  font-weight: 500;
+  color: var(--bg-level-1);
+}
+
+.scoreboard .player .points {
+  flex: 1;
+  text-align: right;
+  padding: 4px 6px;
+  color: var(--text-60);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.scoreboard .player .points span {
+  padding-right: 4px;
+  color: var(--text-100);
+  font-size: 20px;
   font-weight: 500;
 }
 
@@ -93,11 +166,11 @@
 }
 
 .game-wrapper .chat {
-  height: 37%;
-  background: white;
-  border-left: 2px solid gray;
-  border-top: 2px solid gray;
-  border-bottom: 2px solid gray;
+  height: calc(42% - 16px);
+  background: var(--bg-level-2);
+  border-radius: 16px;
+  overflow: hidden;
+  padding-bottom: 60px;
 }
 
 .chat h2 {
@@ -107,7 +180,7 @@
 
 .game-wrapper .chat .messages {
   width: 100%;
-  height: calc(100% - 48px);
+  height: 100%;
 }
 
 .chat .message {
@@ -124,48 +197,61 @@
 
 .game-wrapper .chat .message-bar {
   height: 48px;
-  width: 100%;
-  border-top: 2px solid gray;
+  position: relative;
+  bottom: 0;
+  margin-left: 12px;
+  width: calc(100% - 24px);
+  border-radius: 8px;
   display: flex;
 }
 
 .game-wrapper .chat input {
   flex: 3;
+  margin-right: 12px;
+  bottom: 8px;
   height: 48px;
   border: none;
   outline: none;
-  padding: 8px;
+  padding: 8px 8px 8px 12px;
   font-size: 16px;
+  background: var(--bg-level-3);
+  color: var(--text-100);
+  border-radius: 8px;
 }
 
 .game-wrapper .chat .send-button {
   flex: 1;
   font-size: 18px;
-  background: gray;
-  color: white;
+  background: var(--bg-level-3);
   width: 100px;
   text-align: center;
   line-height: 250%;
   cursor: pointer;
   font-weight: 600;
   overflow: hidden;
+  border-radius: 8px;
+}
+
+.game-wrapper .chat .send-button:hover {
+  background: var(--bg-level-4);
 }
 
 .game-wrapper .canvas {
   text-align: center;
-  flex: 3;
-  height: 94vh;
-  background: white;
-  border: 2px solid gray;
+  flex: 11;
+  margin-left: 16px;
+  height: calc(100vh - 32px);
+  background: var(--bg-level-2);
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 16px;
 }
 
 .canvas .square {
   width: calc(3vw + 4vh);
   height: calc(3vw + 4vh);
-  background: black;
+  background: var(--text-100);
   position: relative;
   top: 0px;
   left: 0px;
@@ -192,12 +278,14 @@
 
 .game-wrapper .relic-name {
   position: fixed;
-  width: 250px;
+  width: 300px;
   height: 32px;
   text-align: center;
   animation: pointScored 0.7s;
   transition-timing-function: ease-out;
   opacity: 0;
+  z-index: 4;
+  user-select: none;
 }
 
 @keyframes pointScored {
@@ -216,21 +304,12 @@
   }
   100% {
     transform: translateY(-18px);
-    opacity: 0;
   }
-}
-
-.canvas .timer {
-  width: 60%;
-  background: red;
-  display: inline-block;
-  font-size: 20px;
-  z-index: 2;
 }
 
 .canvas .waiting {
   background: none;
-  color: gray;
+  color: var(--text-60);
   font-size: 24px;
   border-radius: 1px;
   width: 300px;
@@ -244,10 +323,10 @@
 }
 
 .canvas .ready {
-  background: #555;
+  background:var(--bg-level-3);
   color: white;
   font-size: 24px;
-  border-radius: 1px;
+  border-radius: 16px;
   width: 325px;
   cursor: pointer;
   z-index: 2;
@@ -255,11 +334,4 @@
 
 .canvas .ready div {
   padding: 28px 0;
-}
-
-.canvas .winner {
-  width: 60%;
-  background: cyan;
-  display: inline-block;
-  font-size: 20px;
 }

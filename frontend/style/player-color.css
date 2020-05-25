@@ -1,16 +1,21 @@
 /*  Variables for colors  */
 
 :root {
-  --player-color-1: #D83550;
-  --player-color-2: #FFA644;
-  --player-color-3: #8E992F;
-  --player-color-4: #246177;
-  --player-color-5: #2F1D6A;
-  --player-color-1-transparent: #F0AFB9;
-  --player-color-2-transparent: #FFDCB5;
-  --player-color-3-transparent: #D2D7AC;
-  --player-color-4-transparent: #A8C0C9;
-  --player-color-5-transparent: #ACA5C4;
+  --player-color-1: #FF6E91;
+  --player-color-2: #FFE187;
+  --player-color-3: #78FA86;
+  --player-color-4: #83B2FF;
+  --player-color-5: #B37FFF;
+  --player-color-1-transparent: #593B45;
+  --player-color-2-transparent: #595243;
+  --player-color-3-transparent: #3E5742;
+  --player-color-4-transparent: #40485B;
+  --player-color-5-transparent: #493E5B;
+  --bg-level-1: #202022;
+  --bg-level-2: #302E32;
+  --bg-level-3: #3F3B41;
+  --text-100: #F8F8FA;
+  --text-60: #807F82;
 }
 
 .player.color-red .name,

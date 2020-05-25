@@ -212,15 +212,6 @@ $(document).ready(function () {
   });
 
 
-  // Click on a mode button
-  $(".modes div").click(function () {
-
-    // Highlight the selected mode
-    $(".modes div").removeClass("selected");
-    $(this).addClass("selected");
-  });
-
-
   // Click on the menu button "Settings"
   $("#settings-menu").click(function() {
     switchToSettingsMenu()

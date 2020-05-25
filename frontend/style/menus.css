@@ -1,7 +1,7 @@
 .back-button {
   padding: 9px 18px 10px;
   color: white;
-  background: black;
+  background: var(--bg-level-3);
   position: fixed;
   left: 3vh;
   top: 3vh;
@@ -45,7 +45,7 @@
   margin: 24px 0;
   padding: 14px 0;
   border-radius: 50px;
-  background: grey;
+  background: var(--bg-level-3);
   color: white;
   cursor: pointer;
 }
@@ -75,9 +75,13 @@
   transition-property: all;
   transition-duration: 0.2s;
   transition-timing-function: ease-out;
-  border: 1px solid gray;
   border-radius: 32px;
   user-select: text;
+  border: none;
+}
+
+::placeholder {
+  color: var(--text-60);
 }
 
 .main-menu-wrapper input[type=text]:hover,
@@ -127,7 +131,7 @@
 .number-input button {
   outline: none;
   -webkit-appearance: none;
-  background-color: #999;
+  background-color: var(--bg-level-3);
   border: none;
   align-items: center;
   justify-content: center;
@@ -196,23 +200,6 @@
     CREATE GAME
 */
 
-.create-game-wrapper .field .modes {
-  margin: 0 24px;
-}
-
-.create-game-wrapper .field .modes div {
-  padding: 7px 20px 8px;
-  color: white;
-  border-radius: 30px;
-  margin-right: 8px;
-  display: inline-block;
-  background: #888;
-  cursor: pointer;
-}
-
-.create-game-wrapper .field .modes .selected {
-  background: #444;
-}
 
 .create-game-wrapper .field .start-game {
   text-align: center
@@ -224,7 +211,7 @@
   padding: 12px 48px;
   font-size: 24px;
   font-weight: 600;
-  background: black;
+  background: var(--bg-level-3);
   color: white;
   border-radius: 48px;
   cursor: pointer;
@@ -243,15 +230,15 @@
 }
 
 .color-picker .selected {
-  border: 2px solid rgba(0, 0, 0, 1);
+  border: 2px solid rgba(248, 248, 250);
 }
 
 .color-picker > div:hover {
-  border: 2px solid rgba(0, 0, 0, 0.25);
+  border: 2px solid rgba(248, 248, 250, 0.4);
 }
 
 .color-picker .selected:hover {
-  border: 2px solid rgba(0, 0, 0, 1);
+  border: 2px solid rgba(248, 248, 250);
 }
 
 .color-picker div div {
@@ -273,7 +260,7 @@
   padding: 12px 48px;
   font-size: 24px;
   font-weight: 600;
-  background: black;
+  background: var(--bg-level-3);
   color: white;
   border-radius: 48px;
   cursor: pointer;

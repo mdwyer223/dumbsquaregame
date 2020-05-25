@@ -1,26 +1,3 @@
-<!--
-
-Change session code system
-Make it Letter-#-Letter-#
-this is 1/67000
-Check random generated code against active sessions
-
-Attempting to join a session that doesn't exist should throw you an error, also names should only allow letters, numbers, some symbols. session IDs should not be case sensitive and just be letters numbers, hyphen, underscore 
-
-Joining a full session should say "Room is full"
-
-Add media queries for most text, some padding
-
-Relic reposition on window resize
-
-"Waiting for players 0/3" should revert to "hover here" box
-
-Add player name above square when you win
-
-add back button on failed game join
-
--->
-
 <!DOCTYPE html>
 
 <html>
@@ -124,15 +101,6 @@ add back button on failed game join
             <input type="text" maxlength="12" placeholder="12345" onblur="this.placeholder='12345'" onfocus="this.placeholder=''">
             <br>
           <span>This session name<br>is already taken.</span>
-          </div>
-        </div>
-
-        <div class="field">
-          <h3>Modes</h3>
-          <div class="modes">
-            <div class="normal selected">normal</div>
-            <div class="hard">hard</div>
-            <div class="expert">expert</div>
           </div>
         </div>
 
@@ -257,9 +225,16 @@ add back button on failed game join
 
       <div class="sidebar">
 
-        <div class="title">
-          <div class="exit-button">exit</div>
-          <h2>Session name</h2>
+        <div class="title-bar">
+          <div class="logo">
+            <img src="img/logo-icon.png" alt="Dumb Square Game's logo icon">
+          </div>
+          <div class="exit-button">
+            <div class="icon"></div><div class="text">Back</div>
+          </div>
+          <div class="settings-button">
+            <div class="icon"></div><div class="text">Settings</div>
+          </div>
         </div>
 
         <div class="scoreboard">

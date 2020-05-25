@@ -158,7 +158,7 @@ gameService.setupSocket = function () {
       $('.game-wrapper').append(`<div class="relic-name counter-name-${squareCounter} ${playerColor}"></div>`);
 
       let relicNamePositionTop = canvasPosition.top + relicPosition.top - 32;
-      let relicNamePositionLeft = canvasPosition.left + relicPosition.left - 125 + (rectangleSize / 2);
+      let relicNamePositionLeft = canvasPosition.left + relicPosition.left - 150 + (rectangleSize / 2) + 17;
 
       $(`.counter-name-${squareCounter}`).css(`top`, `${relicNamePositionTop}px`);
       $(`.counter-name-${squareCounter}`).css(`left`, `${relicNamePositionLeft}px`);
