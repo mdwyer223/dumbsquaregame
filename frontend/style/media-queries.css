@@ -52,6 +52,18 @@
 
 }
 
-@media (max-width: 1200px) {}
+@media (max-width: 1200px) {
+
+  .game-wrapper .exit-button .text,
+  .game-wrapper .settings-button .text {
+    display: none !important;
+  }
+
+  .game-wrapper .title-bar .exit-button,
+  .game-wrapper .title-bar .settings-button {
+    flex: 4;
+  }
+
+}
 
 @media (max-width: 900px) {}

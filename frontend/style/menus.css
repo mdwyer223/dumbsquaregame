@@ -10,6 +10,10 @@
   font-size: 22px;
 }
 
+.back-button:hover {
+  background: var(--bg-level-4);
+}
+
 .main-menu-wrapper,
 .create-game-wrapper,
 .join-game-wrapper,
@@ -50,6 +54,11 @@
   cursor: pointer;
 }
 
+.main-menu-wrapper .button:hover,
+.settings-wrapper .button:hover {
+  background: var(--bg-level-4);
+}
+
 .main-menu-wrapper .field,
 .create-game-wrapper .field,
 .join-game-wrapper .field {
@@ -78,10 +87,6 @@
   border-radius: 32px;
   user-select: text;
   border: none;
-}
-
-::placeholder {
-  color: var(--text-60);
 }
 
 .main-menu-wrapper input[type=text]:hover,
@@ -119,6 +124,10 @@
   -webkit-appearance: none;
 }
 
+::placeholder {
+  color: var(--text-60);
+}
+
 .number-input {
   display: inline-flex;
 }
@@ -140,6 +149,10 @@
   cursor: pointer;
   margin: 0;
   position: relative;
+}
+
+.number-input button:hover {
+  background-color: var(--bg-level-4);
 }
 
 .number-input button:first-child {
@@ -169,7 +182,6 @@
   max-width: 5rem;
   padding: 0.5rem 0.75rem 0.4rem 0.75rem;
   border: none;
-  /* border-width: 0 2px; */
   font-size: 20px;
   height: 2.5rem;
   font-weight: 500;
@@ -201,11 +213,13 @@
 */
 
 
-.create-game-wrapper .field .start-game {
+.create-game-wrapper .field .start-game,
+.join-game-wrapper .field .join-game {
   text-align: center
 }
 
-.create-game-wrapper .field .start-game div {
+.create-game-wrapper .field .start-game div,
+.join-game-wrapper .field .join-game div {
   display: inline-block;
   max-width: 300px;
   padding: 12px 48px;
@@ -215,6 +229,11 @@
   color: white;
   border-radius: 48px;
   cursor: pointer;
+}
+
+.create-game-wrapper .field .start-game div:hover,
+.join-game-wrapper .field .join-game div:hover {
+  background: var(--bg-level-4);
 }
 
 
@@ -248,22 +267,6 @@
   margin: 6px 6px 3px 6px;
   cursor: pointer;
   border-radius: 50%;
-}
-
-.join-game-wrapper .field .join-game {
-  text-align: center
-}
-
-.join-game-wrapper .field .join-game div {
-  display: inline-block;
-  max-width: 300px;
-  padding: 12px 48px;
-  font-size: 24px;
-  font-weight: 600;
-  background: var(--bg-level-3);
-  color: white;
-  border-radius: 48px;
-  cursor: pointer;
 }
 
 
