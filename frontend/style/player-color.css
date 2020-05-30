@@ -11,46 +11,36 @@
   --player-color-3-transparent: #3E5742;
   --player-color-4-transparent: #40485B;
   --player-color-5-transparent: #493E5B;
-  --bg-level-1: #202022;
-  --bg-level-2: #302E32;
-  --bg-level-3: #3F3B41;
-  --text-100: #F8F8FA;
-  --text-60: #807F82;
 }
 
 .player.color-red .name,
-/*.relic-square.color-red,*/
+.chip.color-red,
 .color-picker .red div {
   background: var(--player-color-1);
-  color: white;
 }
 
 .player.color-yellow .name,
-/*.relic-square.color-yellow,*/
+.chip.color-yellow,
 .color-picker .yellow div {
   background: var(--player-color-2);
-  color: white;
 }
 
 .player.color-green .name,
-/*.relic-square.color-green,*/
+.chip.color-green,
 .color-picker .green div {
   background: var(--player-color-3);
-  color: white;
 }
 
 .player.color-blue .name,
-/*.relic-square.color-blue,*/
+.chip.color-blue,
 .color-picker .blue div {
   background: var(--player-color-4);
-  color: white;
 }
 
 .player.color-purple .name,
-/*.relic-square.color-purple,*/
+.chip.color-purple,
 .color-picker .purple div {
   background: var(--player-color-5);
-  color: white;
 }
 
 .message .color-red,

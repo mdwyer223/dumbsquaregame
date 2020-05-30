@@ -119,22 +119,26 @@
   padding: 4px 4px 16px 8px;
 }
 
-.scoreboard .player {
+.scoreboard .player,
+.players-container .player {
   display: flex;
   margin: 0.25vh 0;
   padding: 8px;
   border-radius: 50px;
 }
 
-.scoreboard .player:hover {
+.scoreboard .player:hover,
+.players-container .player:hover {
   background: var(--bg-level-3);
 }
 
-.scoreboard .player:hover .points {
+.scoreboard .player:hover .points,
+.players-container .player:hover .points {
   color: var(--text-100);
 }
 
-.scoreboard .player .name {
+.scoreboard .player .name,
+.players-container .player .name {
   width: auto;
   padding: 4px 12px;
   border-radius: 50px;
@@ -143,7 +147,8 @@
   color: var(--bg-level-1);
 }
 
-.scoreboard .player .points {
+.scoreboard .player .points,
+.players-container .player .points {
   flex: 1;
   text-align: right;
   padding: 4px 6px;
@@ -152,17 +157,12 @@
   font-weight: 600;
 }
 
-.scoreboard .player .points span {
+.scoreboard .player .points span,
+.players-container .player .points span {
   padding-right: 4px;
   color: var(--text-100);
   font-size: 20px;
   font-weight: 500;
-}
-
-.scoreboard .player .points {
-  flex: 1;
-  text-align: right;
-  padding: 4px 6px;
 }
 
 .game-wrapper .chat {
@@ -170,27 +170,26 @@
   background: var(--bg-level-2);
   border-radius: 16px;
   overflow: hidden;
-  padding-bottom: 60px;
+  padding: 0 0 60px;
 }
 
 .chat h2 {
   margin-bottom: 4px;
-  padding: 20px 50% 16px 20px;
+  padding: 20px 50% 16px 0;
 }
 
 .game-wrapper .chat .messages {
   width: 100%;
   height: 100%;
+  padding: 0 20px;
 }
 
 .chat .message {
-  margin: 16px;
-  margin-left: 22px;
+  margin: 16px 0 ;
 }
 
 .chat .starter-message {
-  margin: 16px;
-  margin-left: 22px;
+  margin: 16px 0;
   opacity: 0.6;
   font-style: italic;
 }
@@ -225,7 +224,8 @@
   background: var(--bg-level-3);
   width: 100px;
   text-align: center;
-  line-height: 250%;
+  height: 48px;
+  line-height: 48px;
   cursor: pointer;
   font-weight: 600;
   overflow: hidden;
@@ -322,16 +322,75 @@
   z-index: 2;
 }
 
-.canvas .ready {
-  background:var(--bg-level-3);
+.canvas .ready,
+.canvas .play-again-button {
+  background: var(--bg-level-3);
   color: white;
   font-size: 24px;
   border-radius: 16px;
-  width: 325px;
   cursor: pointer;
   z-index: 2;
 }
 
-.canvas .ready div {
-  padding: 28px 0;
+.canvas .ready div,
+.canvas .play-again-button div {
+  padding: 24px;
+}
+
+.canvas .round-leaderboard {
+  width: 100%;
+  height: 100%;
+  padding: 24px 5%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  z-index: 2;
+}
+
+.canvas .winner-container {
+  width: 100%;
+  text-align: center;
+  background-image: url(confetti-blue-5.png);
+  background-size: 48% 70%;
+  background-repeat: no-repeat;
+  background-position: center 21px;
+}
+
+.winner-container .chip {
+  font-size: 28px;
+  margin-top: 74px;
+  padding: 6px 16px;
+  border-radius: 100px;
+  width: fit-content;
+  display: inline-block;
+  color: var(--bg-level-1);
+  font-weight: 500;
+}
+
+.winner-container .winner-text {
+  font-size: 24px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.canvas .players-container {
+  margin: 60px 30% 80px;
+  width: 100%;
+  max-height: 40%;
+  padding: 0px 12px;
+}
+
+.canvas .play-again-button {
+  background: var(--bg-level-3);
+  color: white;
+  font-size: 24px;
+  border-radius: 16px;
+  cursor: pointer;
+  z-index: 2;
+  margin-bottom: 74px;
+}
+
+.canvas .play-again-button div {
+  padding: 24px;
 }

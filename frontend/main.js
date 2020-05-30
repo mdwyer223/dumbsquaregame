@@ -62,14 +62,14 @@ $(document).ready(function () {
 
   // Checks canvas aspect ratio on resize
   // If player is trying to cheat, this blocks the screen
-  $(window).on('resize', function () {
-    if ($(".canvas").hasClass("status-ready")) {
-    
+  $(window).on('resize', function () {    
       let canvasWidth = $(".canvas").width();
       let canvasHeight = $(".canvas").height();
 
       $(relicWrapper).css("width", canvasWidth);
       $(relicWrapper).css("height", canvasHeight);
+
+      if ($(".canvas").hasClass("status-ready")) {
 
       if (canvasWidth / canvasHeight < 1.1 || canvasHeight / canvasWidth < 0.55) {
         $(cheaterScrim).removeClass("display-none");
@@ -109,6 +109,12 @@ $(document).ready(function () {
 
     let color = `color-${colorClass}`;
     playerService.updateColor(color);
+  });
+
+
+  $('.scoreboard').click(function () {
+    resetGameBoard();
+    roundWon();
   });
 
 
@@ -252,12 +258,28 @@ $(document).ready(function () {
   });
 });
 
+function resetGameBoard() {
+  $(gameSquare).addClass("display-none");
+  $(".relic-square").remove();
+  $(".relic-name").remove();
+}
+
 function resetGameRoom() {
   $('.sidebar .scoreboard .player').remove();
   $('.chat .player-message').remove();
   $('.chat .starter-message').removeClass('display-none');
   $(canvas).removeClass("status-ready");
   $(".relic-wrapper div").remove();
+}
+
+function roundWon() {
+
+  $(canvas).prepend(`<div class="round-leaderboard playerData.color"><div class="winner-container"><div class="confetti"></div><div class="chip color-blue">despised plunger</div><div class="winner-text">is the winner!</div></div><div class="players-container"></div><div class="play-again-button"><div>Click to ready up</div></div></div>`);
+
+  $(`${canvas} .players-container`).append(`<div id="player-data-dot-id" class="player color-green"><div class="name">player name</div><div class="points"><span>4</span>wins</div></div>`);
+  $(`${canvas} .players-container`).append(`<div id="player-data-dot-id" class="player color-blue"><div class="name">player name</div><div class="points"><span>2</span>wins</div></div>`);
+  $(`${canvas} .players-container`).append(`<div id="player-data-dot-id" class="player color-yellow"><div class="name">player name</div><div class="points"><span>1</span>wins</div></div>`);
+  
 }
 
 function sendGameMessage() {
