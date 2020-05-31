@@ -14,31 +14,31 @@
 }
 
 .player.color-red .name,
-.chip.color-red,
+.color-red .chip,
 .color-picker .red div {
   background: var(--player-color-1);
 }
 
 .player.color-yellow .name,
-.chip.color-yellow,
+.color-yellow .chip,
 .color-picker .yellow div {
   background: var(--player-color-2);
 }
 
 .player.color-green .name,
-.chip.color-green,
+.color-green .chip,
 .color-picker .green div {
   background: var(--player-color-3);
 }
 
 .player.color-blue .name,
-.chip.color-blue,
+.color-blue .chip,
 .color-picker .blue div {
   background: var(--player-color-4);
 }
 
 .player.color-purple .name,
-.chip.color-purple,
+.color-purple .chip,
 .color-picker .purple div {
   background: var(--player-color-5);
 }
