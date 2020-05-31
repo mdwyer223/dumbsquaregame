@@ -111,13 +111,6 @@ $(document).ready(function () {
     playerService.updateColor(color);
   });
 
-
-  $('.scoreboard').click(function () {
-    resetGameBoard();
-    roundWon();
-  });
-
-
   // Click on the menu button "Create Game"
   $(createGameMenuButton).click(function () {
     let valid = validatePlayerName();
@@ -272,14 +265,12 @@ function resetGameRoom() {
   $(".relic-wrapper div").remove();
 }
 
-function roundWon() {
-
-  $(canvas).prepend(`<div class="round-leaderboard playerData.color"><div class="winner-container"><div class="confetti"></div><div class="chip color-blue">despised plunger</div><div class="winner-text">is the winner!</div></div><div class="players-container"></div><div class="play-again-button"><div>Click to ready up</div></div></div>`);
-
-  $(`${canvas} .players-container`).append(`<div id="player-data-dot-id" class="player color-green"><div class="name">player name</div><div class="points"><span>4</span>wins</div></div>`);
-  $(`${canvas} .players-container`).append(`<div id="player-data-dot-id" class="player color-blue"><div class="name">player name</div><div class="points"><span>2</span>wins</div></div>`);
-  $(`${canvas} .players-container`).append(`<div id="player-data-dot-id" class="player color-yellow"><div class="name">player name</div><div class="points"><span>1</span>wins</div></div>`);
-  
+function roundWon(playerColor, playerName, playerList) {
+  $(canvas).prepend(`<div class="round-leaderboard ${playerColor}"><div class="winner-container"><div class="confetti"></div><div class="chip">${playerName}</div><div class="winner-text">is the winner!</div></div><div class="players-container"></div><div class="play-again-button"><div>Click to ready up</div></div></div>`);
+  playerList.forEach(function(player){
+    $(`${canvas} .players-container`).append(`<div class="player ${player.color}"><div class="name">${player.name}</div><div class="points"><span>${player.roundWins}</span>wins</div></div>`);
+  });
+  resetGameBoard();
 }
 
 function sendGameMessage() {

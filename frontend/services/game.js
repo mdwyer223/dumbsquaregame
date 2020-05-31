@@ -120,7 +120,22 @@ gameService.setupSocket = function () {
   console.log('Setting up socket...');
   gameSocket.on('connect', function () {
 
+
+    gameSocket.on('message-sent', function (data) {
+      console.log(`Message received: ${data.msg}`);
+      let messageString = data.msg;
+      let playerColor = data.player.color;
+      let playerId = data.player.id;
+      let playerName = data.player.name;
+
+      if (messageString.length > 0) {
+        $('.chat .messages').append(`<p class="message player-message"><strong class="${playerColor} ${playerId}"> ${playerName}: </strong>${messageString}</p>`);
+        $(".chat .messages").scrollTop(9999999999);
+        $(".chat .starter-message").addClass("display-none");
+      }
+    });
     
+
     gameSocket.on('player-scored', function (data) {
       console.log('Player scored!');
       let playerName = data.player.name;
@@ -217,18 +232,22 @@ gameService.setupSocket = function () {
     });
 
 
-    gameSocket.on('message-sent', function (data) {
-      console.log(`Message received: ${data.msg}`);
-      let messageString = data.msg;
-      let playerColor = data.player.color;
-      let playerId = data.player.id;
-      let playerName = data.player.name;
+     gameSocket.on('player-won-round', function (data) {
+      console.log('Round is over!');
+      console.log(data);
 
-      if (messageString.length > 0) {
-        $('.chat .messages').append(`<p class="message player-message"><strong class="${playerColor} ${playerId}"> ${playerName}: </strong>${messageString}</p>`);
-        $(".chat .messages").scrollTop(9999999999);
-        $(".chat .starter-message").addClass("display-none");
-      }
+      let players = data.players;
+      let roundWinner = data.player;
+      let playerList = [];
+      let playerIds = Object.keys(players);
+
+      playerIds.forEach(function(id){
+        playerList.push(players[id]);
+      })
+
+      playerList.sort((a,b)=>(a.roundWins > b.roundWins)?1:-1);
+
+      roundWon(roundWinner.color, roundWinner.name, playerList);
     });
 
 
