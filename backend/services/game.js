@@ -264,7 +264,11 @@ game.score = function(opts) {
     player: player,
     gameId: gameId,
     score: rooms[gameId].players[player.id].score,
-    winner: isWinner
+    winner: isWinner,
+  }
+
+  if (isWinner) {
+    scoreData['players'] = rooms[gameId].players;
   }
 
   return scoreData;
