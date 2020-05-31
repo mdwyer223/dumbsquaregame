@@ -248,6 +248,11 @@ game.score = function(opts) {
   let player = opts.player;
 
   let currRound = rooms[gameId].currRound;
+
+  let playerKeys = Object.keys(rooms[gameId].players);
+  playerKeys.forEach(function(id) {
+    rooms[gameId].players[id].ready = false;
+  });
   
   if (rooms[gameId].rounds[currRound]) {
     return false;
