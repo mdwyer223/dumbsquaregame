@@ -258,6 +258,9 @@ function resetGameBoard() {
 }
 
 function resetGameRoom() {
+  $(gameSquare).addClass("display-none");
+  $(".relic-name").remove();
+  $(".round-leaderboard").remove();
   $('.sidebar .scoreboard .player').remove();
   $('.chat .player-message').remove();
   $('.chat .starter-message').removeClass('display-none');
