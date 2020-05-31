@@ -118,7 +118,7 @@ $(document).ready(function () {
     if (valid) {
 
       if ($('.create-game-session-info input').val().length <= 0) {
-        $.get('/games', function (data) {
+        $.post('/games', function (data) {
           $('.create-game-session-info input').val(data.gameId);
         });
       }

@@ -67,6 +67,7 @@ gameService.joinRoom = function (gameId) {
   if (gameId) {
     console.log(`Joining room (${gameId})`);
     gameSocket.emit('join-room', gameId);
+
   } else {
     // warn the player
     console.warn('Invalid game ID');
@@ -216,6 +217,9 @@ gameService.setupSocket = function () {
       let players = data.players;
       console.log(players);
       let playerKeys = Object.keys(players);
+
+      $(".scoreboard h2").text(`Room: ${data.gameId}`);
+
       for (let i = 0; i < playerKeys.length; i++) {
         let playerData = players[playerKeys[i]]
         console.log(`Checking if player exists on the scoreboard ${playerData.id} ${playerData.name} ${playerData.score}`);
@@ -235,6 +239,8 @@ gameService.setupSocket = function () {
      gameSocket.on('player-won-round', function (data) {
       console.log('Round is over!');
       console.log(data);
+
+      $(`#${data.player.id} .points span`).text(`${data.score}`);
 
       let players = data.players;
       let roundWinner = data.player;
@@ -273,6 +279,8 @@ gameService.setupSocket = function () {
 
       if (data.roundReset) {
         $(`.points span`).text("0");
+        squareCounter = 0;
+        squarePos = [];
       }
 
       let top = data.x;
@@ -338,9 +346,9 @@ gameService.setupSocket = function () {
         }
       } else {
         if (numReady === 0) {
-          $(".canvas .play-again-button").text(`Click to ready up`);
+          $(".canvas .play-again-button div").text(`Click to ready up`);
         } else {
-          $(".canvas .play-again-button").text(`Click to ready up - ${numReady}/${numPlayers}`);
+          $(".canvas .play-again-button div").text(`Click to ready up - ${numReady}/${numPlayers}`);
         }
       }
       
