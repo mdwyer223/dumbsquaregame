@@ -14,8 +14,8 @@ function compareRoudwins(a,b) {
   const winsB = b.roundWins;
 
   let comparison = 0;
-  if (winsA > winsB) { comparison = 1; }
-  else if (winsB > winsA) { comparison = -1; }
+  if (winsA > winsB) { comparison = -1; }
+  else if (winsB > winsA) { comparison = 1; }
 
   return comparison;
 }
