@@ -62,7 +62,8 @@ game.addPlayer = function(opts) {
     color: player.color,
     ready: false,
     score: 0,
-    roundWins: 0
+    roundWins: 0,
+    roundReset: false
   };
 
   console.log(`Player (${player.id}) joined room (${gameId})!`);
@@ -178,7 +179,8 @@ game.readyPlayer = function(opts) {
   let readyState = {
     gameReady: gameReady,
     numReady: playerReadyCount,
-    numPlayers: numPlayers
+    numPlayers: numPlayers,
+    roundReset: rooms[gameId].roundReset
   };
 
   return readyState;
@@ -214,7 +216,8 @@ game.unReadyPlayer = function(opts) {
   let readyState = {
     gameReady: gameReady,
     numReady: playerReadyCount,
-    numPlayers: numPlayers
+    numPlayers: numPlayers,
+    roundReset: rooms[gameId].roundReset
   };
 
   return readyState;
@@ -257,6 +260,7 @@ game.score = function(opts) {
 
   if (rooms[gameId].players[player.id].score >= rooms[gameId].pointsPerRound) {
     rooms[gameId].players[player.id].roundWins++;
+    rooms[gameId].roundReset = true;
     isWinner = true;
   }
 
@@ -280,11 +284,13 @@ game.spawnSquare = function(opts) {
 
   let squareData = {
     x: Math.floor(Math.random() * 100) - 50,
-    y: Math.floor(Math.random() * 100) - 50
+    y: Math.floor(Math.random() * 100) - 50,
+    roundReset: rooms[gameId].roundReset
   };
 
   rooms[gameId].rounds.push(false);
   rooms[gameId].currRound++;
+  rooms[gameId].roundReset = false;
 
   console.log(`Spawning square (${squareData.x} ${squareData.y})...`);
 
