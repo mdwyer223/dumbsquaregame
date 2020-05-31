@@ -280,7 +280,8 @@ game.spawnSquare = function(opts) {
 
   let squareData = {
     x: Math.floor(Math.random() * 100) - 50,
-    y: Math.floor(Math.random() * 100) - 50
+    y: Math.floor(Math.random() * 100) - 50,
+    roundReset: rooms[gameId].roundReset
   };
 
   rooms[gameId].rounds.push(false);
@@ -298,10 +299,10 @@ game.resetRounds = function(opts) {
   rooms[gameId].currRound = -1;
   rooms[gameId].rounds = [];
 
-  let playersLength = rooms[gameId].players.length;
-  for (let i = 0; i < playersLength; i++) {
-    rooms[gameId].players[i].score = 0;
-  }
+  let playerKeys = Object.keys(rooms[gameId].players);
+  playerKeys.forEach(function(id){
+    rooms[gameId].players[id].score = 0;
+  });
 }
 
 module.exports = game;

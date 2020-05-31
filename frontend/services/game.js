@@ -268,6 +268,13 @@ gameService.setupSocket = function () {
 
     gameSocket.on('square-spawn', function (data) {
       console.log(`Received square spawn: ${data.x} ${data.y}`);
+
+      $(".round-leaderboard").remove();
+
+      if (data.roundReset) {
+        $(`.points span`).text("0");
+      }
+
       let top = data.x;
       let left = data.y;
 
@@ -323,11 +330,20 @@ gameService.setupSocket = function () {
 
       let numReady = data.numReady;
       let numPlayers = data.numPlayers;
-      if (numReady === 0) {
-        $(".canvas .ready div").text(`Hold mouse here to start`);
+      if (!data.roundReset) {
+        if (numReady === 0) {
+          $(".canvas .ready div").text(`Hold mouse here to start`);
+        } else {
+          $(".canvas .ready div").text(`Waiting for players - ${numReady}/${numPlayers}`);
+        }
       } else {
-        $(".canvas .ready div").text(`Waiting for players ${numReady}/${numPlayers}`);
+        if (numReady === 0) {
+          $(".canvas .play-again-button").text(`Click to ready up`);
+        } else {
+          $(".canvas .play-again-button").text(`Click to ready up - ${numReady}/${numPlayers}`);
+        }
       }
+      
     });
   });
   console.log('Socket set up!');

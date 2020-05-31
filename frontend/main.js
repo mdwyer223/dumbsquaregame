@@ -271,6 +271,11 @@ function roundWon(playerColor, playerName, playerList) {
     $(`${canvas} .players-container`).append(`<div class="player ${player.color}"><div class="name">${player.name}</div><div class="points"><span>${player.roundWins}</span>wins</div></div>`);
   });
   resetGameBoard();
+
+  $(".play-again-button").click(function () {
+    gameService.readyCheck(gameService.id, playerInfo.id);
+  });
+
 }
 
 function sendGameMessage() {
