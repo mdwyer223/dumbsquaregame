@@ -9,6 +9,17 @@ var squarePos = [];
 
 var squareCounter = 0;
 
+function compareRoudwins(a,b) {
+  const winsA = a.roundWins;
+  const winsB = b.roundWins;
+
+  let comparison = 0;
+  if (winsA > winsB) { comparison = 1; }
+  else if (winsB > winsA) { comparison = -1; }
+
+  return comparison;
+}
+
 gameService.addPlayer = function (gameId, playerId, playerName, playerColor) {
   console.log('Sending player-joined event...');
   let data = {
@@ -251,7 +262,7 @@ gameService.setupSocket = function () {
         playerList.push(players[id]);
       })
 
-      playerList.sort((a,b)=>(a.roundWins > b.roundWins)?1:-1);
+      playerList.sort(compareRoudwins);
 
       roundWon(roundWinner.color, roundWinner.name, playerList);
     });
