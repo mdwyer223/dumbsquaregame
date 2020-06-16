@@ -39,7 +39,6 @@
   width: 50px;
   background: var(--bg-level-2);
   border-radius: 16px;
-  cursor: pointer;
   user-select: none;
 }
 
@@ -74,6 +73,36 @@
 }
 
 .game-wrapper .exit-button .text {
+  display: inline-block;
+  line-height: 50px;
+}
+
+.game-wrapper .title-bar .chat-button {
+  flex: 4;
+  margin: 0 16px;
+  background: var(--bg-level-2);
+  border-radius: 16px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 16px;
+  display: none;
+}
+
+.game-wrapper .title-bar .chat-button:hover {
+  background: var(--bg-level-3);
+}
+
+.game-wrapper .chat-button .icon {
+  width: 20px;
+  height: 18px;
+  margin: 16px 6px 16px 0;
+  background-image: url("chat-icon.png");
+  background-size: 20px 18px;
+  display: inline-block;
+  opacity: 0.4;
+}
+
+.game-wrapper .chat-button .text {
   display: inline-block;
   line-height: 50px;
 }
@@ -157,6 +186,14 @@
   font-weight: 600;
 }
 
+.mobile-divider {
+  display: none;
+  vertical-align: middle;
+  height: 8px;
+  line-height: 8px;
+  padding: 0 5px 12px 0px;
+}
+
 .scoreboard .player .points span,
 .players-container .player .points span {
   padding-right: 4px;
@@ -186,6 +223,7 @@
 
 .chat .message {
   margin: 16px 0 ;
+  word-break: break-all;
 }
 
 .chat .starter-message {
@@ -281,14 +319,22 @@
   width: 300px;
   height: 32px;
   text-align: center;
-  animation: pointScored 0.7s;
+  animation: pointScoredUp 0.7s;
   transition-timing-function: ease-out;
   opacity: 0;
   z-index: 2;
   user-select: none;
 }
 
-@keyframes pointScored {
+.game-wrapper .relic-down {
+  animation: pointScoredDown 0.7s;
+}
+
+.game-wrapper .relic-up {
+  animation: pointScoredUp 0.7s;
+}
+
+@keyframes pointScoredUp {
   0%   {
     transform: translateY(0px);
     opacity: 0;
@@ -304,6 +350,25 @@
   }
   100% {
     transform: translateY(-18px);
+  }
+}
+
+@keyframes pointScoredDown {
+  0%   {
+    transform: translateY(0px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(18px);
   }
 }
 
@@ -351,10 +416,10 @@
 .canvas .winner-container {
   width: 100%;
   text-align: center;
-  background-image: url(confetti-blue-5.png);
-  background-size: 48% 70%;
+  background-image: url(confetti-blue-4.png);
+  background-size: 50% 75%;
   background-repeat: no-repeat;
-  background-position: center 21px;
+  background-position: center 16px;
 }
 
 .winner-container .chip {

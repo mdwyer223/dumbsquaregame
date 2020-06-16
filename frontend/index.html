@@ -14,7 +14,7 @@
   </script>
 
   <meta charset="UTF-8">
-  <title>Square Game</title>
+  <title>Dumb Square Game</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <meta name="Description" content="A dumb square game where you race your friends to click squares">
@@ -44,7 +44,7 @@
 
   <!--CLOSE BUTTON-->
 
-  <div class="back-button display-none">
+  <div class="back-button transition-01s display-none">
     back
   </div>
 
@@ -70,14 +70,17 @@
             playerService.getRandomName();
           </script>
           <h3>Player name</h3>
-          <input type="text" maxlength="18" placeholder="Player1234" onblur="this.placeholder='Player1234'" onfocus="this.placeholder=''">
+          <div class="main-menu-input-container">
+            <input type="text" maxlength="18" placeholder="Player1234" onblur="this.placeholder='Player1234'" onfocus="this.placeholder=''">
+            <button class="transition-01s" onclick="playerService.getRandomName()">random</button>
+          </div>
           <br>
           <span>Name must be<br>at least 3 characters</span>
         </div>
 
-        <div id="create-game-menu" class="button">create game</div>
-        <div id="join-game-menu" class="button">join game</div>
-        <div id="settings-menu" class="button">settings</div>
+        <div id="create-game-menu" class="button transition-01s">create game</div>
+        <div id="join-game-menu" class="button transition-01s">join game</div>
+        <div id="settings-menu" class="feedback-open button disabled-cursor transition-01s">settings</div>
 
       </div>
 
@@ -98,46 +101,47 @@
         <div class="field">
           <div class="create-game-session-info">
             <h3>Session name</h3>
-            <input type="text" maxlength="12" placeholder="12345" onblur="this.placeholder='12345'" onfocus="this.placeholder=''">
+            <input type="text" maxlength="18" placeholder="12345" onblur="this.placeholder='12345'" onfocus="this.placeholder=''">
             <br>
           <span>This session name<br>is already taken.</span>
           </div>
         </div>
 
-        <!-- <div class="field">
+        <div class="field">
           <h3>Points per round</h3>
-          <div class="number-input">
-            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
-            <input class="quantity" min="5" name="quantity" max="100" maxlength="1" value="20" type="number" onKeyDown="return false">
-            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+          <div class="points-input number-input">
+            <button class="transition-01s" onclick="this.parentNode.querySelector('input[type=number]').stepDown(5)"></button>
+            <input class="quantity" min="1" name="quantity" max="100" maxlength="1" value="2" type="number" onKeyDown="return false">
+       <!-- <input class="quantity" min="5" name="quantity" max="100" maxlength="1" value="10" type="number" onKeyDown="return false"> -->
+            <button class="transition-01s" onclick="this.parentNode.querySelector('input[type=number]').stepUp(5)" class="plus"></button>
           </div>
-        </div> -->
+        </div>
 
         <div class="field">
           <h3>Max. players</h3>
-          <div class="number-input">
-            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
+          <div class="players-input number-input">
+            <button class="transition-01s" onclick="this.parentNode.querySelector('input[type=number]').stepDown(1)"></button>
             <input class="quantity" min="2" name="quantity" max="20" maxlength="1" value="4" type="number" onKeyDown="return false">
-            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+            <button class="transition-01s" onclick="this.parentNode.querySelector('input[type=number]').stepUp(1)" class="plus"></button>
           </div>
         </div>
 
         <div class="field">
           <h3>Pick your color</h3>
           <div class="color-picker">
-            <div id="red" class="red selected">
+            <div id="red" class="red selected transition-01s">
               <div></div>
             </div>
-            <div id="yellow" class="yellow">
+            <div id="yellow" class="yellow transition-01s">
               <div></div>
             </div>
-            <div id="green" class="green">
+            <div id="green" class="green transition-01s">
               <div></div>
             </div>
-            <div id="blue" class="blue">
+            <div id="blue" class="blue transition-01s">
               <div></div>
             </div>
-            <div id="purple" class="purple">
+            <div id="purple" class="purple transition-01s">
               <div></div>
             </div>
           </div>
@@ -145,8 +149,8 @@
         </div>
 
         <div class="field">
-          <div id="start-game" class="start-game">
-            <div>Start</div>
+          <div class="start-game">
+            <div id="start-game" class="transition-01s">Start</div>
           </div>
         </div>
 
@@ -169,7 +173,7 @@
         <div class="field">
           <div class="join-game-session-info">
             <h3>Session name</h3>
-            <input type="text" maxlength="12" placeholder="Enter name" onblur="this.placeholder='Enter name'" onfocus="this.placeholder=''">
+            <input type="text" maxlength="18" placeholder="Enter name" onblur="this.placeholder='Enter name'" onfocus="this.placeholder=''">
             <br>
             <span>Room is full</span>
           </div>
@@ -178,19 +182,19 @@
         <div class="field">
           <h3>Pick your color</h3>
           <div class="color-picker">
-            <div id="red" class="red selected">
+            <div id="red" class="red selected transition-01s">
               <div></div>
             </div>
-            <div id="yellow" class="yellow">
+            <div id="yellow" class="yellow transition-01s">
               <div></div>
             </div>
-            <div id="green" class="green">
+            <div id="green" class="green transition-01s">
               <div></div>
             </div>
-            <div id="blue" class="blue">
+            <div id="blue" class="blue transition-01s">
               <div></div>
             </div>
-            <div id="purple" class="purple">
+            <div id="purple" class="purple transition-01s">
               <div></div>
             </div>
           </div>
@@ -198,8 +202,8 @@
         </div>
 
         <div class="field">
-          <div id="join-game" class="join-game">
-            <div>Join</div>
+          <div class="join-game">
+            <div id="join-game" class="transition-01s">Join</div>
           </div>
         </div>
 
@@ -217,9 +221,9 @@
 
       <h1>Settings</h1>
       <div class="container">
-        <div class="button">setting 1</div>
-        <div class="button">setting 2</div>
-        <div class="button">setting 3</div>
+        <div class="button transition-01s">setting 1</div>
+        <div class="button transition-01s">setting 2</div>
+        <div class="button transition-01s">setting 3</div>
       </div>
 
     </div>
@@ -238,16 +242,21 @@
           <div class="logo">
             <img src="img/logo-icon.png" alt="Dumb Square Game's logo icon">
           </div>
-          <div class="exit-button">
-            <div class="icon"></div><div class="text">Exit</div>
+          <div class="exit-button transition-01s">
+            <div class="icon"></div><div class="text">Leave</div>
           </div>
-          <div class="settings-button">
+          <div class="chat-button transition-01s">
+            <div class="icon"></div><div class="text">Chat</div>
+          </div>
+          <div class="settings-button disabled-cursor transition-01s">
             <div class="icon"></div><div class="text">Settings</div>
           </div>
         </div>
 
         <div class="scoreboard">
-          <h2>Session name: here</h2>
+          <div class="scoreboard-container">
+            <h2>Session name: here</h2>
+          </div>
         </div>
 
         <div class="chat">
@@ -259,14 +268,14 @@
 
           <div class="message-bar">
             <input type="text" placeholder="Send message" onblur="this.placeholder='Send message'" onfocus="this.placeholder=''">
-            <div class="send-button">Send</div>
+            <div class="send-button transition-01s">Send</div>
           </div>
 
         </div>
       </div>
 
       <div class="canvas">
-        <div class="ready">
+        <div class="ready transition-01s">
           <div>Hold mouse here to start</div>
         </div>
         <div class="square display-none"></div>

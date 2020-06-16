@@ -34,9 +34,9 @@ gameService.addPlayer = function (gameId, playerId, playerName, playerColor) {
 };
 
 
-gameService.createGame = function (gameId, maxPlayers) {
+gameService.createGame = function (gameId, maxPlayers, maxPoints) {
   console.log('Creating game...');
-  $.post(`/games/${gameId}/${maxPlayers}/10`, function (data) {
+  $.post(`/games/${gameId}/${maxPlayers}/${maxPoints}`, function (data) {
     if (data['message']) {
       console.warn('Game was not created!');
       gameService.gameCreated = false;
@@ -181,10 +181,16 @@ gameService.setupSocket = function () {
 
       let relicPosition = $(`.counter-${squareCounter}`).position();
       let canvasPosition = $(`.canvas`).position();
+      let relicNamePositionTop = 0;
 
-      $('.game-wrapper').append(`<div class="relic-name counter-name-${squareCounter} ${playerColor}"></div>`);
+      if (top < -26) {
+        relicNamePositionTop = canvasPosition.top + relicPosition.top + rectangleSize + 12;
+        $('.game-wrapper').append(`<div class="relic-name relic-down counter-name-${squareCounter} ${playerColor}"></div>`);
+      } else {
+        relicNamePositionTop = canvasPosition.top + relicPosition.top - 32;
+        $('.game-wrapper').append(`<div class="relic-name relic-up counter-name-${squareCounter} ${playerColor}"></div>`);
+      }
 
-      let relicNamePositionTop = canvasPosition.top + relicPosition.top - 32;
       let relicNamePositionLeft = canvasPosition.left + relicPosition.left - 150 + (rectangleSize / 2) + 17;
 
       $(`.counter-name-${squareCounter}`).css(`top`, `${relicNamePositionTop}px`);
@@ -235,7 +241,7 @@ gameService.setupSocket = function () {
         let playerData = players[playerKeys[i]]
         console.log(`Checking if player exists on the scoreboard ${playerData.id} ${playerData.name} ${playerData.score}`);
         if (isEmpty($(`#${playerData.id}`))) {
-          $('.sidebar .scoreboard').append(`<div id="${playerData.id}" class="player ${playerData.color}"><div class="name">${playerData.name}</div><div class="points"><span>${playerData.score}</span>pts</div></div>`);
+          $('.sidebar .scoreboard-container').append(`<div id="${playerData.id}" class="player ${playerData.color}"><div class="name">${playerData.name}</div><div class="points"><div class="mobile-divider">- </div><span>${playerData.score}</span>pts</div></div>`);
         }
       }
     });

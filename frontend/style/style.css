@@ -18,6 +18,15 @@
   display: none !important;
 }
 
+.transition-01s {
+  transition-property: all;
+  transition-duration: 0.1s;
+}
+
+.no-scroll {
+  overflow: hidden !important;
+}
+
 h1 {
   font-weight: 400;
   font-size: 28px;
@@ -46,4 +55,8 @@ body {
 
 .text-60 {
   color: var(--text-60);
+}
+
+.disabled-cursor {
+  cursor: not-allowed !important;
 }
