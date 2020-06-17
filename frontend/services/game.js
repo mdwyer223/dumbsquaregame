@@ -257,7 +257,9 @@ gameService.setupSocket = function () {
         console.log(`Checking if player exists on the scoreboard ${playerData.id} ${playerData.name} ${playerData.score}`);
         if (isEmpty($(`#${playerData.id}`))) {
           $('.sidebar .scoreboard-container').append(`<div id="${playerData.id}" class="player ${playerData.color}"><div class="name">${playerData.name}</div><div class="points"><div class="mobile-divider">- </div><span>${playerData.score}</span>pts</div></div>`);
-          $('.canvas').append(`<div class="cursor ${playerData.id} ${playerData.color}"></div>`);
+          if (playerInfo.id != playerData.id) {
+            $('.canvas').append(`<div class="cursor ${playerData.id} ${playerData.color}"></div>`);
+          }
         }
       }
     });

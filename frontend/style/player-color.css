@@ -63,6 +63,26 @@
   background-image: url('cursor-purple.png');
 }
 
+.canvas.color-red {
+  cursor: url('cursor-red.png'), auto;
+}
+
+.canvas.color-yellow {
+  cursor: url('cursor-yellow.png'), auto;
+}
+
+.canvas.color-green {
+  cursor: url('cursor-green.png'), auto;
+}
+
+.canvas.color-blue {
+  cursor: url('cursor-blue.png'), auto;
+}
+
+.canvas.color-purple {
+  cursor: url('cursor-purple.png'), auto;
+}
+
 .message .color-red,
 .relic-name.color-red {
   color: var(--player-color-1);

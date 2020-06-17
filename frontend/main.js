@@ -96,6 +96,26 @@ $(document).ready(function () {
   });
 
 
+  $(canvas).mouseenter(function() {
+    let playerColor = playerInfo.color;
+
+    $(canvas).removeClass('color-red');
+    $(canvas).removeClass('color-yellow');
+    $(canvas).removeClass('color-green');
+    $(canvas).removeClass('color-blue');
+    $(canvas).removeClass('color-purple');
+    
+
+    $(canvas).addClass(playerColor);
+  });
+
+
+  $(canvas).mouseleave(function() {
+    let playerColor = playerInfo.color;
+    $(canvas).removeClass(playerColor);
+  });
+
+
   // Detects when mouse leaves the "Ready" rectangle
   $(canvasReadyButton).mouseleave(function () {
     gameService.unReadyCheck(gameService.id, playerInfo.id)
