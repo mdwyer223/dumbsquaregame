@@ -361,8 +361,10 @@ gameService.setupSocket = function () {
       let y = data.y;
 
       // draw on the canvas here
-      $(`.canvas .${playerId}`).css('top', y * $(window).height);
-      $(`.canvas .${playerId}`).css('left', x * $(window).width);
+      let topVal =  `${parseInt(y * $(window).height)}px`;
+      let leftVal = `${parseInt(x *  $(window).width)}px`;
+      $(`.canvas .${playerId}`).css('top', topVal);
+      $(`.canvas .${playerId}`).css('left', leftVal);
     });
 
 
