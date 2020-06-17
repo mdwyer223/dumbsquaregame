@@ -462,9 +462,8 @@
 
 .canvas .cursor {
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: 19px;
+  height: 32px;
   background-repeat: no-repeat;
-  background-size: 50%;
   background-position: left top;
 }
