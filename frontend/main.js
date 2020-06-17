@@ -91,6 +91,11 @@ $(document).ready(function () {
   });
 
 
+  $(canvas).mousemove(function(event) {
+    gameService.sendMouseCoords(gameService.id, playerInfo.color, playerInfo.id, event.pageX, event.pageY);
+  });
+
+
   // Detects when mouse leaves the "Ready" rectangle
   $(canvasReadyButton).mouseleave(function () {
     gameService.unReadyCheck(gameService.id, playerInfo.id)

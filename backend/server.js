@@ -187,6 +187,11 @@ defaultNamespace.on('connection', function (socket) {
     console.log(`Sending message ${data.msg}...`);
     defaultNamespace.to(data.gameId).emit('message-sent', data)
   });
+
+  socket.on('send-mouse-coords', (data) => {
+    console.log(`Sending mouse coords for ${data.player.id} ${data.x} ${data.y}`);
+    defaultNamespace.to(data.gameId).emit('update-mouse-coords', data);
+  })
 });
 
 

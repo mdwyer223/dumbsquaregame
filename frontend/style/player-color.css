@@ -43,6 +43,28 @@
   background: var(--player-color-5);
 }
 
+/*
+.cursor.color-red {
+  background-image: var(--player-color-1);
+}
+
+.cursor.color-yellow {
+  background: var(--player-color-2);
+}
+
+.cursor.color-green {
+  background: var(--player-color-3);
+}
+
+.cursor.color-blue {
+  background: var(--player-color-4);
+}
+
+.cursor.color-purple {
+  background: var(--player-color-5);
+}
+*/
+
 .message .color-red,
 .relic-name.color-red {
   color: var(--player-color-1);

@@ -128,6 +128,21 @@ gameService.sendMessage = function (gameId, playerColor, playerId, playerName, m
 };
 
 
+gameService.sendMouseCoords = function (gameId, playerColor, playerId, x, y) {
+  console.log(`Sending mouse coords... ${x} ${y}`);
+  let data = {
+    x: x,
+    y: y,
+    gameId: gameId,
+    player: {
+      id: playerId,
+      color: playerColor
+    }
+  };
+  gameSocket.emit('send-mouse-coords', data);
+}
+
+
 gameService.setupSocket = function () {
   console.log('Setting up socket...');
   gameSocket.on('connect', function () {
@@ -242,6 +257,8 @@ gameService.setupSocket = function () {
         console.log(`Checking if player exists on the scoreboard ${playerData.id} ${playerData.name} ${playerData.score}`);
         if (isEmpty($(`#${playerData.id}`))) {
           $('.sidebar .scoreboard-container').append(`<div id="${playerData.id}" class="player ${playerData.color}"><div class="name">${playerData.name}</div><div class="points"><div class="mobile-divider">- </div><span>${playerData.score}</span>pts</div></div>`);
+          $('.canvas').append(`<div class="cursor ${playerData.id} ${playerData.color}"></div>`);
+          $(`.canvas .${playerData.id}`).css('background-image', "url('style/cursor1.png')");
         }
       }
     });
@@ -347,6 +364,19 @@ gameService.setupSocket = function () {
       
       $(".canvas .square").css("top", cssTop);
       $(".canvas .square").css("left", cssLeft);
+    });
+
+
+    gameSocket.on('update-mouse-coords', function(data) {
+      let playerColor = data.player.color;
+      let playerId = data.player.id;
+
+      let x = data.x;
+      let y = data.y;
+
+      // draw on the canvas here
+      $(`.canvas .${playerId}`).css('top', y);
+      $(`.canvas .${playerId}`).css('left', x);
     });
 
 
