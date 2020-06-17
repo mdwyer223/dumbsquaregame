@@ -68,6 +68,7 @@ gameService.disconnect = function (gameId, playerId) {
     gameSocket.emit('player-left', data);
 
     $(`#${playerId}`).remove();
+    $(`.canvas .${playerId}`).remove();
     gameSocket.close();
     console.log('Player disconnected!');
   }
@@ -259,6 +260,7 @@ gameService.setupSocket = function () {
 
     gameSocket.on('player-left', function (data) {
       $(`#${data.player.id}`).remove();
+      $(`.canvas .${playerId}`).remove();
     });
 
 

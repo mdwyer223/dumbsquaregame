@@ -108,3 +108,6 @@ frontend/.DS_Store
 
 # notes
 github-notes
+
+# config files
+config.js
