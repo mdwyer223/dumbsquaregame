@@ -258,7 +258,6 @@ gameService.setupSocket = function () {
         if (isEmpty($(`#${playerData.id}`))) {
           $('.sidebar .scoreboard-container').append(`<div id="${playerData.id}" class="player ${playerData.color}"><div class="name">${playerData.name}</div><div class="points"><div class="mobile-divider">- </div><span>${playerData.score}</span>pts</div></div>`);
           $('.canvas').append(`<div class="cursor ${playerData.id} ${playerData.color}"></div>`);
-          $(`.canvas .${playerData.id}`).css('background-image', "url('style/cursor1.png')");
         }
       }
     });

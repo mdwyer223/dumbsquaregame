@@ -43,27 +43,25 @@
   background: var(--player-color-5);
 }
 
-/*
 .cursor.color-red {
-  background-image: var(--player-color-1);
+  background-image: url('cursor-red.png');
 }
 
 .cursor.color-yellow {
-  background: var(--player-color-2);
+  background-image: url('cursor-yellow.png');
 }
 
 .cursor.color-green {
-  background: var(--player-color-3);
+  background-image: url('cursor-green.png');
 }
 
 .cursor.color-blue {
-  background: var(--player-color-4);
+  background-image: url('cursor-blue.png');
 }
 
 .cursor.color-purple {
-  background: var(--player-color-5);
+  background-image: url('cursor-purple.png');
 }
-*/
 
 .message .color-red,
 .relic-name.color-red {
