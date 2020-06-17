@@ -1,6 +1,6 @@
 let utils = require('../utils/utils');
-let adjs = require('adjectives');
-let nouns = require('nouns').nouns;
+let adjs = require('../utils/adjectives');
+let nouns = require('../utils/nouns');
 
 const playerIdLength = 20;
 let player = {};
