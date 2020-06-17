@@ -17,21 +17,14 @@ rooms:
 */
 
 function validateGameRoom(gameId) {
-  console.log(`Validating room (${gameId})...`);
-
   if (!rooms) { return false; }
   if (!rooms[gameId]) { return false; }
-
-  console.log('Room is valid!');
   return true;
 }
 
 function validatePlayer(gameId, player) {
-  console.log(`Validating player (${player.id}) for game (${gameId})...`);
   if (!rooms[gameId].players) { return false; }
   if (!rooms[gameId].players[player.id]) { return false; }
-
-  console.log('Player is valid!');
   return true;
 }
 
