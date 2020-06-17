@@ -90,7 +90,9 @@ $(document).ready(function () {
 
 
   $(canvas).mousemove(function(event) {
-    gameService.sendMouseCoords(gameService.id, playerInfo.color, playerInfo.id, event.pageX, event.pageY);
+    let percentX = event.pageX / $(window).width;
+    let percentY = event.pageY / $(window).height;
+    gameService.sendMouseCoords(gameService.id, playerInfo.color, playerInfo.id, percentX, percentY);
   });
 
 
