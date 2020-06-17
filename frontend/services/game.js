@@ -260,7 +260,7 @@ gameService.setupSocket = function () {
 
     gameSocket.on('player-left', function (data) {
       $(`#${data.player.id}`).remove();
-      $(`.canvas .${playerId}`).remove();
+      $(`.canvas .${data.player.id}`).remove();
     });
 
 
