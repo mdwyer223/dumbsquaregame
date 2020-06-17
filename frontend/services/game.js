@@ -69,6 +69,8 @@ gameService.disconnect = function (gameId, playerId) {
 
     $(`#${playerId}`).remove();
     $(`.canvas .${playerId}`).remove();
+    squarePos = [];
+    squareCounter = 0;
     gameSocket.close();
     console.log('Player disconnected!');
   }
@@ -201,6 +203,8 @@ gameService.setupSocket = function () {
         relicNamePositionTop = canvasPosition.top + relicPosition.top - 32;
         $('.game-wrapper').append(`<div class="relic-name relic-up counter-name-${squareCounter} ${playerColor}"></div>`);
       }
+
+      setTimeout(function() {$('.game-wrapper .relic-name').remove()}, 1000);
 
       let relicNamePositionLeft = canvasPosition.left + relicPosition.left - 150 + (rectangleSize / 2) + 17;
 
