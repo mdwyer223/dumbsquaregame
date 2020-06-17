@@ -112,9 +112,6 @@ defaultNamespace.on('connection', function (socket) {
     }
 
     gameData.players = players;
-
-    console.log(gameData.players);
-
     defaultNamespace.to(data.gameId).emit('player-joined', gameData);
   });
 
@@ -148,9 +145,6 @@ defaultNamespace.on('connection', function (socket) {
       player: data.player
     };
 
-    console.log('Readying player from socket event!');
-    console.log(gameData.player.id);
-
     let readyState = game.readyPlayer(gameData);
 
     if (readyState.gameReady) {
@@ -164,8 +158,6 @@ defaultNamespace.on('connection', function (socket) {
   });
 
   socket.on('player-scored', (data) => {
-    console.log(`Player (${data.player.id}) scored`);
-
     let scoreData = {
       gameId: data.gameId,
       player: data.player
@@ -184,12 +176,10 @@ defaultNamespace.on('connection', function (socket) {
   });
 
   socket.on('send-message', (data) => {
-    console.log(`Sending message ${data.msg}...`);
     defaultNamespace.to(data.gameId).emit('message-sent', data)
   });
 
   socket.on('send-mouse-coords', (data) => {
-    console.log(`Sending mouse coords for ${data.player.id} ${data.x} ${data.y}`);
     defaultNamespace.to(data.gameId).emit('update-mouse-coords', data);
   })
 });

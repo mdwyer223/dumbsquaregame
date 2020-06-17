@@ -23,24 +23,20 @@ playerService.load = function() {
 }
 
 playerService.updateColor = function (color) {
-  console.log(`Updating color (${color})`)
   playerInfo.color = color;
 }
 
 playerService.updateName = function (name) {
-  console.log(`Updating name (${name})...`);
   playerInfo.name = name;
 };
 
 playerService.updateScore = function (score) {
-  console.log(`Updating score (${score})...`);
   playerInfo.score = this.score;
 };
 
 playerService.getNewId = function () {
   console.log('Getting new player ID...');
   $.post('/players', function(data) {
-    console.log(data);
     playerInfo.id = data.playerId;
     document.cookie = `playerId=${data.playerId};`;
     console.log(`New player ID added to cookies! (${playerInfo.id})`);
@@ -49,7 +45,6 @@ playerService.getNewId = function () {
 
 playerService.getRandomName = function () {
   $.get('/players/names', function(data) {
-    console.log('Getting random name...');
     playerInfo.name = data.playerName;
     $('.player-info input').val(playerInfo.name);
   });

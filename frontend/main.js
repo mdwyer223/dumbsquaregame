@@ -27,8 +27,6 @@ var relicWrapper = '.canvas .relic-wrapper';
 var settingsWrapper = '.settings-wrapper';
 
 
-
-
 $(document).ready(function () {
 
   $(window).on('load', function() {

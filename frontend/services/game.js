@@ -114,7 +114,6 @@ gameService.score = function (gameId, playerColor, playerId, playerName) {
 
 
 gameService.sendMessage = function (gameId, playerColor, playerId, playerName, message) {
-  console.log(`Sending message (${message})...`);
   let data = {
     gameId: gameId,
     player: {
@@ -129,7 +128,6 @@ gameService.sendMessage = function (gameId, playerColor, playerId, playerName, m
 
 
 gameService.sendMouseCoords = function (gameId, playerColor, playerId, x, y) {
-  console.log(`Sending mouse coords... ${x} ${y}`);
   let data = {
     x: x,
     y: y,
@@ -149,7 +147,6 @@ gameService.setupSocket = function () {
 
 
     gameSocket.on('message-sent', function (data) {
-      console.log(`Message received: ${data.msg}`);
       let messageString = data.msg;
       let playerColor = data.player.color;
       let playerId = data.player.id;
@@ -164,11 +161,9 @@ gameService.setupSocket = function () {
     
 
     gameSocket.on('player-scored', function (data) {
-      console.log('Player scored!');
       let playerName = data.player.name;
       let points = data.score;
       let playerColor = data.player.color;
-      console.log(`Player scored! (${data.player.id}) (${points})`);
 
       $('.relic-wrapper').append(`<div class="relic-square counter-${squareCounter} ${playerColor}"></div>`);
       
@@ -245,16 +240,13 @@ gameService.setupSocket = function () {
 
 
     gameSocket.on('player-joined', function (data) {
-      console.log(`New player joined: ${data.player.name} ${data.player.id}`);
       let players = data.players;
-      console.log(players);
       let playerKeys = Object.keys(players);
 
       $(".scoreboard h2").text(`Room: ${data.gameId}`);
 
       for (let i = 0; i < playerKeys.length; i++) {
-        let playerData = players[playerKeys[i]]
-        console.log(`Checking if player exists on the scoreboard ${playerData.id} ${playerData.name} ${playerData.score}`);
+        let playerData = players[playerKeys[i]];
         if (isEmpty($(`#${playerData.id}`))) {
           $('.sidebar .scoreboard-container').append(`<div id="${playerData.id}" class="player ${playerData.color}"><div class="name">${playerData.name}</div><div class="points"><div class="mobile-divider">- </div><span>${playerData.score}</span>pts</div></div>`);
           if (playerInfo.id != playerData.id) {
@@ -266,14 +258,12 @@ gameService.setupSocket = function () {
 
 
     gameSocket.on('player-left', function (data) {
-      console.log(`Player left: ${data.player.name} ${data.player.id}`)
       $(`#${data.player.id}`).remove();
     });
 
 
      gameSocket.on('player-won-round', function (data) {
       console.log('Round is over!');
-      console.log(data);
 
       $(`#${data.player.id} .points span`).text(`${data.score}`);
 
@@ -308,8 +298,6 @@ gameService.setupSocket = function () {
 
 
     gameSocket.on('square-spawn', function (data) {
-      console.log(`Received square spawn: ${data.x} ${data.y}`);
-
       $(".round-leaderboard").remove();
 
       if (data.roundReset) {
@@ -360,9 +348,6 @@ gameService.setupSocket = function () {
       
       squarePos.push(squareData);
       
-      console.log(squareData.top);
-      console.log(squarePos[0].top);
-      
       $(".canvas .square").css("top", cssTop);
       $(".canvas .square").css("left", cssLeft);
     });
@@ -382,8 +367,6 @@ gameService.setupSocket = function () {
 
 
     gameSocket.on('waiting-for-players', function (data) {
-      console.log('Waiting for others...');
-
       let numReady = data.numReady;
       let numPlayers = data.numPlayers;
       if (!data.roundReset) {
@@ -407,8 +390,6 @@ gameService.setupSocket = function () {
 
 
 gameService.unReadyCheck = function (gameId, playerId) {
-  console.log(`Sending unready check (${playerId})`);
-
   let data = {
     gameId: gameId,
     player: {
@@ -420,7 +401,6 @@ gameService.unReadyCheck = function (gameId, playerId) {
 
 
 gameService.updateGameId = function (gameId) {
-  console.log(`Setting game ID (${gameId})...`)
   gameService.id = gameId;
 };
 

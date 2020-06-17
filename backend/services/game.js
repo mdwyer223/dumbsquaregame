@@ -96,14 +96,12 @@ game.create = function(opts, password) {
   };
   
   console.log(`Created room (${gameId})!`);
-  console.log(rooms);
 
   return true;
 };
 
 
 game.generateNewId = function(opts) {
-  console.log('Generating ID...');
   let newGameId = utils.generateId(gameIdLength);
   while (Object.keys(rooms).includes(newGameId)) {
     newGameId = utils.generateId(gameIdLength);
@@ -149,15 +147,12 @@ game.getRoomsAndPlayers = function(opts) {
 
 
 game.readyPlayer = function(opts) {
-  console.log(`Readying player (${opts.player.id})...`);
   let gameId = opts.gameId;
   let player = opts.player;
 
   if(!validateGameRoom(gameId) && !validatePlayer(gameId, player)) { return; }
 
   rooms[gameId].players[player.id].ready = true;
-
-  console.log(`Player readied (${player.id})!`);
 
   let players = rooms[gameId].players;
   let playerKeys = Object.keys(players);
@@ -170,9 +165,6 @@ game.readyPlayer = function(opts) {
       playerReadyCount--;
     }
   }
-
-  console.log('Ready state:');
-  console.log(players);
 
   if (gameId !== 'DEV' && numPlayers < 2) { gameReady = false; }
 
@@ -188,7 +180,6 @@ game.readyPlayer = function(opts) {
 
 
 game.unReadyPlayer = function(opts) {
-  console.log(`Unreadying a player (${opts.player.id})...`);
   let gameId = opts.gameId;
   let player = opts.player;
 
@@ -210,9 +201,6 @@ game.unReadyPlayer = function(opts) {
 
   if (numPlayers < 2) { gameReady = false; }
 
-  console.log('Player unreadied!');
-  console.log(rooms[gameId].players);
-
   let readyState = {
     gameReady: gameReady,
     numReady: playerReadyCount,
@@ -225,17 +213,12 @@ game.unReadyPlayer = function(opts) {
 
 
 game.removePlayer = function(opts) {
-  console.log(`Removing player ${opts.player.id} from room ${opts.gameId}`);
-
   let gameId = opts.gameId;
   let player = opts.player;
 
   if (!validateGameRoom(gameId) && !validatePlayer(gameId, player)) { return; }
 
   delete rooms[gameId].players[player.id];
-
-  console.log(`Player state after removing:`);
-  console.log(rooms[gameId].players);
 
   if(rooms[gameId].players.length === 0) {
     delete rooms[gameId];
@@ -296,8 +279,6 @@ game.spawnSquare = function(opts) {
   rooms[gameId].rounds.push(false);
   rooms[gameId].currRound++;
   rooms[gameId].roundReset = false;
-
-  console.log(`Spawning square (${squareData.x} ${squareData.y})...`);
 
   return squareData;
 };
