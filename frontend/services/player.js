@@ -10,7 +10,7 @@ playerService.load = function() {
     name: null,
     color: 'color-red'
   };
-
+  /*
   let cookie = document.cookie;
 
   if (cookie && cookie.includes('playerId')) {
@@ -19,6 +19,8 @@ playerService.load = function() {
   } else {
     this.getNewId();
   }
+  */
+  this.getNewId();
   console.log('Player loaded!');
 }
 
@@ -38,8 +40,8 @@ playerService.getNewId = function () {
   console.log('Getting new player ID...');
   $.post('/players', function(data) {
     playerInfo.id = data.playerId;
-    document.cookie = `playerId=${data.playerId};`;
-    console.log(`New player ID added to cookies! (${playerInfo.id})`);
+    // document.cookie = `playerId=${data.playerId};`;
+    console.log(`New player ID generated! (${playerInfo.id})`);
   });
 };
 

@@ -12,6 +12,7 @@ const path = require('path');
 */
 const player = require('./services/player');
 const game = require('./services/game');
+const mail = require('./services/mail');
 
 const app = express();
 const port = 80;
@@ -31,6 +32,12 @@ app.get('/', (req, res) => {
   res.sendFile(
     path.join(__dirname, './frontend', 'index.html')
   );
+});
+
+app.post('/feedback', (req, res) => {
+  let data = req.body;
+  mail.sendmail(data.subject, data.message);
+  res.json({'message': 'success'})
 });
 
 app.get('/games', (req, res) => {

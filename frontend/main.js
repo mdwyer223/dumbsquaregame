@@ -90,7 +90,9 @@ $(document).ready(function () {
 
 
   $(canvas).mousemove(function(event) {
-    gameService.sendMouseCoords(gameService.id, playerInfo.color, playerInfo.id, event.pageX, event.pageY);
+    let percentX = event.pageX / $(window).width();
+    let percentY = event.pageY / $(window).height();
+    gameService.sendMouseCoords(gameService.id, playerInfo.color, playerInfo.id, percentX, percentY);
   });
 
 
@@ -205,7 +207,7 @@ $(document).ready(function () {
       $(".feedback-message").after("<div class='feedback-warning' style='margin-bottom: 24px;'>Name is required</p>");
       $(".feedback-name").css("border-bottom", "4px solid var(--player-color-1)");
     } else if (nameVal.length > 0 && messageVal.length > 0) {
-      submitFeedback();
+      submitFeedback(nameVal, messageVal);
       feedbackConfirmed();
     }
  });
@@ -428,7 +430,18 @@ function roundWon(playerColor, playerName, playerList) {
 
 }
 
-function submitFeedback() {
+function submitFeedback(subject, message) {
+  // send the email
+  let data = {
+    subject: subject,
+    message: message
+  };
+  
+  $.post('/feedback', data, function(data) {
+    console.log('feedback submitted');
+  });
+
+  // close the window
   closeFeedback(); 
 }
 

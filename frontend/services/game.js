@@ -68,6 +68,9 @@ gameService.disconnect = function (gameId, playerId) {
     gameSocket.emit('player-left', data);
 
     $(`#${playerId}`).remove();
+    $(`.canvas .${playerId}`).remove();
+    squarePos = [];
+    squareCounter = 0;
     gameSocket.close();
     console.log('Player disconnected!');
   }
@@ -205,6 +208,8 @@ gameService.setupSocket = function () {
         $('.game-wrapper').append(`<div class="relic-name relic-up counter-name-${squareCounter} ${playerColor}"></div>`);
       }
 
+      setTimeout(function() {$('.game-wrapper .relic-name').remove()}, 1000);
+
       let relicNamePositionLeft = canvasPosition.left + relicPosition.left - 150 + (rectangleSize / 2) + 17;
 
       $(`.counter-name-${squareCounter}`).css(`top`, `${relicNamePositionTop}px`);
@@ -273,6 +278,7 @@ gameService.setupSocket = function () {
 
     gameSocket.on('player-left', function (data) {
       $(`#${data.player.id}`).remove();
+      $(`.canvas .${data.player.id}`).remove();
     });
 
 
@@ -375,8 +381,10 @@ gameService.setupSocket = function () {
       let y = data.y;
 
       // draw on the canvas here
-      $(`.canvas .${playerId}`).css('top', y);
-      $(`.canvas .${playerId}`).css('left', x);
+      let topVal =  `${parseInt(y * $(window).height())}px`;
+      let leftVal = `${parseInt(x *  $(window).width())}px`;
+      $(`.canvas .${playerId}`).css('top', topVal);
+      $(`.canvas .${playerId}`).css('left', leftVal);
     });
 
 
