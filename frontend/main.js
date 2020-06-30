@@ -186,15 +186,21 @@ $(document).ready(function () {
     var messageVal = $(".feedback-message").val();
 
     if (nameVal.length == 0 && messageVal.length == 0) {
+      $(".feedback-message").css("border-bottom", "none");
+      $(".feedback-name").css("border-bottom", "none");
       $(".feedback-warning").remove();
       $(".feedback-message").after("<div class='feedback-warning' style='margin-bottom: 24px;'>Name and message are required</p>");
       $(".feedback-name").css("border-bottom", "4px solid var(--player-color-1)");
       $(".feedback-message").css("border-bottom", "4px solid var(--player-color-1)");
     } else if (nameVal.length > 0 && messageVal.length == 0) {
+      $(".feedback-message").css("border-bottom", "none");
+      $(".feedback-name").css("border-bottom", "none");
       $(".feedback-warning").remove();
       $(".feedback-message").after("<div class='feedback-warning' style='margin-bottom: 24px;'>Message is required</p>");
       $(".feedback-message").css("border-bottom", "4px solid var(--player-color-1)");
     } else if (nameVal.length == 0 && messageVal.length > 0) {
+      $(".feedback-message").css("border-bottom", "none");
+      $(".feedback-name").css("border-bottom", "none");
       $(".feedback-warning").remove();
       $(".feedback-message").after("<div class='feedback-warning' style='margin-bottom: 24px;'>Name is required</p>");
       $(".feedback-name").css("border-bottom", "4px solid var(--player-color-1)");
@@ -326,8 +332,11 @@ $(document).ready(function () {
 });
 
 function openFeedback() {
-  $("body").prepend(`<div class="feedback-container"><div class="feedback-dialog"><h2>Send us some feedback!</h2><input type="text" class="feedback-name" placeholder="Name" onblur="this.placeholder='Name'" onfocus="this.placeholder=''"><textarea class="feedback-message" placeholder="Message" onblur="this.placeholder='Message'" onfocus="this.placeholder=''"></textarea><div class="feedback-button-container"><div class="feedback-submit">Submit</div><div class="feedback-close">Cancel</div></div></div></div>`);
+  $("body").prepend(`<div class="feedback-container inactive"><div class="feedback-dialog"><h2>Send us some feedback!</h2><input type="text" class="feedback-name" placeholder="Subject" onblur="this.placeholder='Subject'" onfocus="this.placeholder=''"><textarea class="feedback-message" placeholder="Message" onblur="this.placeholder='Message'" onfocus="this.placeholder=''"></textarea><div class="feedback-button-container"><div class="feedback-submit">Submit</div><div class="feedback-close">Cancel</div></div></div></div>`);
   $("html").addClass("no-scroll");
+  setTimeout(function(){ 
+    $(".feedback-container").removeClass("inactive");
+  }, 1);
 }
 
 function feedbackConfirmed() {
@@ -350,6 +359,7 @@ function closeChat() {
 function openChat() {
   $("body").prepend("<div class='chat-scrim'><div class='chat-exit transition-01s'><div class='icon'></div><div class='text'>Close</div></div></div>");
   $(".chat").addClass("mobile-chat");
+  $("html").addClass("no-scroll");
 }
 
 function resetGameBoard() {
@@ -419,12 +429,7 @@ function roundWon(playerColor, playerName, playerList) {
 }
 
 function submitFeedback() {
-  // send the email
-
-  // close the window
   closeFeedback(); 
-
-  // popup a message that says "feedback submitted"
 }
 
 function sendGameMessage() {

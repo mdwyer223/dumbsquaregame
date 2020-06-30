@@ -324,6 +324,13 @@
   align-items: center;
   padding: 16px;
   z-index: 98;
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+}
+
+.inactive.feedback-container {
+  background: rgba(6, 6, 8, 0.0) !important;
 }
 
 .feedback-container .feedback-dialog {
@@ -334,6 +341,16 @@
   padding: 24px;
   text-align: left;
   z-index: 99;
+  transform: translateY(0px);
+  opacity: 1;
+  transition-property: all;
+  transition-duration: 0.3s;
+  transition-timing-function: cubic-bezier(0.495, 0.100, 0.075, 0.845);
+}
+
+.inactive.feedback-container .feedback-dialog {
+  transform: translateY(60px) !important;
+  opacity: 0 !important;
 }
 
 .feedback-container h2 {
@@ -414,8 +431,9 @@
   background: var(--bg-level-4);
   color: var(--text-100);
   animation: toastAnimation 2.7s;
-  transition-timing-function: ease-in-out;
+  transition-timing-function: cubic-bezier(0.495, 0.100, 0.075, 0.845);
   opacity: 0;
+  z-index: 100;
 }
 
 @keyframes toastAnimation {

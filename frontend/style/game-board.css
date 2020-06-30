@@ -157,6 +157,17 @@
   margin: 0.25vh 0;
   padding: 8px;
   border-radius: 50px;
+  transition-property: transform, opacity;
+  transition-duration: 0.3s;
+  transform: translateY(0px);
+  opacity: 1;
+  transition-timing-function: cubic-bezier(0.495, 0.100, 0.075, 0.845);
+}
+
+.scoreboard .inactive.player,
+.players-container .inactive.player {
+  transform: translateY(30px);
+  opacity: 0;
 }
 
 .scoreboard .player:hover,
@@ -224,15 +235,25 @@
   padding: 0 20px;
 }
 
-.chat .message {
-  margin: 16px 0 ;
-  word-break: break-all;
-}
-
 .chat .starter-message {
   margin: 16px 0;
   opacity: 0.6;
   font-style: italic;
+}
+
+.chat .message {
+  margin: 16px 10% 16px 0;
+  word-break: break-all;
+  transition-property: all;
+  transition-duration: 0.2s;
+  transform: translateY(0px);
+  opacity: 1;
+  transition-timing-function: cubic-bezier(0.495, 0.100, 0.075, 0.845);
+}
+
+.chat .inactive.message {
+  transform: translateX(30px);
+  opacity: 0;
 }
 
 .game-wrapper .chat .message-bar {
@@ -456,8 +477,9 @@
 
 .canvas .cursor {
   position: absolute;
-  width: 19px;
-  height: 32px;
+  width: 18px;
+  height: 30px;
   background-repeat: no-repeat;
   background-position: left top;
+  z-index: 100;
 }

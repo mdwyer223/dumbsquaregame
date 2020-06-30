@@ -153,9 +153,13 @@ gameService.setupSocket = function () {
       let playerName = data.player.name;
 
       if (messageString.length > 0) {
-        $('.chat .messages').append(`<p class="message player-message"><strong class="${playerColor} ${playerId}"> ${playerName}: </strong>${messageString}</p>`);
+        $('.chat .messages').append(`<p class="message inactive player-message"><strong class="${playerColor} ${playerId}"> ${playerName}: </strong>${messageString}</p>`);
         $(".chat .messages").scrollTop(9999999999);
         $(".chat .starter-message").addClass("display-none");
+
+        setTimeout(function(){ 
+          $(".message").removeClass("inactive");
+        }, 1);
       }
     });
     
@@ -248,12 +252,22 @@ gameService.setupSocket = function () {
       for (let i = 0; i < playerKeys.length; i++) {
         let playerData = players[playerKeys[i]];
         if (isEmpty($(`#${playerData.id}`))) {
-          $('.sidebar .scoreboard-container').append(`<div id="${playerData.id}" class="player ${playerData.color}"><div class="name">${playerData.name}</div><div class="points"><div class="mobile-divider">- </div><span>${playerData.score}</span>pts</div></div>`);
+          $('.sidebar .scoreboard-container').append(`<div id="${playerData.id}" class="inactive player ${playerData.color}"><div class="name">${playerData.name}</div><div class="points"><div class="mobile-divider">- </div><span>${playerData.score}</span>pts</div></div>`);
           if (playerInfo.id != playerData.id) {
             $('.canvas').append(`<div class="cursor ${playerData.id} ${playerData.color}"></div>`);
           }
         }
       }
+
+      let namePlace = 0;
+      let container = $('.scoreboard-container > div');
+      let containerLength = container.length;
+        for (namePlace = 0; namePlace < containerLength; namePlace++) {
+          let playerPlace = namePlace + 2;
+          setTimeout(function(){ 
+            $(".scoreboard .player:nth-child(" + playerPlace + ")").removeClass("inactive");
+          }, (namePlace * 60) + 60);
+        }
     });
 
 

@@ -1,3 +1,152 @@
+@media (max-width: 800px) {
+
+  /* For now, until we can repeat the confetti work */
+  .winner-container {
+    background: none !important;
+  }
+
+  .winner-container {
+    transform: scale(1);
+  }
+
+  .canvas .players-container {
+    margin: 36px 10% 42px;
+  }
+
+  .scoreboard .player .name,
+  .players-container .player .name,
+  .scoreboard .player .points, 
+  .players-container .player .points,
+  .scoreboard .player .points span, 
+  .players-container .player .points span {
+    font-size: 16px;
+  }
+
+  .scoreboard .player .name,
+  .players-container .player .name, {
+    padding: 4px 10px;
+  }
+
+  .winner-container .chip {
+    font-size: 16px;
+    padding: 4px 10px;
+  }
+
+  .winner-container .winner-text {
+    font-size: 16px;
+  }
+
+  .canvas .ready div, 
+  .canvas .play-again-button div {
+    padding: 12px;
+    font-size: 16px;
+  }
+
+}
+
+@media (max-width: 1000px) {
+
+  .canvas .players-container {
+    margin: 36px 18% 56px;
+  }
+
+  .winner-container {
+    transform: scale(0.6);
+  }
+
+}
+
+@media (max-width: 1200px) {
+
+  .game-wrapper .exit-button .text,
+  .game-wrapper .settings-button .text {
+    display: none !important;
+  }
+
+  .game-wrapper .title-bar .exit-button,
+  .game-wrapper .title-bar .settings-button {
+    flex: 4;
+  }
+
+  .winner-container {
+    transform: scale(0.8);
+  }
+  
+  .canvas .players-container {
+    margin: 60px 25% 80px;
+  }
+
+  .canvas .ready div, 
+  .canvas .play-again-button div {
+    padding: 18px;
+    font-size: 18px;
+  }
+
+  .color-picker div {
+    margin: 4px 0px;
+  }
+
+  .color-picker div div {
+    width: 40px;
+    height: 40px;
+    margin: 5px 5px 2px 5px;
+  }
+
+}
+
+@media (min-width: 1500px) {
+
+  h1 {
+    font-size: 28px;
+  }
+  
+  .create-game-wrapper h3,
+  .main-menu-wrapper h3,
+  .join-game-wrapper h3,
+  .setting-wrapper h3 {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  .main-menu-wrapper .content,
+  .settings-wrapper .content {
+    width: 400px;
+  }
+
+  .main-menu-wrapper .button,
+  .settings-wrapper .button {
+    margin: 32px 0;
+    padding: 16px 0;
+    font-size: 22px;
+  }
+
+  .game-wrapper h2 {
+    font-size: 24px;
+  }
+
+  .scoreboard .player .name {
+    padding: 6px 12px 8px;
+    font-size: 21px;
+}
+
+  .scoreboard .player .points {
+    font-size: 21px;
+}
+
+  .chat .message {
+    font-size: 21px;
+  }
+
+  .game-wrapper .chat .send-button {
+    font-size: 21px;
+  }
+
+  .game-wrapper .chat input {
+    font-size: 18px;
+  }
+
+}
+
 @media (min-width: 1800px) {
 
   .game-wrapper .content {
@@ -19,6 +168,31 @@
 
   .game-wrapper .chat h2 {
     padding: 24px 50% 16px 0;
+  }
+
+  .game-wrapper h2 {
+    font-size: 28px;
+  }
+
+  .scoreboard .player .name {
+    padding: 6px 12px 8px;
+    font-size: 24px;
+}
+
+  .scoreboard .player .points {
+    font-size: 24px;
+}
+
+  .chat .message {
+    font-size: 24px;
+  }
+
+  .game-wrapper .chat .send-button {
+    font-size: 21px;
+  }
+
+  .game-wrapper .chat input {
+    font-size: 21px;
   }
 
   .game-wrapper .canvas {
@@ -119,155 +293,6 @@
     width: 100%;
     max-height: 40%;
     padding: 0px 12px;
-  }
-
-}
-
-@media (min-width: 1500px) {
-
-  h1 {
-    font-size: 28px;
-  }
-  
-  .create-game-wrapper h3,
-  .main-menu-wrapper h3,
-  .join-game-wrapper h3,
-  .setting-wrapper h3 {
-    font-size: 22px;
-    margin-bottom: 16px;
-  }
-
-  .main-menu-wrapper .content,
-  .settings-wrapper .content {
-    width: 400px;
-  }
-
-  .main-menu-wrapper .button,
-  .settings-wrapper .button {
-    margin: 32px 0;
-    padding: 16px 0;
-    font-size: 22px;
-  }
-
-  .game-wrapper h2 {
-    font-size: 24px;
-  }
-
-  .scoreboard .player .name {
-    padding: 6px 12px 8px;
-    font-size: 21px;
-}
-
-  .scoreboard .player .points {
-    font-size: 21px;
-}
-
-  .chat .message {
-    font-size: 21px;
-  }
-
-  .game-wrapper .chat .send-button {
-    font-size: 21px;
-  }
-
-  .game-wrapper .chat input {
-    font-size: 18px;
-  }
-
-}
-
-@media (max-width: 1200px) {
-
-  .game-wrapper .exit-button .text,
-  .game-wrapper .settings-button .text {
-    display: none !important;
-  }
-
-  .game-wrapper .title-bar .exit-button,
-  .game-wrapper .title-bar .settings-button {
-    flex: 4;
-  }
-
-  .winner-container {
-    transform: scale(0.8);
-  }
-  
-  .canvas .players-container {
-    margin: 60px 25% 80px;
-  }
-
-  .canvas .ready div, 
-  .canvas .play-again-button div {
-    padding: 18px;
-    font-size: 18px;
-  }
-
-  .color-picker div {
-    margin: 4px 0px;
-  }
-
-  .color-picker div div {
-    width: 40px;
-    height: 40px;
-    margin: 5px 5px 2px 5px;
-  }
-
-}
-
-@media (max-width: 1000px) {
-
-  .canvas .players-container {
-    margin: 36px 18% 56px;
-  }
-
-  .winner-container {
-    transform: scale(0.6);
-  }
-
-}
-
-@media (max-width: 800px) {
-
-  /* For now, until we can repeat the confetti work */
-  .winner-container {
-    background: none !important;
-  }
-
-  .winner-container {
-    transform: scale(1);
-  }
-
-  .canvas .players-container {
-    margin: 36px 10% 42px;
-  }
-
-  .scoreboard .player .name,
-  .players-container .player .name,
-  .scoreboard .player .points, 
-  .players-container .player .points,
-  .scoreboard .player .points span, 
-  .players-container .player .points span {
-    font-size: 16px;
-  }
-
-  .scoreboard .player .name,
-  .players-container .player .name, {
-    padding: 4px 10px;
-  }
-
-  .winner-container .chip {
-    font-size: 16px;
-    padding: 4px 10px;
-  }
-
-  .winner-container .winner-text {
-    font-size: 16px;
-  }
-
-  .canvas .ready div, 
-  .canvas .play-again-button div {
-    padding: 12px;
-    font-size: 16px;
   }
 
 }
