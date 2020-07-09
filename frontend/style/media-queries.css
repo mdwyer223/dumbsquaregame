@@ -54,6 +54,33 @@
     transform: scale(0.6);
   }
 
+  .main-menu-wrapper .container {
+    display: block;
+    width: 92vw;
+    max-width: 500px;
+    margin: 24px 0 0 0;
+  }
+
+  .main-menu-wrapper .player-info span {
+    margin: 36px 0;
+    padding: 4px 136px 4px 8px;
+  }
+
+  .color-picker div div {
+    width: 63px;
+    height: 63px;
+    border: none;
+    margin: 7px 7px 4px 7px;
+  }
+
+  .main-menu-wrapper .room-list {
+    height: auto;
+  }
+
+  .main-menu-wrapper .container-2 {
+    margin-bottom: 24px;
+  }
+
 }
 
 @media (max-width: 1200px) {
@@ -82,16 +109,6 @@
     font-size: 18px;
   }
 
-  .color-picker div {
-    margin: 4px 0px;
-  }
-
-  .color-picker div div {
-    width: 40px;
-    height: 40px;
-    margin: 5px 5px 2px 5px;
-  }
-
 }
 
 @media (min-width: 1500px) {
@@ -99,25 +116,11 @@
   h1 {
     font-size: 28px;
   }
-  
+
   .create-game-wrapper h3,
-  .main-menu-wrapper h3,
-  .join-game-wrapper h3,
-  .setting-wrapper h3 {
+  .join-game-wrapper h3 {
     font-size: 22px;
     margin-bottom: 16px;
-  }
-
-  .main-menu-wrapper .content,
-  .settings-wrapper .content {
-    width: 400px;
-  }
-
-  .main-menu-wrapper .button,
-  .settings-wrapper .button {
-    margin: 32px 0;
-    padding: 16px 0;
-    font-size: 22px;
   }
 
   .game-wrapper h2 {
@@ -148,6 +151,86 @@
 }
 
 @media (min-width: 1800px) {
+
+  .main-menu-wrapper .container {
+    width: 45vw;
+    max-width: 550px;
+    margin: 48px 18px 0;
+  }
+
+  .main-menu-wrapper h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .main-menu-wrapper input[type=text] {
+    font-size: 24px;
+    padding: 16px 0;
+  }
+
+  .color-picker div div {
+    width: 64px;
+    height: 64px;
+    margin: 10px 10px 7px 10px;
+  }
+
+  .color-picker div {
+    margin: 0 4px;
+  }
+
+  .main-menu-wrapper .player-info-container {
+    margin: 36px 0;
+  }
+
+  .main-menu-wrapper .container-1 > * {
+    padding: 24px;
+  }
+
+  .main-menu-logo-container .text {
+    font-size: 180%;
+    padding: 0;
+  }
+
+  .main-menu-logo-container .logo {
+    width: 44px;
+    height: 44px;
+  }
+
+  .main-menu-wrapper .button {
+    padding: 20px 0;
+    font-size: 28px;
+  }
+
+  .main-menu-wrapper .room-list h3 {
+    font-size: 28px;
+  }
+
+  .main-menu-wrapper .room-list .room {
+    padding: 18px 18px;
+    margin: 20px 24px;
+    font-size: 24px;
+  }
+
+  .main-menu-wrapper .room-list .room-private {
+    width: 24px;
+    height: 24px;
+    margin-left: 12px;
+    margin-top: -2px;
+}
+
+  .main-menu-wrapper .room-list .room-full {
+    margin-right: 12px;
+    line-height: 32px;
+  }
+
+  .main-menu-wrapper .room-list .room-players span {
+    font-size: 20px;
+    padding: 0 6px;
+  }
+
+  .main-menu-wrapper .room-list {
+    height: 817px;
+  }
 
   .game-wrapper .content {
     padding: 24px;
@@ -295,7 +378,35 @@
     padding: 0px 12px;
   }
 
+  .main-menu-input-container button {
+    height: 60px;
+  }
+
 }
+
+
+@media (max-width: 560px) {
+
+  .color-picker div div {
+    width: 10vw;
+    height: 10vw;
+    margin: 8px 8px 5px 8px;
+  }
+
+  .main-menu-wrapper .content {
+    margin-top: 0px;
+  }
+
+  .main-menu-wrapper .container {
+    margin: 24px 0 0 0;
+  }
+
+  .main-menu-wrapper .container-2 {
+    margin-bottom: 24px;
+  }
+
+}
+
 
 @media (max-width: 499px) {
 
@@ -306,6 +417,10 @@
   .game-wrapper .content {
     width: 100%;
     flex-wrap: wrap;
+  }
+
+  .main-menu-logo-container .text {
+    font-size: 120%;
   }
 
   .game-wrapper .sidebar {
@@ -320,6 +435,12 @@
 
   .game-wrapper .title-bar .logo {
     width: 42px;
+  }
+
+  .color-picker div div {
+    width: 9vw;
+    height: 9vw;
+    margin: 6px 6px 3px 6px;
   }
 
   .game-wrapper .exit-button .icon, 

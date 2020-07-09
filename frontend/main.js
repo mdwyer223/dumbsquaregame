@@ -21,6 +21,7 @@ var gameWrapper = '.game-wrapper';
 var joinGameColorPicker = '.join-game-wrapper .color-picker div';
 var joinGameWrapper = '.join-game-wrapper';
 
+var mainMenuColorPicker = '.main-menu-wrapper .color-picker div';
 var mainMenuWrapper = '.main-menu-wrapper';
 
 var relicWrapper = '.canvas .relic-wrapper';
@@ -33,9 +34,10 @@ $(document).ready(function () {
     currentUrl = window.location.href;
 
     // PUT YOUR STUFF HERE
-    if (currentUrl.includes('games')) {
+    if (currentUrl.includes('/games/')) {
 
     }
+
   });
 
   $(window).on('unload', function() {
@@ -165,9 +167,9 @@ $(document).ready(function () {
 
       switchToCreateGameMenu();
 
-      $(".main-menu-wrapper span").css("opacity", "0");
+      $(".main-menu-wrapper .container-1 span").css("opacity", "0");
     } else {
-      $(".main-menu-wrapper span").css("opacity", "1");
+      $(".main-menu-wrapper .container-1 span").css("opacity", "1");
     }
   });
 
@@ -273,9 +275,9 @@ $(document).ready(function () {
 
     if (valid) {
       switchToJoinGameMenu();
-      $(".main-menu-wrapper span").css("opacity", "0");
+      $(".main-menu-wrapper .container-1 span").css("opacity", "0");
     } else {
-      $(".main-menu-wrapper span").css("opacity", "1");
+      $(".main-menu-wrapper .container-1 span").css("opacity", "1");
     }
   });
 
@@ -292,10 +294,16 @@ $(document).ready(function () {
   });
 
 
-  // Click on the menu button "Settings"
-  // $("#settings-menu").click(function() {
-  //   switchToSettingsMenu()
-  // });
+  $(mainMenuColorPicker).click(function () {
+    // Highlight the selected color
+    $(mainMenuColorPicker).removeClass("selected");
+    $(this).addClass("selected");
+
+    let colorClass = $(this).attr("id");
+
+    let color = `color-${colorClass}`;
+    playerService.updateColor(color);
+  });
 
 
   // When in the create menu, click the start button
