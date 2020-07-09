@@ -170,6 +170,14 @@
         </div>
 
         <div class="field">
+          <div class="create-game-session-password">
+            <h3>Password (optional)</h3>
+            <input type="text" maxlength="18" placeholder="Optional" onblur="this.placeholder='Optional'" onfocus="this.placeholder=''">
+            <div>Leaving the password blank means that anyone can join your game.</div>
+          </div>
+        </div>
+
+        <div class="field">
           <h3>Points per round</h3>
           <div class="points-input number-input">
             <button class="transition-01s" onclick="this.parentNode.querySelector('input[type=number]').stepDown(5)"></button>
