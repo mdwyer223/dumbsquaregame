@@ -9,7 +9,7 @@ var squarePos = [];
 
 var squareCounter = 0;
 
-function compareRoudwins(a,b) {
+function compareRoundwins(a,b) {
   const winsA = a.roundWins;
   const winsB = b.roundWins;
 
@@ -20,10 +20,11 @@ function compareRoudwins(a,b) {
   return comparison;
 }
 
-gameService.addPlayer = function (gameId, playerId, playerName, playerColor) {
+gameService.addPlayer = function (gameId, playerId, playerName, playerColor, password) {
   console.log('Sending player-joined event...');
   let data = {
     gameId: gameId,
+    password: password,
     player: {
       id: playerId,
       name: playerName,
@@ -34,9 +35,10 @@ gameService.addPlayer = function (gameId, playerId, playerName, playerColor) {
 };
 
 
-gameService.createGame = function (gameId, maxPlayers, maxPoints) {
+gameService.createGame = function (gameId, maxPlayers, maxPoints, password) {
   console.log('Creating game...');
-  $.post(`/games/${gameId}/${maxPlayers}/${maxPoints}`, function (data) {
+  let passField = password ? `?p=${password}` : ''
+  $.post(`/games/${gameId}/${maxPlayers}/${maxPoints}${passField}`, function (data) {
     if (data['message']) {
       console.warn('Game was not created!');
       gameService.gameCreated = false;
@@ -296,7 +298,7 @@ gameService.setupSocket = function () {
         playerList.push(players[id]);
       })
 
-      playerList.sort(compareRoudwins);
+      playerList.sort(compareRoundwins);
 
       roundWon(roundWinner.color, roundWinner.name, playerList);
     });

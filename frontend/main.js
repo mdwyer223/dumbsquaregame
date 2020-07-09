@@ -142,17 +142,6 @@ $(document).ready(function () {
     if (event.keyCode == 13) { sendGameMessage(); }
   });
 
-  $(createGameColorPicker).click(function () {
-    // Highlight the selected color
-    $(createGameColorPicker).removeClass("selected");
-    $(this).addClass("selected");
-
-    let colorClass = $(this).attr("id");
-
-    let color = `color-${colorClass}`;
-    playerService.updateColor(color);
-  });
-
   // Click on the menu button "Create Game"
   $(createGameMenuButton).click(function () {
     let valid = validatePlayerName();
@@ -281,19 +270,6 @@ $(document).ready(function () {
     }
   });
 
-
-  $(joinGameColorPicker).click(function () {
-    // Highlight the selected color
-    $(joinGameColorPicker).removeClass("selected");
-    $(this).addClass("selected");
-
-    let colorClass = $(this).attr("id");
-
-    let color = `color-${colorClass}`;
-    playerService.updateColor(color);
-  });
-
-
   $(mainMenuColorPicker).click(function () {
     // Highlight the selected color
     $(mainMenuColorPicker).removeClass("selected");
@@ -319,11 +295,12 @@ $(document).ready(function () {
 
     let maxPlayers = parseInt($('.create-game-wrapper .players-input input').val());
     let maxPoints = parseInt($('.create-game-wrapper .points-input input').val());
+    let pass = $('.create-game-wrapper .create-game-password input').val();
 
     gameService.connect();
-    gameService.createGame(gameService.id, maxPlayers, maxPoints);
+    gameService.createGame(gameService.id, maxPlayers, maxPoints, pass);
     gameService.joinRoom(gameService.id);
-    gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color);
+    gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color, pass);
 
     switchToGameBoard();
 
@@ -364,6 +341,42 @@ function closeFeedback() {
 function closeChat() {
   $(".chat-scrim").remove();
   $(".chat").removeClass("mobile-chat");
+}
+
+
+/*
+
+<div class="room-list field">
+<script>
+  getGameRooms();
+</script>
+
+<h3>All rooms</h3>
+
+<div class="room transition-01s private">
+  <div class="room-name">Room name</div>
+  <div class="room-private"><div></div></div>
+  <div class="room-full">Full</div>
+  <div class="room-players"><div class="value-1">7</div><span>/</span><div class="value-2">8</div></div>
+</div>
+
+*/
+
+
+function getGameRooms() {
+  $.get('/games', function(data) {
+    let rooms = data.rooms;
+
+    rooms.forEach(function(room) {
+      if ($(`.room-list .${room.gameId}`).length != 0) {
+        return;
+      }
+
+      let private = room.public ? 'public' : 'private';
+      let full = room.numPlayers === parseInt(room.maxPlayers) ? 'full': 'open';
+      $('.room-list').append(`<div class="room transition-01s ${room.gameId} ${private} ${full}"><div class="room-name">${room.gameId}</div><div class="room-private"><div></div></div><div class="room-full">Full</div><div class="room-players"><div class="value-1">${room.numPlayers}</div><span>/</span><div class="value-2">${room.maxPlayers}</div></div></div>`);
+    });
+  });
 }
 
 function openChat() {
@@ -465,6 +478,7 @@ function sendGameMessage() {
 }
 
 function switchToMainMenu() {
+  getGameRooms();
   $(mainMenuWrapper).removeClass("display-none");
 
   $(createGameWrapper).addClass("display-none");
