@@ -31,12 +31,27 @@ var settingsWrapper = '.settings-wrapper';
 $(document).ready(function () {
 
   $(window).on('load', function() {
+
+    $(function () {
+      var parent = $(".color-picker");
+      var divs = parent.children();
+      while (divs.length) {
+          parent.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
+      }
+
+      $(".color-picker").removeClass("transparent");
+      $(".color-picker div").first().addClass("selected");
+
+    });
+
     currentUrl = window.location.href;
 
     // PUT YOUR STUFF HERE
     if (currentUrl.includes('/games/')) {
 
     }
+
+    
 
   });
 
