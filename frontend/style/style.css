@@ -27,6 +27,16 @@
   opacity: 0;
 }
 
+.redtest {
+  color: red;
+  background: red;
+}
+
+.bluetest {
+  color: blue;
+  background: blue;
+}
+
 .no-scroll {
   overflow: hidden !important;
 }

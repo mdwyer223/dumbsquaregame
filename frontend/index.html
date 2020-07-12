@@ -32,12 +32,6 @@
 
 <body>
 
-  <!--CLOSE BUTTON-->
-
-  <div class="back-button transition-01s display-none">
-    back
-  </div>
-
   <!--CHEAT SCRIM-->
 
   <div class="cheater-scrim display-none">
@@ -100,7 +94,7 @@
         
         <div class="main-menu-button-container">
           <div id="create-game-menu" class="button transition-01s">Create game</div>
-          <div id="join-game-menu" class="button transition-01s">Join game</div>
+          <div id="solo-game-menu" class="button transition-01s">Solo play</div>
           <div id="settings-menu" class="feedback-open button transition-01s">Feedback</div>
         </div> 
 
@@ -112,11 +106,15 @@
           <script>
             getGameRooms();
           </script>
-          <h3>All rooms</h3>
+          <div class="search-bar-container inactive">
+            <h3>All rooms</h3>
+            <input type="text" maxlength="18" placeholder="Search for a room" onblur="this.placeholder='Search for a room'" onfocus="this.placeholder=''">
+            <button class="transition-01s"><div class="search-icon"></div></button>
+          </div>
 
           <div class="empty">
             <div class="text">It looks like no one is playing right now. Why don't you create a game?</div>
-            <div class="button">Create game</div>
+            <div class="button" id="create-game-empty">Create game</div>
           </div>
 
         </div>
@@ -129,7 +127,7 @@
 
   </div>
 
-  <div class="create-game-wrapper display-none">
+  <div class="create-game-wrapper inactive display-none">
 
 
 
@@ -141,39 +139,28 @@
 
         <div class="field">
           <div class="create-game-session-info">
-            <h3>Session name</h3>
+            <h3>Room name</h3>
             <input type="text" maxlength="18" placeholder="12345" onblur="this.placeholder='12345'" onfocus="this.placeholder=''">
-            <br>
-          <span>This session name<br>is already taken.</span>
           </div>
         </div>
         
         <div class="field">
           <div class="create-game-password">
-            <h3>Password (optional)</h3>
+            <h3>Password <span>(optional)</span></h3>
             <input type="text" maxlength="18" placeholder="Optional" onblur="this.placeholder='Optional'" onfocus="this.placeholder=''">
-            <div>Leaving the password blank means that anyone can join your game.</div>
           </div>
         </div>
 
-        <div class="field">
-          <div class="create-game-session-password">
-            <h3>Password (optional)</h3>
-            <input type="text" maxlength="18" placeholder="Optional" onblur="this.placeholder='Optional'" onfocus="this.placeholder=''">
-            <div>Leaving the password blank means that anyone can join your game.</div>
-          </div>
-        </div>
-
-        <div class="field">
+        <div class="field inputs inline-block">
           <h3>Points per round</h3>
-          <div class="points-input number-input">
+          <div class="points-input number-points-input number-input">
             <button class="transition-01s" onclick="this.parentNode.querySelector('input[type=number]').stepDown(5)"></button>
             <input class="quantity" min="5" name="quantity" max="100" maxlength="1" value="10" type="number" onKeyDown="return false">
             <button class="transition-01s plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp(5)"></button>
           </div>
         </div>
 
-        <div class="field">
+        <div class="field inputs number-players-input inline-block">
           <h3>Max. players</h3>
           <div class="players-input number-input">
             <button class="transition-01s" onclick="this.parentNode.querySelector('input[type=number]').stepDown(1)"></button>
@@ -182,9 +169,19 @@
           </div>
         </div>
 
-        <div class="field">
-          <div class="start-game">
-            <div id="start-game" class="transition-01s">Start</div>
+        <div class="error-message"></div>
+
+        <div class="button-container">
+          <div class="field left-button buttons inline-block">
+            <div class="cancel-create-game">
+              <div id="cancel-create-game" class="transition-01s">Cancel</div>
+            </div>
+          </div>
+
+         <div class="field buttons inline-block">
+            <div class="start-game">
+              <div id="start-game" class="transition-01s">Start</div>
+            </div>
           </div>
         </div>
 
@@ -206,7 +203,7 @@
 
         <div class="field">
           <div class="join-game-session-info">
-            <h3>Session name</h3>
+            <h3>Room name</h3>
             <input type="text" maxlength="18" placeholder="Enter name" onblur="this.placeholder='Enter name'" onfocus="this.placeholder=''">
             <br>
             <span>Room is full</span>

@@ -176,11 +176,6 @@
   background: var(--bg-level-3);
 }
 
-.scoreboard .player:hover .points,
-.players-container .player:hover .points {
-  color: var(--text-100);
-}
-
 .scoreboard .player .name,
 .players-container .player .name {
   width: auto;

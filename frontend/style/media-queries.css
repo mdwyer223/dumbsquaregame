@@ -46,6 +46,10 @@
 
 @media (max-width: 1000px) {
 
+  .main-menu-wrapper .search-bar-container input {
+    width: 418px;
+  }
+
   .canvas .players-container {
     margin: 36px 18% 56px;
   }
@@ -75,6 +79,10 @@
 
   .main-menu-wrapper .room-list {
     height: auto;
+  }
+
+  .main-menu-wrapper .room-list .empty {
+    padding: 24px 60px 60px;
   }
 
   .main-menu-wrapper .container-2 {
@@ -117,8 +125,7 @@
     font-size: 28px;
   }
 
-  .create-game-wrapper h3,
-  .join-game-wrapper h3 {
+  .create-game-wrapper h3 {
     font-size: 22px;
     margin-bottom: 16px;
   }
@@ -151,6 +158,10 @@
 }
 
 @media (min-width: 1800px) {
+
+  .main-menu-wrapper .search-bar-container input {
+    width: 468px;
+  }
 
   .main-menu-wrapper .container {
     width: 45vw;
@@ -211,6 +222,15 @@
     font-size: 24px;
   }
 
+  .main-menu-wrapper .room-list .empty {
+    padding: 212px 60px 36px;
+  }
+
+  .main-menu-wrapper .room-list .empty .text {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
   .main-menu-wrapper .room-list .room-private {
     width: 24px;
     height: 24px;
@@ -229,7 +249,7 @@
   }
 
   .main-menu-wrapper .room-list {
-    height: 817px;
+    height: 824px;
   }
 
   .game-wrapper .content {
@@ -386,6 +406,14 @@
 
 
 @media (max-width: 560px) {
+
+  .main-menu-wrapper .search-bar-container input {
+    width: 70vw;
+  }
+
+  .main-menu-wrapper .player-info span {
+    padding: 4px 8px;
+  }
 
   .color-picker div div {
     width: 10vw;
@@ -619,6 +647,18 @@
 
   .player.color-purple .points {
     background: var(--player-color-5);
+  }
+
+}
+
+@media (max-width: 420px) {
+
+  .create-game-wrapper input[type=number] {
+    width: 48px;
+  }
+
+  .create-game-wrapper .number-points-input {
+    margin-right: 24px;
   }
 
 }

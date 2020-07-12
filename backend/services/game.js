@@ -212,11 +212,11 @@ game.removePlayer = function(opts) {
   if (!validateGameRoom(gameId) && !validatePlayer(gameId, player)) { return; }
 
   delete rooms[gameId].players[player.id];
-  /*
+  
   if(Object.keys(rooms[gameId].players).length === 0) {
     delete rooms[gameId];
   }
-  */
+  
 };
 
 

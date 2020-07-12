@@ -1,10 +1,12 @@
 var backButton = '.back-button';
 
+var cancelCreateButton = '#cancel-create-game';
 var canvas = '.canvas';
 var canvasReadyButton = '.canvas .ready';
 var chatBox = '.chat input';
 var chatSendButton = '.chat .send-button';
 var cheaterScrim = '.cheater-scrim';
+var createGameEmptyButton = '#create-game-empty';
 var createGameMenuButton = '#create-game-menu';
 var createGameColorPicker = '.create-game-wrapper .color-picker div';
 var createGameWrapper = '.create-game-wrapper';
@@ -18,14 +20,10 @@ var feedbackSubmit = '.feedback-submit';
 var gameSquare = '.canvas .square';
 var gameWrapper = '.game-wrapper';
 
-var joinGameColorPicker = '.join-game-wrapper .color-picker div';
-var joinGameWrapper = '.join-game-wrapper';
-
 var mainMenuColorPicker = '.main-menu-wrapper .color-picker div';
 var mainMenuWrapper = '.main-menu-wrapper';
 
 var relicWrapper = '.canvas .relic-wrapper';
-var settingsWrapper = '.settings-wrapper';
 
 
 $(document).ready(function () {
@@ -67,7 +65,11 @@ $(document).ready(function () {
 
     // removes the back button and any associated classes
     $(backButton).addClass("display-none");
-    $(backButton).removeClass("back-create-game back-game back-join-game back-settings");
+    $(backButton).removeClass("back-create-game back-game");
+  });
+
+  $(cancelCreateButton).click(function () {
+    switchToMainMenu();
   });
 
   $(exitButton).click(function () {
@@ -76,7 +78,6 @@ $(document).ready(function () {
     resetGameRoom();
     switchToMainMenu();
   });
-
 
   // This can be made into a function !!!
 
@@ -158,7 +159,26 @@ $(document).ready(function () {
   });
 
   // Click on the menu button "Create Game"
-  $(createGameMenuButton).click(function () {
+  $(createGameMenuButton ).click(function () {
+    let valid = validatePlayerName();
+
+    if (valid) {
+
+      switchToCreateGameMenu();
+
+      if ($('.create-game-session-info input').val().length <= 0) {
+        $.post('/games', function (data) {
+          $('.create-game-session-info input').val(data.gameId);
+        });
+      }    
+
+      $(".main-menu-wrapper .container-1 span").css("opacity", "0");
+    } else {
+      $(".main-menu-wrapper .container-1 span").css("opacity", "1");
+    }
+  });
+
+  $(createGameEmptyButton).click(function () {
     let valid = validatePlayerName();
 
     if (valid) {
@@ -296,6 +316,15 @@ $(document).ready(function () {
     playerService.updateColor(color);
   });
 
+  $(".search-bar-container button").click(function () {
+    
+    if ($(".search-bar-container").hasClass("inactive")) {
+      openSearchBar();
+    } else {
+      closeSearchBar();
+    }
+    
+  });
 
   // When in the create menu, click the start button
   $("#start-game").click(function () {
@@ -383,9 +412,18 @@ function getGameRooms() {
     let rooms = data.rooms;
 
     rooms.forEach(function(room) {
+      
       if ($(`.room-list .${room.gameId}`).length != 0) {
-        return;
+        $('.room-list .empty').removeClass("display-none");
+        
+        // I want to hide the search icon when there are no rooms
+        // but can't figure it out
+        // $('.search-bar-container button').addClass("display-none");
+
+        return;    
       }
+
+      $('.room-list .empty').addClass("display-none");
 
       let private = room.public ? 'public' : 'private';
       let full = room.numPlayers === parseInt(room.maxPlayers) ? 'full': 'open';
@@ -466,6 +504,33 @@ function roundWon(playerColor, playerName, playerList) {
 
 }
 
+function sendGameMessage() {
+  let messageString = $(chatBox).val();
+  if (messageString.length < 1) { return; }
+
+  gameService.sendMessage(gameService.id, playerInfo.color, playerInfo.id, playerInfo.name, messageString);
+
+  $(".chat .starter-message").addClass("display-none");
+  $(chatBox).val('');
+  $(chatBox).focus();
+}
+
+function openSearchBar() {
+  
+  setTimeout(function(){ 
+    $(".search-bar-container").removeClass("inactive");
+  }, 1);
+
+}
+
+function closeSearchBar() {
+  
+  setTimeout(function(){ 
+    $(".search-bar-container").addClass("inactive");
+  }, 1);
+  
+}
+
 function submitFeedback(subject, message) {
   // send the email
   let data = {
@@ -481,58 +546,25 @@ function submitFeedback(subject, message) {
   closeFeedback(); 
 }
 
-function sendGameMessage() {
-  let messageString = $(chatBox).val();
-  if (messageString.length < 1) { return; }
-
-  gameService.sendMessage(gameService.id, playerInfo.color, playerInfo.id, playerInfo.name, messageString);
-
-  $(".chat .starter-message").addClass("display-none");
-  $(chatBox).val('');
-  $(chatBox).focus();
-}
-
 function switchToMainMenu() {
   getGameRooms();
   $(mainMenuWrapper).removeClass("display-none");
 
   $(createGameWrapper).addClass("display-none");
+
   $(gameWrapper).addClass("display-none");
-  $(joinGameWrapper).addClass("display-none");
-  $(settingsWrapper).addClass("display-none");
-}
-
-function switchToJoinGameMenu() {
-  $(joinGameWrapper).removeClass("display-none");
-
-  $(createGameWrapper).addClass("display-none");
-  $(gameWrapper).addClass("display-none");
-  $(mainMenuWrapper).addClass("display-none");
-  $(settingsWrapper).addClass("display-none");
-
-  $(backButton).removeClass("display-none");
-  $(backButton).addClass("back-join-game");
-}
-
-function switchToSettingsMenu() {
-  $(settingsWrapper).removeClass("display-none");
-
-  $(createGameWrapper).addClass("display-none");
-  $(gameWrapper).addClass("display-none");
-  $(joinGameWrapper).addClass("display-none");
-  $(mainMenuWrapper).addClass("display-none");
-
-  $(backButton).removeClass("display-none");
-  $(backButton).addClass("back-create-game");
 }
 
 function switchToCreateGameMenu() {
+  
+  $(createGameWrapper).addClass("inactive");
   $(createGameWrapper).removeClass("display-none");
 
+  setTimeout(function(){ 
+    $(createGameWrapper).removeClass("inactive");
+  }, 1);
+
   $(gameWrapper).addClass("display-none");
-  $(joinGameWrapper).addClass("display-none");
-  $(mainMenuWrapper).addClass("display-none");
-  $(settingsWrapper).addClass("display-none");
 
   $(backButton).removeClass("display-none");
   $(backButton).addClass("back-create-game");
@@ -542,9 +574,7 @@ function switchToGameBoard() {
   $(gameWrapper).removeClass("display-none");
   
   $(createGameWrapper).addClass("display-none");
-  $(joinGameWrapper).addClass("display-none");
   $(mainMenuWrapper).addClass("display-none");
-  $(settingsWrapper).addClass("display-none");
 
   $(backButton).addClass("display-none");
 }
