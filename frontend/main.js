@@ -300,8 +300,11 @@ $(document).ready(function () {
     
     if ($(".search-bar-container").hasClass("inactive")) {
       openSearchBar();
+      $(".search-bar-container input").val("");
     } else {
       closeSearchBar();
+      $(".search-bar-container input").val(" ");
+      
     }
     
   });
@@ -366,7 +369,7 @@ $(document).ready(function () {
 });
 
 function openFeedback() {
-  $("body").prepend(`<div class="feedback-container inactive"><div class="feedback-dialog"><h2>Send us some feedback!</h2><input type="text" class="feedback-name" placeholder="Subject" onblur="this.placeholder='Subject'" onfocus="this.placeholder=''"><textarea class="feedback-message" placeholder="Message" onblur="this.placeholder='Message'" onfocus="this.placeholder=''"></textarea><div class="feedback-button-container"><div class="feedback-submit">Submit</div><div class="feedback-close">Cancel</div></div></div></div>`);
+  $("body").prepend(`<div class="feedback-container inactive"><div class="feedback-dialog"><h1>Send us some feedback!</h1><input type="text" class="feedback-name" placeholder="Subject" onblur="this.placeholder='Subject'" onfocus="this.placeholder=''"><textarea class="feedback-message" placeholder="Message" onblur="this.placeholder='Message'" onfocus="this.placeholder=''"></textarea><div class="feedback-button-container"><div class="feedback-close">Cancel</div><div class="feedback-submit">Submit</div></div></div></div>`);
   $("html").addClass("no-scroll");
   setTimeout(function(){ 
     $(".feedback-container").removeClass("inactive");
