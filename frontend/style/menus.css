@@ -289,14 +289,14 @@
 
 .main-menu-wrapper .search-bar-container {
   display: flex;
-  padding: 16px 20px 36px 16px;
+  padding: 16px 20px 12px 16px;
   transition-property: all;
   transition-duration: 0.3s;
   transition-timing-function: cubic-bezier(0.495, 0.100, 0.075, 0.845);
 }
 
 .main-menu-wrapper .search-bar-container.inactive {
-  padding: 16px 20px 36px 24px;
+  padding: 16px 20px 12px 24px;
 }
 
 .main-menu-wrapper .search-bar-container h3 {
@@ -434,7 +434,8 @@
 */
 
 
-.create-game-wrapper {
+.create-game-wrapper,
+.join-game-password-wrapper {
   width: 100%;
   height: 100%;
   padding: 16px;
@@ -456,7 +457,8 @@
   transition-timing-function: ease-out;
 }
 
-.create-game-wrapper .content {
+.create-game-wrapper .content,
+.join-game-password-wrapper .content {
   width: 100%;
   max-width: 420px;
   background: var(--bg-level-2);
@@ -469,58 +471,71 @@
   transition-timing-function: cubic-bezier(0.495, 0.100, 0.075, 0.845);
 }
 
-.inactive.create-game-wrapper {
+.inactive.create-game-wrapper,
+.inactive.join-game-password-wrapper {
   background: rgba(0, 0, 0, 0.0) !important;
 }
 
-.inactive.create-game-wrapper .content {
+.inactive.create-game-wrapper .content,
+.inactive.join-game-password-wrapper .content {
   transform: translateY(60px) !important;
   opacity: 0 !important;
 }
 
 .create-game-wrapper .field .start-game,
-.create-game-wrapper .field .cancel-create-game {
+.create-game-wrapper .field .cancel-create-game,
+.join-game-password-wrapper .field .join-password-game,
+.join-game-password-wrapper .field .cancel-join-game {
   text-align: center
 }
 
-.create-game-wrapper .inputs {
+.create-game-wrapper .inputs,
+.join-game-password-wrapper .inputs {
   display: inline-block;
 }
 
-.create-game-wrapper .number-points-input {
+.create-game-wrapper .number-points-input,
+.join-game-password-wrapper .number-points-input {
   margin-right: 42px;
 }
 
 .create-game-wrapper .create-game-session-info input,
-.create-game-wrapper .create-game-password input {
+.create-game-wrapper .create-game-password input,
+.join-game-password-wrapper .join-game-password-input input {
   width: 100%;
 }
 
-.create-game-wrapper .button-container {
+.create-game-wrapper .button-container,
+.join-game-password-wrapper .button-container {
   display: flex;
   justify-content: flex-end;
   margin-top: 8px;
   font-weight: 400;
 }
 
-.create-game-wrapper .left-button {
+.create-game-wrapper .left-button,
+.join-game-password-wrapper .left-button {
   padding-right: 18px;
 }
 
-.create-game-wrapper .buttons {
+.create-game-wrapper .buttons,
+.join-game-password-wrapper .buttons {
   flex: 1 auto;
 }
 
-.create-game-wrapper .buttons div {
+.create-game-wrapper .buttons div,
+.join-game-password-wrapper .buttons div {
   width: 100%;
 }
 
-.create-game-wrapper h1 {
+.create-game-wrapper h1,
+.join-game-password-wrapper h1 {
   margin-bottom: 24px;
   font-weight: 500;
 }
 
-.create-game-password div {
+.create-game-password div,
+.join-game-password-wrapper div {
   margin: 8px 0 20px;
   width: auto;
   max-width: 440px;
@@ -528,14 +543,17 @@
   opacity: 0.8;
 }
 
-.create-game-password h3 span {
+.create-game-password h3 span,
+.join-game-password-wrapper h3 span {
   opacity: 0.5;
   font-weight: 400;
   padding-left: 6px;
 }
 
 .create-game-wrapper .field .start-game div,
-.create-game-wrapper .field .cancel-create-game div {
+.create-game-wrapper .field .cancel-create-game div,
+.join-game-password-wrapper .field .join-password-game div,
+.join-game-password-wrapper .field .cancel-join-game div {
   display: inline-block;
   max-width: 300px;
   padding: 12px 48px;
@@ -543,13 +561,43 @@
   font-weight: 500;
   background: var(--bg-level-3);
   color: white;
-  border-radius: 48px;
+  border-radius: 16px;
   cursor: pointer;
 }
 
 .create-game-wrapper .field .start-game div:hover,
-.create-game-wrapper .field .cancel-create-game div:hover {
+.create-game-wrapper .field .cancel-create-game div:hover,
+.join-game-password-wrapper .field .join-password-game div:hover,
+.join-game-password-wrapper .field .cancel-join-game div:hover {
   background: var(--bg-level-4);
+}
+
+.color-picker div {
+  margin: 0 2px;
+  display: inline-block;
+  border: 2px solid rgba(0, 0, 0, 0);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.color-picker .selected {
+  border: 2px solid rgba(248, 248, 250);
+}
+
+.color-picker > div:hover {
+  border: 2px solid rgba(248, 248, 250, 0.4);
+}
+
+.color-picker .selected:hover {
+  border: 2px solid rgba(248, 248, 250);
+}
+
+.color-picker div div {
+  width: 47px;
+  height: 47px;
+  border: none;
+  margin: 6px 6px 3px 6px;
+  border-radius: 50%;
 }
 
 
@@ -580,7 +628,7 @@
 }
 
 .feedback-container .feedback-dialog {
-  background: var(--bg-level-1);
+  background: var(--bg-level-2);
   border-radius: 16px;
   width: 100%;
   max-width: 420px;
@@ -599,39 +647,31 @@
   opacity: 0 !important;
 }
 
-.feedback-container h2 {
-  margin-bottom: 32px;
-}
-
-.feedback-container .feedback-name {
-  margin-bottom: 24px;
-  background: var(--bg-level-2);
-  color: var(--text-100);
-  width: 100%;
-  padding: 16px;
-  border-radius: 8px;
-  outline: none;
-  border:none;
-  font-family: "Barlow", Futura, sans-serif;
-  font-size: 18px;
+.feedback-container h1 {
+  font-size: 28px;
   font-weight: 500;
+  margin-bottom: 28px;
 }
 
 .feedback-container .feedback-message {
   height: calc(100vh - 294px);
-  max-height: 250px;
+  max-height: 200px;
+  resize: none;
+}
+
+.feedback-container .feedback-name,
+.feedback-container .feedback-message {
   margin-bottom: 24px;
-  background: var(--bg-level-2);
-  color: var(--text-100);
+  background: white;
+  color: var(--bg-level-1);
   width: 100%;
   padding: 16px;
   border-radius: 8px;
   outline: none;
   border:none;
   font-family: "Barlow", Futura, sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
-  resize: none;
 }
 
 .feedback-container .feedback-button-container {
@@ -639,23 +679,20 @@
   text-align: center;
 }
 
-.feedback-container .feedback-close {
+.feedback-container .feedback-close,
+.feedback-container .feedback-submit {
   flex: 1;
   background: var(--bg-level-3);
   color: var(--text-100);
   border-radius: 8px;
   padding: 16px;
+  font-size: 24px;
+  font-weight: 500;
   cursor: pointer;
 }
 
 .feedback-container .feedback-submit {
-  flex: 1;
-  margin-right: 24px;
-  background: var(--bg-level-3);
-  color: var(--text-100);
-  border-radius: 8px;
-  padding: 16px;
-  cursor: pointer;
+  margin-left: 24px;
 }
 
 .feedback-container .feedback-close:hover {

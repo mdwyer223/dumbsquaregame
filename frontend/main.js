@@ -1,6 +1,7 @@
 var backButton = '.back-button';
 
 var cancelCreateButton = '#cancel-create-game';
+var cancelJoinButton = '#cancel-join-game';
 var canvas = '.canvas';
 var canvasReadyButton = '.canvas .ready';
 var chatBox = '.chat input';
@@ -20,37 +21,25 @@ var feedbackSubmit = '.feedback-submit';
 var gameSquare = '.canvas .square';
 var gameWrapper = '.game-wrapper';
 
+var joinGamePasswordWrapper = '.join-game-password-wrapper';
+
 var mainMenuColorPicker = '.main-menu-wrapper .color-picker div';
 var mainMenuWrapper = '.main-menu-wrapper';
 
 var relicWrapper = '.canvas .relic-wrapper';
 
 
+var main_self = this;
+
 $(document).ready(function () {
 
   $(window).on('load', function() {
-
-    $(function () {
-      var parent = $(".color-picker");
-      var divs = parent.children();
-      while (divs.length) {
-          parent.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
-      }
-
-      $(".color-picker").removeClass("transparent");
-      $(".color-picker div").first().addClass("selected");
-
-    });
-
     currentUrl = window.location.href;
 
     // PUT YOUR STUFF HERE
     if (currentUrl.includes('/games/')) {
 
     }
-
-    
-
   });
 
   $(window).on('unload', function() {
@@ -69,6 +58,10 @@ $(document).ready(function () {
   });
 
   $(cancelCreateButton).click(function () {
+    switchToMainMenu();
+  });
+
+  $(cancelJoinButton).click(function() {
     switchToMainMenu();
   });
 
@@ -292,19 +285,6 @@ $(document).ready(function () {
     $(".chat .messages").scrollTop(9999999999);
   });
 
-
-  // Click on the menu button "Join Game"
-  $("#join-game-menu").click(function () {
-    let valid = validatePlayerName();
-
-    if (valid) {
-      switchToJoinGameMenu();
-      $(".main-menu-wrapper .container-1 span").css("opacity", "0");
-    } else {
-      $(".main-menu-wrapper .container-1 span").css("opacity", "1");
-    }
-  });
-
   $(mainMenuColorPicker).click(function () {
     // Highlight the selected color
     $(mainMenuColorPicker).removeClass("selected");
@@ -329,7 +309,8 @@ $(document).ready(function () {
   // When in the create menu, click the start button
   $("#start-game").click(function () {
 
-    let valid = validateSessionId('.create-game-session-info');
+    let gameId = $('.create-game-session-info input').val();
+    let valid = validateSessionId(gameId);
 
     if (!valid) {
       // display error message here
@@ -345,8 +326,8 @@ $(document).ready(function () {
     gameService.createGame(gameService.id, maxPlayers, maxPoints, pass);
     gameService.joinRoom(gameService.id);
     gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color, pass);
-
-    switchToGameBoard();
+    console.log('connected');
+    main_self.switchToGameBoard();
 
     // Resizes the relic wrapper to fit in the canvas
     let canvasWidth = $(canvas).width();
@@ -359,6 +340,28 @@ $(document).ready(function () {
 
     let sessionName = $('.create-game-session-info input').val();
     $('.game-wrapper .title h2').text(sessionName);
+  });
+
+
+  $('#join-game-password').click(function () {
+    let pass = $('.join-game-password-input input').val();
+
+    gameService.connect();
+    gameService.joinRoom(gameService.id);
+    gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color, pass);
+
+    switchToGameBoard();
+
+    // Resizes the relic wrapper to fit in the canvas
+    let canvasWidth = $(canvas).width();
+    let canvasHeight = $(canvas).height();
+
+    $(canvas).addClass("status-ready");
+    $(relicWrapper).css("width", canvasWidth);
+    $(relicWrapper).css("height", canvasHeight);
+    $(".relic-name").remove();
+
+    $('.game-wrapper .title h2').text(gameService.id);
   });
 });
 
@@ -427,7 +430,50 @@ function getGameRooms() {
 
       let private = room.public ? 'public' : 'private';
       let full = room.numPlayers === parseInt(room.maxPlayers) ? 'full': 'open';
-      $('.room-list').append(`<div class="room transition-01s ${room.gameId} ${private} ${full}"><div class="room-name">${room.gameId}</div><div class="room-private"><div></div></div><div class="room-full">Full</div><div class="room-players"><div class="value-1">${room.numPlayers}</div><span>/</span><div class="value-2">${room.maxPlayers}</div></div></div>`);
+      $('.room-list').append(`<div id="${room.gameId}" class="room transition-01s ${room.gameId} ${private} ${full}"><div class="room-name">${room.gameId}</div><div class="room-private"><div></div></div><div class="room-full">Full</div><div class="room-players"><div class="value-1">${room.numPlayers}</div><span>/</span><div class="value-2">${room.maxPlayers}</div></div></div>`);
+    });
+
+    $('.room-list .room').click(function(element) {
+      console.log(element);
+      let gameId = element.currentTarget.id;
+      let pass = null;
+      let full = element.currentTarget.className.includes('full');
+      let public = element.currentTarget.className.includes('public');
+      console.log(gameId);
+
+      let valid = validateSessionId(gameId);
+
+      if (!valid) {
+        console.warn('Please enter a valid session ID');
+        return;
+      }
+
+      if (full) {
+        console.warn('This room is full');
+        return;
+      }
+
+      if (!public) {
+        main_self.switchToJoinPasswordMenu();
+        return;
+      }
+
+      gameService.connect();
+      gameService.joinRoom(gameService.id);
+      gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color, pass);
+
+      switchToGameBoard();
+
+      // Resizes the relic wrapper to fit in the canvas
+      let canvasWidth = $(canvas).width();
+      let canvasHeight = $(canvas).height();
+
+      $(canvas).addClass("status-ready");
+      $(relicWrapper).css("width", canvasWidth);
+      $(relicWrapper).css("height", canvasHeight);
+      $(".relic-name").remove();
+
+      $('.game-wrapper .title h2').text(gameId);
     });
   });
 }
@@ -501,7 +547,6 @@ function roundWon(playerColor, playerName, playerList) {
   $(".play-again-button").click(function () {
     gameService.readyCheck(gameService.id, playerInfo.id);
   });
-
 }
 
 function sendGameMessage() {
@@ -549,8 +594,24 @@ function submitFeedback(subject, message) {
 function switchToMainMenu() {
   getGameRooms();
   $(mainMenuWrapper).removeClass("display-none");
+  $("html").removeClass("no-scroll");
 
   $(createGameWrapper).addClass("display-none");
+  $(joinGamePasswordWrapper).addClass("display-none");
+
+  $(gameWrapper).addClass("display-none");
+} 
+
+function switchToJoinPasswordMenu() {
+  
+  $(joinGamePasswordWrapper).addClass("inactive");
+  $(joinGamePasswordWrapper).removeClass("display-none");
+
+  $("html").addClass("no-scroll");
+
+  setTimeout(function(){ 
+    $(joinGamePasswordWrapper).removeClass("inactive");
+  }, 1);
 
   $(gameWrapper).addClass("display-none");
 }
@@ -575,6 +636,7 @@ function switchToGameBoard() {
   
   $(createGameWrapper).addClass("display-none");
   $(mainMenuWrapper).addClass("display-none");
+  $(joinGamePasswordWrapper).addClass('display-none');
 
   $(backButton).addClass("display-none");
 }
@@ -589,11 +651,9 @@ function validatePlayerName() {
   return false;
 }
 
-function validateSessionId(page) {
-  let sessionId = $(`${page} input`).val();
-
-  if (sessionId.length > 2) {
-    gameService.updateGameId(sessionId.toUpperCase());
+function validateSessionId(gameId) {
+  if (gameId.length > 2) {
+    gameService.updateGameId(gameId.toUpperCase());
     return true;
   }
   return false;

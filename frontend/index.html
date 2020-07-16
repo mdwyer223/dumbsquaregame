@@ -71,8 +71,8 @@
 
             <h3>Player color</h3>
 
-            <div class="color-picker transparent">
-              <div id="red" class="red color transition-01s">
+            <div class="color-picker">
+              <div id="red" class="red color transition-01s selected">
                 <div></div>
               </div>
               <div id="yellow" class="yellow color transition-01s">
@@ -193,26 +193,34 @@
 
   <!--JOIN GAME-->
 
-  <div class="join-game-wrapper display-none">
+  <div class="join-game-password-wrapper inactive display-none">
 
     <div class="content">
 
-      <h1>Join Game</h1>
+      <h1>Enter password</h1>
 
       <div class="container">
 
         <div class="field">
-          <div class="join-game-session-info">
-            <h3>Room name</h3>
-            <input type="text" maxlength="18" placeholder="Enter name" onblur="this.placeholder='Enter name'" onfocus="this.placeholder=''">
-            <br>
-            <span>Room is full</span>
+          <div class="join-game-password-input">
+            <h3>Password</h3>
+            <input type="text" maxlength="18" placeholder="password" onblur="this.placeholder='password'" onfocus="this.placeholder=''">
           </div>
         </div>
 
-        <div class="field">
-          <div class="join-game">
-            <div id="join-game" class="transition-01s">Join</div>
+        <div class="error-message"></div>
+
+        <div class="button-container">
+          <div class="field left-button buttons inline-block">
+            <div class="cancel-join-game">
+              <div id="cancel-join-game" class="transition-01s">Cancel</div>
+            </div>
+          </div>
+
+         <div class="field buttons inline-block">
+            <div class="join-password-game">
+              <div id="join-game-password" class="transition-01s">Join</div>
+            </div>
           </div>
         </div>
 
@@ -220,7 +228,7 @@
 
     </div>
 
-  </div>
+  </div>  
 
   <!--SETTINGS-->
 
