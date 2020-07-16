@@ -417,7 +417,7 @@ function getGameRooms() {
     rooms.forEach(function(room) {
       
       if ($(`.room-list .${room.gameId}`).length != 0) {
-        $('.room-list .empty').removeClass("display-none");
+        //$('.room-list .empty').removeClass("display-none");
         
         // I want to hide the search icon when there are no rooms
         // but can't figure it out
