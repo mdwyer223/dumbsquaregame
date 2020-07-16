@@ -152,6 +152,10 @@
   padding: 4px 4px 16px 8px;
 }
 
+.scoreboard-container {
+  padding-bottom: 32px;
+}
+
 .scoreboard .player,
 .players-container .player {
   display: flex;
