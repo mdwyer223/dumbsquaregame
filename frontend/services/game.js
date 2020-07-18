@@ -5,9 +5,12 @@ let gameService = {
   gameCreated: false
 };
 
-var squarePos = [];
+let squareCounter = 0;
 
-var squareCounter = 0;
+let offsetTop = 0;
+let offsetLeft = 0;
+
+let game_self = this;
 
 function compareRoundwins(a,b) {
   const winsA = a.roundWins;
@@ -173,6 +176,7 @@ gameService.setupSocket = function () {
       let playerName = data.player.name;
       let points = data.score;
       let playerColor = data.player.color;
+      let squareData = data.squareData
 
       $('.relic-wrapper').append(`<div class="relic-square counter-${squareCounter} ${playerColor}"></div>`);
       
@@ -183,14 +187,11 @@ gameService.setupSocket = function () {
 
       let offsetNum = (rectangleSize / 2);
       
-      let top = squarePos[squareCounter].top;
-      let left = squarePos[squareCounter].left;
+      let top = squareData.x
+      let left = squareData.y;
       
       let offsetPercentTop = 50 + top;
       let offsetPercentLeft = 50 + left;
-      
-      let offsetTop = squarePos[squareCounter].offsetTop;
-      let offsetLeft = squarePos[squareCounter].offsetLeft;
       
       let offsetCSSTop = (`calc(${offsetPercentTop}% ${offsetTop} - ${offsetNum}px)`);
       let offsetCSSLeft = (`calc(${offsetPercentLeft}% ${offsetLeft} - ${offsetNum}px)`);
@@ -210,7 +211,7 @@ gameService.setupSocket = function () {
         $('.game-wrapper').append(`<div class="relic-name relic-up counter-name-${squareCounter} ${playerColor}"></div>`);
       }
 
-      setTimeout(function() {$('.game-wrapper .relic-name').remove()}, 1000);
+      setTimeout(function() {$(`.game-wrapper .relic-name .counter-name-${squareCounter}`).remove()}, 1000);
 
       let relicNamePositionLeft = canvasPosition.left + relicPosition.left - 150 + (rectangleSize / 2) + 17;
 
@@ -232,7 +233,7 @@ gameService.setupSocket = function () {
       if (data.player.id == playerInfo.id) {
         console.log('Could not join the game...');
         gameSocket.close();
-        switchToJoinGameMenu();
+        switchToMainMenu();
         console.log(data.error);
 
         if (data.error === "room-invalid") {
@@ -361,14 +362,8 @@ gameService.setupSocket = function () {
       let cssTop = `calc(${top}% ${pixelOffsetTop})`;
       let cssLeft = `calc(${left}% ${pixelOffsetLeft})`;
 
-      var squareData = {
-        top:top, 
-        left:left, 
-        offsetTop:pixelOffsetTop, 
-        offsetLeft:pixelOffsetLeft
-      };
-      
-      squarePos.push(squareData);
+      offsetTop = pixelOffsetTop;
+      offsetLeft = pixelOffsetLeft;
       
       $(".canvas .square").css("top", cssTop);
       $(".canvas .square").css("left", cssLeft);

@@ -85,7 +85,11 @@ game.create = function(opts, password) {
     currRound: -1,
     password: password,
     players: {},
-    rounds: []
+    rounds: [],
+    squareData: {
+      x: null,
+      y: null
+    }
   };
   
   console.log(`Created room (${gameId})!`);
@@ -251,6 +255,7 @@ game.score = function(opts) {
     gameId: gameId,
     score: rooms[gameId].players[player.id].score,
     winner: isWinner,
+    squareData: rooms[gameId].squareData
   }
 
   if (isWinner) {
@@ -273,6 +278,7 @@ game.spawnSquare = function(opts) {
   rooms[gameId].rounds.push(false);
   rooms[gameId].currRound++;
   rooms[gameId].roundReset = false;
+  rooms[gameId].squareData = squareData;
 
   return squareData;
 };
