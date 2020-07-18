@@ -302,7 +302,7 @@ $(document).ready(function () {
       $(".reload-icon").addClass("animating");
       setTimeout(function(){ 
         $(".reload-icon").removeClass("animating");
-      }, 701);
+      }, 800);
     }
   });
 
@@ -356,7 +356,7 @@ $(document).ready(function () {
 });
 
 function openFeedback() {
-  $("body").prepend(`<div class="feedback-container inactive"><div class="feedback-dialog"><h1>Send us some feedback!</h1><input type="text" class="feedback-name" placeholder="Subject" onblur="this.placeholder='Subject'" onfocus="this.placeholder=''"><textarea class="feedback-message" placeholder="Message" onblur="this.placeholder='Message'" onfocus="this.placeholder=''"></textarea><div class="feedback-button-container"><div class="feedback-close">Cancel</div><div class="feedback-submit">Send</div></div></div></div>`);
+  $("body").prepend(`<div class="feedback-container inactive"><div class="feedback-dialog"><h1>Send us some feedback!</h1><input type="text" class="feedback-name" placeholder="Subject" onblur="this.placeholder='Subject'" onfocus="this.placeholder=''"><textarea class="feedback-message" placeholder="Message" onblur="this.placeholder='Message'" onfocus="this.placeholder=''"></textarea><div class="feedback-button-container"><div class="feedback-close">Cancel</div><div class="feedback-submit"><div class="icon"></div><div class="text">Send</div></div></div></div></div>`);
   $("html").addClass("no-scroll");
   setTimeout(function(){ 
     $(".feedback-container").removeClass("inactive");
@@ -410,7 +410,7 @@ function getGameRooms() {
 
       let private = room.public ? 'public' : 'private';
       let full = room.numPlayers === parseInt(room.maxPlayers) ? 'full': 'open';
-      $('.room-list').append(`<div id="${room.gameId}" class="room transition-01s ${room.gameId} ${private} ${full}"><div class="room-name">${room.gameId}</div><div class="room-private"><div></div></div><div class="room-full">Full</div><div class="room-players"><div class="value-1">${room.numPlayers}</div><span>/</span><div class="value-2">${room.maxPlayers}</div></div></div>`);
+      $('.room-list').append(`<div id="${room.gameId}" class="room transition-01s ${room.gameId} ${private} ${full}"><div class="room-name select">${room.gameId}</div><div class="room-private"><div></div></div><div class="room-full">Full</div><div class="room-players"><div class="value-1">${room.numPlayers}</div><span>/</span><div class="value-2">${room.maxPlayers}</div></div></div>`);
     });
 
     if (rooms.length === 0) {

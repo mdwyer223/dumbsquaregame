@@ -222,7 +222,7 @@
 
   .main-menu-wrapper .room-list .room {
     padding: 18px 18px;
-    margin: 20px 24px;
+    margin: 16px 24px;
     font-size: 24px;
   }
 
@@ -253,7 +253,11 @@
   }
 
   .main-menu-wrapper .room-list {
-    height: 824px;
+    height: 810px;
+  }
+
+  #solo-game-menu {
+    margin: 24px 0;
   }
 
   .game-wrapper .content {

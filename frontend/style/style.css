@@ -12,7 +12,12 @@
   margin: 0;
   box-sizing: border-box;
   overflow-x: hidden;
+  /* user-select: none; */
 }
+
+/* .select * {
+  user-select: initial !important;
+} */
 
 .display-none {
   display: none !important;

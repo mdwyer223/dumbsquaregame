@@ -161,7 +161,7 @@ gameService.setupSocket = function () {
       let playerName = data.player.name;
 
       if (messageString.length > 0) {
-        $('.chat .messages').append(`<p class="message inactive player-message"><strong class="${playerColor} ${playerId}"> ${playerName}: </strong>${messageString}</p>`);
+        $('.chat .messages').append(`<p class="message inactive select player-message"><strong class="${playerColor} ${playerId}"> ${playerName}: </strong>${messageString}</p>`);
         $(".chat .messages").scrollTop(9999999999);
         $(".chat .starter-message").addClass("display-none");
 

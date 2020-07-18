@@ -21,7 +21,7 @@
 }
 
 .main-menu-wrapper .content {
-  margin-top: 48px;
+  margin-top: 36px;
   display: inline-block;
 }
 
@@ -53,7 +53,7 @@
 }
 
 #solo-game-menu {
-  margin: 24px 0;
+  margin: 16px 0;
   padding: 6px 0;
   font-size: 22px;
 }
@@ -280,7 +280,7 @@
   border-radius: 16px;
   text-align: left;
   padding-bottom: 8px;
-  height: 671px;
+  height: 654px;
 }
 
 .main-menu-wrapper .room-list .empty {
@@ -418,8 +418,8 @@
 }
 
 .main-menu-wrapper .room-list .room {
-  padding: 14px 16px;
-  margin: 14px 16px;
+  padding: 12px 16px;
+  margin: 12px 16px;
   background: var(--bg-level-3);
   border-radius: 8px;
   display: flex;
