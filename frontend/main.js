@@ -31,6 +31,8 @@ var relicWrapper = '.canvas .relic-wrapper';
 var cheat_detection = false;
 var main_self = this;
 
+let roomList = [];
+
 $(document).ready(function () {
 
   $(window).on('unload', function() {
@@ -270,12 +272,30 @@ $(document).ready(function () {
     if ($(".search-bar-container").hasClass("inactive")) {
       openSearchBar();
     } else {
+      $(".search-bar-container input").val('');
+      $(".search-bar-container input").keyup();
       closeSearchBar();
     }
     
   });
 
+
+  $(".search-bar-container input").keyup(function () {
+    let searchValue = $('.search-bar-container input').val();
+
+    roomList.forEach(function(room) {
+      if (room.gameId.includes(searchValue)) {
+        $(`#${room.gameId}`).removeClass('display-none');
+      } else {
+        $(`#${room.gameId}`).addClass('display-none');
+      }
+    });
+  });
+
+
   $(".reload-icon").click(function () {
+    getGameRooms();
+
     if ($(".reload-icon").hasClass("animating")) {
       // currently animating
     } else {
@@ -368,7 +388,10 @@ function closeChat() {
 
 function getGameRooms() {
   $.get('/games', function(data) {
+    roomList = data.rooms;
     let rooms = data.rooms;
+
+    $('.room-list .room').remove();
 
     if (rooms.length === 0) {
       $('.room-list .empty').removeClass("display-none");
