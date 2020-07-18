@@ -15,31 +15,36 @@
 
 .player.color-red .name,
 .color-red .chip,
-.color-picker .red div {
+.color-picker .red div,
+.feedback-toast.red {
   background: var(--player-color-1);
 }
 
 .player.color-yellow .name,
 .color-yellow .chip,
-.color-picker .yellow div {
+.color-picker .yellow div,
+.feedback-toast.yellow {
   background: var(--player-color-2);
 }
 
 .player.color-green .name,
 .color-green .chip,
-.color-picker .green div {
+.color-picker .green div,
+.feedback-toast.green {
   background: var(--player-color-3);
 }
 
 .player.color-blue .name,
 .color-blue .chip,
-.color-picker .blue div {
+.color-picker .blue div,
+.feedback-toast.blue {
   background: var(--player-color-4);
 }
 
 .player.color-purple .name,
 .color-purple .chip,
-.color-picker .purple div {
+.color-picker .purple div,
+.feedback-toast.purple {
   background: var(--player-color-5);
 }
 
@@ -83,26 +88,31 @@
   cursor: url('cursor-purple.png'), auto;
 }
 
+#solo-game-menu p.color-red,
 .message .color-red,
 .relic-name.color-red {
   color: var(--player-color-1);
 }
 
+#solo-game-menu p.color-yellow,
 .message .color-yellow,
 .relic-name.color-yellow {
   color: var(--player-color-2);
 }
 
+#solo-game-menu p.color-green,
 .message .color-green,
 .relic-name.color-green {
   color: var(--player-color-3);
 }
 
+#solo-game-menu p.color-blue,
 .message .color-blue,
 .relic-name.color-blue {
   color: var(--player-color-4);
 }
 
+#solo-game-menu p.color-purple,
 .message .color-purple,
 .relic-name.color-purple {
   color: var(--player-color-5);

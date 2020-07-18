@@ -25,12 +25,6 @@
   display: inline-block;
 }
 
-.join-game-wrapper .content {
-  width: 80vw;
-  margin-top: 24px;
-  display: inline-block;
-}
-
 .main-menu-wrapper .container {
   display: inline-block;
   width: 42vw;
@@ -60,14 +54,24 @@
 
 #solo-game-menu {
   margin: 24px 0;
+  padding: 6px 0;
+  font-size: 22px;
 }
 
-.create-game-wrapper .field {
+#solo-game-menu p {
+  font-size: 18px;
+  color: var(--player-color-1);
+  font-weight: 500;
+}
+
+.create-game-wrapper .field,
+.join-game-password-wrapper .field {
   padding: 16px 0;
 }
 
 .create-game-wrapper h3,
-.main-menu-wrapper h3 {
+.main-menu-wrapper h3,
+.join-game-password-wrapper h3 {
   margin-bottom: 12px;
 }
 
@@ -83,7 +87,8 @@
   outline: none;
 }
 
-.create-game-wrapper input[type=text] {
+.create-game-wrapper input[type=text],
+.join-game-password-wrapper input[type=text] {
   text-align: center;
   font-family: "Barlow", sans-serif;
   font-size: 22px;
@@ -184,6 +189,17 @@
   top: -12px;
   border-radius: 4px;
   padding: 4px 36px 4px 8px;
+  opacity: 0;
+  background: var(--player-color-1);
+  color: var(--bg-level-2);
+  font-weight: 500;
+}
+
+.join-game-password-wrapper .error-message {
+  margin-bottom: 12px;
+  border-radius: 4px;
+  width: fit-content;
+  padding: 4px 8px;
   opacity: 0;
   background: var(--player-color-1);
   color: var(--bg-level-2);
@@ -315,13 +331,14 @@
 }
 
 .main-menu-wrapper .search-bar-container input {
-  width: 318px;
+  width: 308px;
   opacity: 1;
   position: absolute;
   height: 48px;
   transition-property: all;
   transition-duration: 0.3s;
   transition-timing-function: cubic-bezier(0.495, 0.100, 0.075, 0.845);
+  z-index: 2;
 }
 
 .main-menu-wrapper .search-bar-container.inactive input {
@@ -331,7 +348,6 @@
 
 .main-menu-wrapper .search-bar-container button {
   padding: 4px;
-  cursor: pointer;
   outline: none;
   border: none;
   box-shadow: none;
@@ -339,21 +355,66 @@
 }
 
 .main-menu-wrapper .search-bar-container .search-icon {
-  height: 24px;
-  width: 24px;
+  height: 40px;
+  width: 40px;
   display: inline-block;
   float: right;
   background-image: url(close-icon.png);
   opacity: 0.6;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 .main-menu-wrapper .search-bar-container.inactive .search-icon {
   background-image: url(search-icon.png);
 }
 
-.main-menu-wrapper .room-list .search-icon:hover {
+.main-menu-wrapper .search-bar-container.inactive .search-icon:hover {
   opacity: 1;
+}
+
+.main-menu-wrapper .search-bar-container .reload-icon {
+  height: 36px;
+  width: 36px;
+  margin: 3px 12px 0 0;
+  display: inline-block;
+  float: right;
+  opacity: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  background-image: url(reload-icon.png);
+}
+
+.main-menu-wrapper .search-bar-container.inactive .reload-icon {
+  background-image: url(reload-icon.png);
+  opacity: 0.6;
+}
+
+.main-menu-wrapper .room-list .reload-icon:hover {
+  opacity: 1 !important;
+}
+
+.main-menu-wrapper .room-list .reload-icon.active:hover {
+  opacity: 0;
+}
+
+.main-menu-wrapper .room-list .reload-icon.animating:hover {
+  opacity: 1 !important;
+}
+
+.main-menu-wrapper .search-bar-container .reload-icon.animating {
+  animation: reloadAnimation 0.7s;
+}
+
+@keyframes reloadAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  } 
 }
 
 .main-menu-wrapper .room-list .room {
@@ -494,8 +555,7 @@
   display: inline-block;
 }
 
-.create-game-wrapper .number-points-input,
-.join-game-password-wrapper .number-points-input {
+.create-game-wrapper .number-points-input {
   margin-right: 42px;
 }
 
@@ -534,8 +594,7 @@
   font-weight: 500;
 }
 
-.create-game-password div,
-.join-game-password-wrapper div {
+.create-game-password div {
   margin: 8px 0 20px;
   width: auto;
   max-width: 440px;
@@ -543,8 +602,7 @@
   opacity: 0.8;
 }
 
-.create-game-password h3 span,
-.join-game-password-wrapper h3 span {
+.create-game-password h3 span {
   opacity: 0.5;
   font-weight: 400;
   padding-left: 6px;
@@ -705,23 +763,21 @@
 
 .feedback-toast {
   position: fixed;
-  bottom: 32px;
-  left: 32px;
+  top: 32px;
+  right: 32px;
   border-radius: 8px;
-  padding: 24px;
+  color: var(--bg-level-1);
+  padding: 16px 24px;
   font-weight: 600;
-  font-size: 24px;
-  background: var(--bg-level-4);
-  color: var(--text-100);
+  font-size: 28px;
   animation: toastAnimation 2.7s;
-  transition-timing-function: cubic-bezier(0.495, 0.100, 0.075, 0.845);
   opacity: 0;
   z-index: 100;
 }
 
 @keyframes toastAnimation {
   0%   {
-    transform: translateY(-80px);
+    transform: translateY(80px);
     opacity: 0;
   }
   10%   {
@@ -735,7 +791,7 @@
     opacity: 1;
   }
   100% {
-    transform: translateY(-80px);
+    transform: translateY(80px);
     opacity: 0;
   }
 }

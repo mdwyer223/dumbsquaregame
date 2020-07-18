@@ -94,7 +94,7 @@
         
         <div class="main-menu-button-container">
           <div id="create-game-menu" class="button transition-01s">Create game</div>
-          <div id="solo-game-menu" class="button transition-01s">Solo play</div>
+          <div id="solo-game-menu" class="button transition-01s">Solo play<p class="transition-01s">Coming soon!</p></div>
           <div id="settings-menu" class="feedback-open button transition-01s">Feedback</div>
         </div> 
 
@@ -109,7 +109,7 @@
           <div class="search-bar-container inactive">
             <h3>All rooms</h3>
             <input type="text" maxlength="18" placeholder="Search for a room" onblur="this.placeholder='Search for a room'" onfocus="this.placeholder=''">
-            <button class="transition-01s"><div class="search-icon transition-01s"></div></button>
+            <button class="transition-01s"><div class="search-icon transition-01s"></div><div class="reload-icon transition-01s"></div></button>
           </div>
 
           <div class="empty">
@@ -128,8 +128,6 @@
   </div>
 
   <div class="create-game-wrapper inactive display-none">
-
-
 
     <div class="content">
 
@@ -203,12 +201,11 @@
 
         <div class="field">
           <div class="join-game-password-input">
-            <h3>Password</h3>
             <input type="text" maxlength="18" placeholder="password" onblur="this.placeholder='password'" onfocus="this.placeholder=''">
           </div>
         </div>
 
-        <div class="error-message"></div>
+        <div class="error-message">Incorrect password</div>
 
         <div class="button-container">
           <div class="field left-button buttons inline-block">
@@ -223,7 +220,6 @@
             </div>
           </div>
         </div>
-
       </div>
 
     </div>

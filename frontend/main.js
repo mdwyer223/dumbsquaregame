@@ -292,11 +292,24 @@ $(document).ready(function () {
 
     let colorClass = $(this).attr("id");
 
+    $("#solo-game-menu p").removeClass("color-red");
+    $("#solo-game-menu p").removeClass("color-yellow");
+    $("#solo-game-menu p").removeClass("color-green");
+    $("#solo-game-menu p").removeClass("color-blue");
+    $("#solo-game-menu p").removeClass("color-purple");
+    $("#solo-game-menu p").addClass(`color-${colorClass}`);
+    $(".feedback-toast").removeClass("red");
+    $(".feedback-toast").removeClass("yellow");
+    $(".feedback-toast").removeClass("green");
+    $(".feedback-toast").removeClass("blue");
+    $(".feedback-toast").removeClass("purple");
+    $(".feedback-toast").addClass(colorClass);
+
     let color = `color-${colorClass}`;
     playerService.updateColor(color);
   });
 
-  $(".search-bar-container button").click(function () {
+  $(".search-bar-container .search-icon").click(function () {
     
     if ($(".search-bar-container").hasClass("inactive")) {
       openSearchBar();
@@ -304,6 +317,17 @@ $(document).ready(function () {
       closeSearchBar();
     }
     
+  });
+
+  $(".reload-icon").click(function () {
+    if ($(".reload-icon").hasClass("animating")) {
+      // currently animating
+    } else {
+      $(".reload-icon").addClass("animating");
+      setTimeout(function(){ 
+        $(".reload-icon").removeClass("animating");
+      }, 701);
+    }
   });
 
   // When in the create menu, click the start button
@@ -366,7 +390,7 @@ $(document).ready(function () {
 });
 
 function openFeedback() {
-  $("body").prepend(`<div class="feedback-container inactive"><div class="feedback-dialog"><h2>Send us some feedback!</h2><input type="text" class="feedback-name" placeholder="Subject" onblur="this.placeholder='Subject'" onfocus="this.placeholder=''"><textarea class="feedback-message" placeholder="Message" onblur="this.placeholder='Message'" onfocus="this.placeholder=''"></textarea><div class="feedback-button-container"><div class="feedback-submit">Submit</div><div class="feedback-close">Cancel</div></div></div></div>`);
+  $("body").prepend(`<div class="feedback-container inactive"><div class="feedback-dialog"><h1>Send us some feedback!</h1><input type="text" class="feedback-name" placeholder="Subject" onblur="this.placeholder='Subject'" onfocus="this.placeholder=''"><textarea class="feedback-message" placeholder="Message" onblur="this.placeholder='Message'" onfocus="this.placeholder=''"></textarea><div class="feedback-button-container"><div class="feedback-close">Cancel</div><div class="feedback-submit">Send</div></div></div></div>`);
   $("html").addClass("no-scroll");
   setTimeout(function(){ 
     $(".feedback-container").removeClass("inactive");
@@ -374,7 +398,13 @@ function openFeedback() {
 }
 
 function feedbackConfirmed() {
-  $("body").prepend(`<div class="feedback-toast">Feedback submitted!</div>`);
+
+  let classString = $(".selected").attr("class");
+  classString = classString.replace(" color ", "");
+  classString = classString.replace("transition-01s ", "");
+  classString = classString.replace("selected", "");
+
+  $("body").prepend(`<div class="feedback-toast ${classString}">Feedback submitted!</div>`);
   setTimeout(function(){ 
     $(".feedback-toast").remove();
   }, 2800);
@@ -417,21 +447,21 @@ function getGameRooms() {
     rooms.forEach(function(room) {
       
       if ($(`.room-list .${room.gameId}`).length != 0) {
-        //$('.room-list .empty').removeClass("display-none");
-        
-        // I want to hide the search icon when there are no rooms
-        // but can't figure it out
-        // $('.search-bar-container button').addClass("display-none");
-
         return;    
       }
 
+      $('.search-bar-container button').removeClass("display-none");
       $('.room-list .empty').addClass("display-none");
 
       let private = room.public ? 'public' : 'private';
       let full = room.numPlayers === parseInt(room.maxPlayers) ? 'full': 'open';
       $('.room-list').append(`<div id="${room.gameId}" class="room transition-01s ${room.gameId} ${private} ${full}"><div class="room-name">${room.gameId}</div><div class="room-private"><div></div></div><div class="room-full">Full</div><div class="room-players"><div class="value-1">${room.numPlayers}</div><span>/</span><div class="value-2">${room.maxPlayers}</div></div></div>`);
     });
+
+    if (rooms.length === 0) {
+      // $('.search-bar-container button').addClass("display-none");
+      $('.room-list .empty').removeClass("display-none");
+    }
 
     $('.room-list .room').click(function(element) {
       console.log(element);
@@ -562,6 +592,8 @@ function sendGameMessage() {
 
 function openSearchBar() {
   
+  $(".search-bar-container .reload-icon").addClass("active");
+
   setTimeout(function(){ 
     $(".search-bar-container").removeClass("inactive");
   }, 1);
@@ -569,6 +601,8 @@ function openSearchBar() {
 }
 
 function closeSearchBar() {
+
+  $(".search-bar-container .reload-icon").removeClass("active");
   
   setTimeout(function(){ 
     $(".search-bar-container").addClass("inactive");

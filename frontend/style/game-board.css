@@ -37,7 +37,7 @@
 
 .game-wrapper .title-bar .logo {
   width: 50px;
-  background: var(--bg-level-2);
+  background: var(--bg-level-1);
   border-radius: 16px;
   user-select: none;
   overflow: hidden;
