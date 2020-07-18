@@ -640,8 +640,11 @@ function validatePlayerName() {
 }
 
 function validateSessionId(gameId) {
-  if (gameId.length > 2) {
-    gameService.updateGameId(gameId.toUpperCase());
+  let specialCharacters = new RegExp(/['~`!@#$%^&*\(\){}|\/\\\";:\?]/);
+  let hasSpecialCharacters = specialCharacters.test(gameId);
+  console.log(hasSpecialCharacters)
+  if (!hasSpecialCharacters && gameId.length > 2) {
+    gameService.updateGameId(gameId.toUpperCase().trim().replace(/ /g, '-'));
     return true;
   }
   return false;
