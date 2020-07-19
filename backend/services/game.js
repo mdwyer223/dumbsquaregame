@@ -55,8 +55,7 @@ game.addPlayer = function(opts) {
     color: player.color,
     ready: true,
     score: 0,
-    roundWins: 0,
-    roundReset: false
+    roundWins: 0
   };
 
   console.log(`Player (${player.id}) joined room (${gameId})!`);
@@ -91,6 +90,7 @@ game.create = function(opts, password) {
     password: password,
     players: {},
     rounds: [],
+    roundReset: false,
     squareData: {
       x: null,
       y: null
