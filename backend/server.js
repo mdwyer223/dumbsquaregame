@@ -60,6 +60,14 @@ app.get('/games/:gameId', (req, res) => {
   );
 });
 
+app.get('/games/:gameId/validate', (req, res) => {
+  let password = req.query.p;
+  let gameId = req.params.gameId;
+
+  let data = game.checkPassword(gameId, password);
+  res.json({error: data})
+});
+
 /*
   /games/dog/2/10?p=123
 */

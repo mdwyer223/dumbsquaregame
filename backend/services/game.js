@@ -66,6 +66,11 @@ game.addPlayer = function(opts) {
 };
 
 
+game.checkPassword = function(gameId, password) {
+  return rooms[gameId].password === password;
+};
+
+
 game.create = function(opts, password) {
   console.log(`Creating room (${opts.gameId})`);
   let gameId = opts.gameId;

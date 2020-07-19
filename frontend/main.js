@@ -35,6 +35,13 @@ let roomList = [];
 
 $(document).ready(function () {
 
+  let ids = ['red', 'purple', 'yellow', 'green', 'blue'];
+  let colorSelected = ids[Math.floor(Math.random() * ids.length)];
+
+  console.log(colorSelected);
+  $(`#${colorSelected}`).addClass('selected');
+  $("#solo-game-menu p").addClass(`color-${colorSelected}`);
+
   $(window).on('unload', function() {
     gameService.disconnect(gameService.id, playerInfo.id);
   });
@@ -345,11 +352,18 @@ $(document).ready(function () {
   $('#join-game-password').click(function () {
     let pass = $('.join-game-password-input input').val();
 
-    gameService.connect();
-    gameService.joinRoom(gameService.id);
-    gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color, pass);
-
-    switchToGameBoard();
+    $.get(`/games/${gameService.id}/validate?p=${pass}`, function(data) {
+      if (!data.error) {
+        // handle the error
+        $('.join-game-password-wrapper .error-message').css('opacity', '1');
+      } else {
+        $('.join-game-password-wrapper .error-message').css('opacity', '0');
+        gameService.connect();
+        gameService.joinRoom(gameService.id);
+        gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color, pass);
+        switchToGameBoard();
+      }
+    });
 
     $('.game-wrapper .title h2').text(gameService.id);
   });
@@ -570,6 +584,7 @@ function submitFeedback(subject, message) {
 
 function switchToMainMenu() {
   getGameRooms();
+  $('.join-game-password-wrapper .error-message').css('opacity', '0');
   $(mainMenuWrapper).removeClass("display-none");
   $("html").removeClass("no-scroll");
 
