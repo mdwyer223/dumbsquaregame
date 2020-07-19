@@ -101,11 +101,11 @@ $(document).ready(function () {
   });
 
 
-  $(canvas).mousemove(function(event) {
-    let percentX = event.pageX / $(window).width();
-    let percentY = event.pageY / $(window).height();
-    gameService.sendMouseCoords(gameService.id, playerInfo.color, playerInfo.id, percentX, percentY);
-  });
+  // $(canvas).mousemove(function(event) {
+  //   let percentX = event.pageX / $(window).width();
+  //   let percentY = event.pageY / $(window).height();
+  //   gameService.sendMouseCoords(gameService.id, playerInfo.color, playerInfo.id, percentX, percentY);
+  // });
 
 
   $(canvas).mouseenter(function() {
@@ -333,16 +333,25 @@ $(document).ready(function () {
     gameService.createGame(gameService.id, maxPlayers, maxPoints, pass);
     gameService.joinRoom(gameService.id);
     gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color, pass);
+    
     switchToGameBoard();
 
-    // Resizes the relic wrapper to fit in the canvas
-    let canvasWidth = $(canvas).width();
-    let canvasHeight = $(canvas).height();
+    let windowWidth = $(window).width();
+    let canvasWidth = $(".canvas").width();
+    let canvasHeight = $(".canvas").height();
 
     $(canvas).addClass("status-ready");
     $(relicWrapper).css("width", canvasWidth);
     $(relicWrapper).css("height", canvasHeight);
     $(".relic-name").remove();
+
+    if ($(".canvas").hasClass("status-ready") && windowWidth > 500) {
+      if (canvasWidth / canvasHeight < 1.1 || canvasHeight / canvasWidth < 0.55) {
+        $(cheaterScrim).removeClass("display-none");
+      } else if (canvasWidth / canvasHeight > 1.1 || canvasHeight / canvasWidth > 0.55) {
+        $(cheaterScrim).addClass("display-none");
+      }
+    }
 
     let sessionName = $('.create-game-session-info input').val();
     $('.game-wrapper .title h2').text(sessionName);
@@ -382,15 +391,25 @@ $(document).ready(function () {
         gameService.connect();
         gameService.joinRoom(gameService.id);
         gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color, pass);
+        
         switchToGameBoard();
 
-        let canvasWidth = $(canvas).width();
-        let canvasHeight = $(canvas).height();
+        let windowWidth = $(window).width();
+        let canvasWidth = $(".canvas").width();
+        let canvasHeight = $(".canvas").height();
 
         $(canvas).addClass("status-ready");
         $(relicWrapper).css("width", canvasWidth);
         $(relicWrapper).css("height", canvasHeight);
         $(".relic-name").remove();
+
+        if ($(".canvas").hasClass("status-ready") && windowWidth > 500) {
+          if (canvasWidth / canvasHeight < 1.1 || canvasHeight / canvasWidth < 0.55) {
+            $(cheaterScrim).removeClass("display-none");
+          } else if (canvasWidth / canvasHeight > 1.1 || canvasHeight / canvasWidth > 0.55) {
+            $(cheaterScrim).addClass("display-none");
+          }
+        }
       }
     });
 
@@ -493,14 +512,23 @@ function getGameRooms() {
       gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color, null);
 
       switchToGameBoard();
-
-      let canvasWidth = $(canvas).width();
-      let canvasHeight = $(canvas).height();
+      
+      let windowWidth = $(window).width();
+      let canvasWidth = $(".canvas").width();
+      let canvasHeight = $(".canvas").height();
 
       $(canvas).addClass("status-ready");
       $(relicWrapper).css("width", canvasWidth);
       $(relicWrapper).css("height", canvasHeight);
       $(".relic-name").remove();
+
+      if ($(".canvas").hasClass("status-ready") && windowWidth > 500) {
+        if (canvasWidth / canvasHeight < 1.1 || canvasHeight / canvasWidth < 0.55) {
+          $(cheaterScrim).removeClass("display-none");
+        } else if (canvasWidth / canvasHeight > 1.1 || canvasHeight / canvasWidth > 0.55) {
+          $(cheaterScrim).addClass("display-none");
+        }
+      } 
     });
   });
 }
@@ -524,7 +552,6 @@ function resetGameRoom() {
   $(".round-leaderboard").remove();
   $('.sidebar .scoreboard .player').remove();
   $('.chat .player-message').remove();
-  $('.chat .starter-message').removeClass('display-none');
   $(canvas).removeClass("status-ready");
   $(".relic-wrapper div").remove();
 }
@@ -582,8 +609,6 @@ function sendGameMessage() {
   if (messageString.length < 1) { return; }
 
   gameService.sendMessage(gameService.id, playerInfo.color, playerInfo.id, playerInfo.name, messageString);
-
-  $(".chat .starter-message").addClass("display-none");
   $(chatBox).val('');
   $(chatBox).focus();
 }
