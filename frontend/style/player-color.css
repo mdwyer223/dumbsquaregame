@@ -16,35 +16,35 @@
 }
 
 .player.color-red .name,
-.color-red .chip,
+.round-leaderboard.color-red .chip,
 .color-picker .red div,
 .feedback-toast.red {
   background: var(--player-color-1);
 }
 
 .player.color-yellow .name,
-.color-yellow .chip,
+.round-leaderboard.color-yellow .chip,
 .color-picker .yellow div,
 .feedback-toast.yellow {
   background: var(--player-color-2);
 }
 
 .player.color-green .name,
-.color-green .chip,
+.round-leaderboard.color-green .chip,
 .color-picker .green div,
 .feedback-toast.green {
   background: var(--player-color-3);
 }
 
 .player.color-blue .name,
-.color-blue .chip,
+.round-leaderboard.color-blue .chip,
 .color-picker .blue div,
 .feedback-toast.blue {
   background: var(--player-color-4);
 }
 
 .player.color-purple .name,
-.color-purple .chip,
+.round-leaderboard.color-purple .chip,
 .color-picker .purple div,
 .feedback-toast.purple {
   background: var(--player-color-5);
