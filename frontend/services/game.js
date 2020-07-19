@@ -35,6 +35,7 @@ gameService.addPlayer = function (gameId, playerId, playerName, playerColor, pas
     }
   };
   gameSocket.emit('player-joined', data);
+  gameSocket.emit('player-not-ready', data);
 };
 
 
@@ -134,18 +135,18 @@ gameService.sendMessage = function (gameId, playerColor, playerId, playerName, m
 };
 
 
-gameService.sendMouseCoords = function (gameId, playerColor, playerId, x, y) {
-  let data = {
-    x: x,
-    y: y,
-    gameId: gameId,
-    player: {
-      id: playerId,
-      color: playerColor
-    }
-  };
-  gameSocket.emit('send-mouse-coords', data);
-}
+// gameService.sendMouseCoords = function (gameId, playerColor, playerId, x, y) {
+//   let data = {
+//     x: x,
+//     y: y,
+//     gameId: gameId,
+//     player: {
+//       id: playerId,
+//       color: playerColor
+//     }
+//   };
+//   gameSocket.emit('send-mouse-coords', data);
+// }
 
 
 gameService.setupSocket = function () {
@@ -162,7 +163,6 @@ gameService.setupSocket = function () {
       if (messageString.length > 0) {
         $('.chat .messages').append(`<p class="message inactive select player-message"><strong class="${playerColor} ${playerId}"> ${playerName}: </strong>${messageString}</p>`);
         $(".chat .messages").scrollTop(9999999999);
-        $(".chat .starter-message").addClass("display-none");
 
         setTimeout(function(){ 
           $(".message").removeClass("inactive");
@@ -236,20 +236,8 @@ gameService.setupSocket = function () {
         gameSocket.close();
         switchToMainMenu();
         console.log(data.error);
-
-        if (data.error === "room-invalid") {
-          $(".join-game-wrapper span").text("Game does not exist");
-          $(".join-game-wrapper span").css("opacity", "1");
-        } else if (data.error === "room-full") {
-          $(".join-game-wrapper span").text("Game is full");
-          $(".join-game-wrapper span").css("opacity", "1");
-        } else {
-          $(".join-game-wrapper span").text("Unknown error");
-          $(".join-game-wrapper span").css("opacity", "1");
-        }
-        
       }
-    })
+    });
 
 
     gameSocket.on('player-joined', function (data) {
@@ -261,9 +249,10 @@ gameService.setupSocket = function () {
       for (let i = 0; i < playerKeys.length; i++) {
         let playerData = players[playerKeys[i]];
         if (isEmpty($(`#${playerData.id}`))) {
-          $('.sidebar .scoreboard-container').append(`<div id="${playerData.id}" class="inactive player ${playerData.color}"><div class="name">${playerData.name}</div><div class="points"><div class="mobile-divider">- </div><span>${playerData.score}</span>pts</div></div>`);
-          if (playerInfo.id != playerData.id) {
-            $('.canvas').append(`<div class="cursor ${playerData.id} ${playerData.color}"></div>`);
+          if (playerData.id === playerInfo.id) {
+            $('.sidebar .scoreboard-container').append(`<div id="${playerData.id}" class="inactive player ${playerData.color}"><div class="name">${playerData.name}</div><div class="you-identifier">YOU</div><div class="points"><div class="mobile-divider">- </div><span>${playerData.score}</span>pts</div></div>`);            
+          } else {
+            $('.sidebar .scoreboard-container').append(`<div id="${playerData.id}" class="inactive player ${playerData.color}"><div class="name">${playerData.name}</div><div class="points"><div class="mobile-divider">- </div><span>${playerData.score}</span>pts</div></div>`);
           }
         }
       }
@@ -368,19 +357,19 @@ gameService.setupSocket = function () {
     });
 
 
-    gameSocket.on('update-mouse-coords', function(data) {
-      let playerColor = data.player.color;
-      let playerId = data.player.id;
+    // gameSocket.on('update-mouse-coords', function(data) {
+    //   let playerColor = data.player.color;
+    //   let playerId = data.player.id;
 
-      let x = data.x;
-      let y = data.y;
+    //   let x = data.x;
+    //   let y = data.y;
 
-      // draw on the canvas here
-      let topVal =  `${parseInt(y * $(window).height())}px`;
-      let leftVal = `${parseInt(x *  $(window).width())}px`;
-      $(`.canvas .${playerId}`).css('top', topVal);
-      $(`.canvas .${playerId}`).css('left', leftVal);
-    });
+    //   // draw on the canvas here
+    //   let topVal =  `${parseInt(y * $(window).height())}px`;
+    //   let leftVal = `${parseInt(x *  $(window).width())}px`;
+    //   $(`.canvas .${playerId}`).css('top', topVal);
+    //   $(`.canvas .${playerId}`).css('left', leftVal);
+    // });
 
 
     gameSocket.on('waiting-for-players', function (data) {

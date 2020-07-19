@@ -11,6 +11,8 @@
   --player-color-3-transparent: #3E5742;
   --player-color-4-transparent: #40485B;
   --player-color-5-transparent: #493E5B;
+  --text-100: #F8F8FA;
+  --text-60: #807F82;
 }
 
 .player.color-red .name,
@@ -86,6 +88,11 @@
 
 .canvas.color-purple {
   cursor: url('cursor-purple.png'), auto;
+}
+
+.message .bot {
+  color: var(--bg-level-2);
+  background: var(--text-100);
 }
 
 #solo-game-menu p.color-red,

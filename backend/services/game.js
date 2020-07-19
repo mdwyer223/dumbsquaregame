@@ -53,7 +53,7 @@ game.addPlayer = function(opts) {
     id: player.id,
     name: player.name,
     color: player.color,
-    ready: true,
+    ready: false,
     score: 0,
     roundWins: 0
   };

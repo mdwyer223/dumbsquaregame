@@ -193,6 +193,16 @@
   color: var(--bg-level-1);
 }
 
+.scoreboard .player .you-identifier,
+.players-container .player .you-identifier {
+  width: auto;
+  padding: 4px 12px 4px 8px;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-60);
+}
+
 .scoreboard .player .points,
 .players-container .player .points {
   flex: 1;
@@ -239,14 +249,16 @@
 }
 
 .chat .starter-message {
-  margin: 16px 0;
-  opacity: 0.6;
-  font-style: italic;
+  padding: 8px !important;
+  line-height: 140%;
+  background: var(--bg-level-3);
+  border-radius: 8px;
+  font-size: 18px;
 }
 
 .chat .message {
-  margin: 16px 10% 16px 0;
-  word-break: break-all;
+  padding: 8px 10% 16px 0;
+  word-break: break-word;
   transition-property: all;
   transition-duration: 0.2s;
   transform: translateY(0px);
