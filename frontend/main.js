@@ -41,6 +41,7 @@ $(document).ready(function () {
   console.log(colorSelected);
   $(`#${colorSelected}`).addClass('selected');
   $("#solo-game-menu p").addClass(`color-${colorSelected}`);
+  playerService.updateColor(`color-${colorSelected}`);
 
   $(window).on('unload', function() {
     gameService.disconnect(gameService.id, playerInfo.id);
