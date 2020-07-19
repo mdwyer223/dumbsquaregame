@@ -59,7 +59,7 @@
 }
 
 #solo-game-menu p {
-  font-size: 18px;
+  font-size: 19px;
   color: var(--player-color-1);
   font-weight: 500;
 }
@@ -339,11 +339,13 @@
   transition-duration: 0.3s;
   transition-timing-function: cubic-bezier(0.495, 0.100, 0.075, 0.845);
   z-index: 2;
+  pointer-events: all;
 }
 
 .main-menu-wrapper .search-bar-container.inactive input {
-  width: 200px !important;
+  width: 250px !important;
   opacity: 0 !important;
+  pointer-events: none;
 }
 
 .main-menu-wrapper .search-bar-container button {
@@ -352,6 +354,7 @@
   border: none;
   box-shadow: none;
   background: none;
+  overflow: hidden;
 }
 
 .main-menu-wrapper .search-bar-container .search-icon {
@@ -583,7 +586,6 @@
   flex: 1 auto;
 }
 
-.create-game-wrapper .buttons div,
 .join-game-password-wrapper .buttons div {
   width: 100%;
 }
@@ -608,22 +610,75 @@
   padding-left: 6px;
 }
 
-.create-game-wrapper .field .start-game div,
 .create-game-wrapper .field .cancel-create-game div,
 .join-game-password-wrapper .field .join-password-game div,
 .join-game-password-wrapper .field .cancel-join-game div {
   display: inline-block;
   max-width: 300px;
-  padding: 12px 48px;
   font-size: 24px;
   font-weight: 500;
   background: var(--bg-level-3);
   color: white;
   border-radius: 16px;
   cursor: pointer;
+  width: 100%;
 }
 
-.create-game-wrapper .field .start-game div:hover,
+.create-game-wrapper .field .cancel-create-game div {
+  padding: 14px 0 15px;  
+}
+
+.join-game-password-wrapper .field .join-password-game div,
+.join-game-password-wrapper .field .cancel-join-game div {
+  padding: 12px 48px;
+}
+
+.create-game-wrapper .field .start-game > div {
+  display: inline-block;
+  padding: 12px 0;
+  font-size: 24px;
+  font-weight: 500;
+  background: var(--bg-level-3);
+  color: white;
+  border-radius: 16px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.create-game-wrapper .field .start-game .icon,
+.feedback-submit .icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  opacity: 0.6;
+  margin: 0 0 4px 8px;
+}
+
+.create-game-wrapper .field .start-game .icon {
+  background: url("start-icon.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.feedback-submit .icon {
+  background: url("send-icon.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin: 0 0 4px 8px;
+}
+
+.feedback-submit .text {
+  display: inline-block;
+}
+
+.create-game-wrapper .field .start-game .text {
+  display: inline-block;
+  font-size: 24px;
+  font-weight: 500;
+  color: white;
+}
+
+.create-game-wrapper .field .start-game > div:hover,
 .create-game-wrapper .field .cancel-create-game div:hover,
 .join-game-password-wrapper .field .join-password-game div:hover,
 .join-game-password-wrapper .field .cancel-join-game div:hover {
@@ -742,8 +797,8 @@
   flex: 1;
   background: var(--bg-level-3);
   color: var(--text-100);
-  border-radius: 8px;
-  padding: 16px;
+  border-radius: 16px;
+  padding: 12px 0 11px;
   font-size: 24px;
   font-weight: 500;
   cursor: pointer;

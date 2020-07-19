@@ -356,7 +356,7 @@ $(document).ready(function () {
 });
 
 function openFeedback() {
-  $("body").prepend(`<div class="feedback-container inactive"><div class="feedback-dialog"><h1>Send us some feedback!</h1><input type="text" class="feedback-name" placeholder="Subject" onblur="this.placeholder='Subject'" onfocus="this.placeholder=''"><textarea class="feedback-message" placeholder="Message" onblur="this.placeholder='Message'" onfocus="this.placeholder=''"></textarea><div class="feedback-button-container"><div class="feedback-close">Cancel</div><div class="feedback-submit"><div class="icon"></div><div class="text">Send</div></div></div></div></div>`);
+  $("body").prepend(`<div class="feedback-container inactive"><div class="feedback-dialog"><h1>Send us some feedback!</h1><input type="text" class="feedback-name" placeholder="Subject" onblur="this.placeholder='Subject'" onfocus="this.placeholder=''"><textarea class="feedback-message" placeholder="Message" onblur="this.placeholder='Message'" onfocus="this.placeholder=''"></textarea><div class="feedback-button-container"><div class="feedback-close">Cancel</div><div class="feedback-submit"><div class="text">Send</div><div class="icon"></div></div></div></div></div>`);
   $("html").addClass("no-scroll");
   setTimeout(function(){ 
     $(".feedback-container").removeClass("inactive");
@@ -533,6 +533,7 @@ function sendGameMessage() {
 
 function openSearchBar() {
   
+  $(".search-bar-container input").val('');
   $(".search-bar-container .reload-icon").addClass("active");
 
   setTimeout(function(){ 
@@ -543,6 +544,7 @@ function openSearchBar() {
 
 function closeSearchBar() {
 
+  $(".search-bar-container input").val(' ');
   $(".search-bar-container .reload-icon").removeClass("active");
   
   setTimeout(function(){ 

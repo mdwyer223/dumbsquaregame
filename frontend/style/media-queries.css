@@ -47,7 +47,8 @@
 @media (max-width: 1000px) {
 
   .main-menu-wrapper .search-bar-container input {
-    width: 418px;
+    width: 408px;
+    pointer-events: all;
   }
 
   .canvas .players-container {
@@ -160,11 +161,12 @@
 @media (min-width: 1800px) {
 
   .main-menu-wrapper .search-bar-container.inactive input {
-    width: 450px !important;
+    width: 380px !important;
   }
 
   .main-menu-wrapper .search-bar-container input {
-    width: 468px;
+    width: 456px;
+    pointer-events: all;
   }
 
   .main-menu-wrapper .container {
@@ -258,6 +260,12 @@
 
   #solo-game-menu {
     margin: 24px 0;
+    padding: 11px 0;
+    Font-size: 23px;
+  }
+
+  #solo-game-menu p {
+    Font-size: 20px;
   }
 
   .game-wrapper .content {
@@ -426,6 +434,7 @@
 
   .main-menu-wrapper .search-bar-container input {
     width: 70vw;
+    pointer-events: all;
   }
 
   .main-menu-wrapper .player-info span {
