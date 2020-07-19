@@ -74,7 +74,6 @@ gameService.disconnect = function (gameId, playerId) {
 
     $(`#${playerId}`).remove();
     $(`.canvas .${playerId}`).remove();
-    squarePos = [];
     squareCounter = 0;
     gameSocket.close();
     console.log('Player disconnected!');
@@ -86,7 +85,7 @@ gameService.joinRoom = function (gameId) {
   if (gameId) {
     console.log(`Joining room (${gameId})`);
     gameSocket.emit('join-room', gameId);
-
+    squareCounter = 0;
   } else {
     // warn the player
     console.warn('Invalid game ID');
@@ -211,7 +210,11 @@ gameService.setupSocket = function () {
         $('.game-wrapper').append(`<div class="relic-name relic-up counter-name-${squareCounter} ${playerColor}"></div>`);
       }
 
-      setTimeout(function() {$(`.game-wrapper .relic-name .counter-name-${squareCounter}`).remove()}, 1000);
+      setTimeout(function(squareCount) {
+        console.log('called it');
+        $(`.game-wrapper .counter-name-${squareCount}`).remove();
+        console.log(`.game-wrapper .relic-name.counter-name-${squareCount}`);
+      }, 1000, squareCounter);
 
       let relicNamePositionLeft = canvasPosition.left + relicPosition.left - 150 + (rectangleSize / 2) + 17;
 
@@ -326,7 +329,6 @@ gameService.setupSocket = function () {
       if (data.roundReset) {
         $(`.points span`).text("0");
         squareCounter = 0;
-        squarePos = [];
       }
 
       let top = data.x;
