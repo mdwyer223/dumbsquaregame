@@ -114,19 +114,21 @@ defaultNamespace.on('connection', function (socket) {
       player: data.player,
       players: null,
       password: data.password,
+      roundReset: false
     };
-    let players = game.addPlayer(gameData);
+    let addPlayerInfo = game.addPlayer(gameData);
 
-    if (players.error) {
+    if (addPlayerInfo.error) {
       let rejectData = {
         gameId: gameData.gameId,
         player: data.player,
-        error: players.error
+        error: addPlayerInfo.error
       };
       defaultNamespace.to(data.gameId).emit('player-cannot-join', rejectData);
     }
 
-    gameData.players = players;
+    gameData.players = addPlayerInfo.players;
+    gameData.roundReset = addPlayerInfo.roundReset;
     defaultNamespace.to(data.gameId).emit('player-joined', gameData);
   });
 

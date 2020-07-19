@@ -61,7 +61,7 @@ game.addPlayer = function(opts) {
   console.log(`Player (${player.id}) joined room (${gameId})!`);
   console.log(rooms);
 
-  return rooms[gameId].players;
+  return {players:rooms[gameId].players, roundReset: rooms[gameId].roundReset};
 };
 
 

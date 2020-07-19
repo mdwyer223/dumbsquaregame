@@ -260,12 +260,18 @@ gameService.setupSocket = function () {
       let namePlace = 0;
       let container = $('.scoreboard-container > div');
       let containerLength = container.length;
-        for (namePlace = 0; namePlace < containerLength; namePlace++) {
-          let playerPlace = namePlace + 2;
-          setTimeout(function(){ 
-            $(".scoreboard .player:nth-child(" + playerPlace + ")").removeClass("inactive");
-          }, (namePlace * 60) + 60);
+      for (namePlace = 0; namePlace < containerLength; namePlace++) {
+        let playerPlace = namePlace + 2;
+        setTimeout(function(){ 
+          $(".scoreboard .player:nth-child(" + playerPlace + ")").removeClass("inactive");
+        }, (namePlace * 60) + 60);
+      }
+
+      if (data.roundReset) {
+        if ($('.play-again-button').length === 0) {
+          $(canvas).prepend(`<div class="round-leaderboard"><div class="play-again-button"><div>Click to ready up</div></div>`);
         }
+      }
     });
 
 
