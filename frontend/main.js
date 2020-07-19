@@ -334,7 +334,7 @@ $(document).ready(function () {
     gameService.createGame(gameService.id, maxPlayers, maxPoints, pass);
     gameService.joinRoom(gameService.id);
     gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color, pass);
-    main_self.switchToGameBoard();
+    switchToGameBoard();
 
     // Resizes the relic wrapper to fit in the canvas
     let canvasWidth = $(canvas).width();
@@ -384,6 +384,14 @@ $(document).ready(function () {
         gameService.joinRoom(gameService.id);
         gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color, pass);
         switchToGameBoard();
+
+        let canvasWidth = $(canvas).width();
+        let canvasHeight = $(canvas).height();
+
+        $(canvas).addClass("status-ready");
+        $(relicWrapper).css("width", canvasWidth);
+        $(relicWrapper).css("height", canvasHeight);
+        $(".relic-name").remove();
       }
     });
 
@@ -486,6 +494,14 @@ function getGameRooms() {
       gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color, null);
 
       switchToGameBoard();
+
+      let canvasWidth = $(canvas).width();
+      let canvasHeight = $(canvas).height();
+
+      $(canvas).addClass("status-ready");
+      $(relicWrapper).css("width", canvasWidth);
+      $(relicWrapper).css("height", canvasHeight);
+      $(".relic-name").remove();
     });
   });
 }
@@ -652,15 +668,6 @@ function switchToCreateGameMenu() {
 }
 
 function switchToGameBoard() {
-  // Resizes the relic wrapper to fit in the canvas
-  let canvasWidth = $(canvas).width();
-  let canvasHeight = $(canvas).height();
-
-  $(canvas).addClass("status-ready");
-  $(relicWrapper).css("width", canvasWidth);
-  $(relicWrapper).css("height", canvasHeight);
-  $(".relic-name").remove();
-
   // Change the name of the lobby to the updated gameId
   $('.game-wrapper .title h2').text(gameService.id);
 
