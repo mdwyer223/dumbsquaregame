@@ -270,6 +270,9 @@ gameService.setupSocket = function () {
       if (data.roundReset) {
         if ($('.play-again-button').length === 0) {
           $(canvas).prepend(`<div class="round-leaderboard"><div class="play-again-button"><div>Click to ready up</div></div>`);
+          $(".play-again-button").click(function () {
+            gameService.readyCheck(gameService.id, playerInfo.id);
+          });
         }
       }
     });
