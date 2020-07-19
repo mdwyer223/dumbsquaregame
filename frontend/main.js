@@ -458,11 +458,16 @@ function getGameRooms() {
       let gameId = element.currentTarget.id;
       let full = element.currentTarget.className.includes('full');
       let public = element.currentTarget.className.includes('public');
-
+      let validPlayerName = validatePlayerName();
       let valid = validateSessionId(gameId);
 
       if (!valid) {
         console.warn('Please enter a valid session ID');
+        return;
+      }
+
+      if (!validPlayerName) {
+        console.warn('Please enter a valid player name');
         return;
       }
 
