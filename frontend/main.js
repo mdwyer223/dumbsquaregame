@@ -38,7 +38,6 @@ $(document).ready(function () {
   let ids = ['red', 'purple', 'yellow', 'green', 'blue'];
   let colorSelected = ids[Math.floor(Math.random() * ids.length)];
 
-  console.log(colorSelected);
   $(`#${colorSelected}`).addClass('selected');
   $("#solo-game-menu p").addClass(`color-${colorSelected}`);
   playerService.updateColor(`color-${colorSelected}`);
@@ -694,7 +693,6 @@ function validatePlayerName() {
 function validateSessionId(gameId) {
   let specialCharacters = new RegExp(/['~`!@#$%^&*\(\){}|\/\\\";:\?]/);
   let hasSpecialCharacters = specialCharacters.test(gameId);
-  console.log(hasSpecialCharacters)
   if (!hasSpecialCharacters && gameId.length > 2) {
     gameService.updateGameId(gameId.toUpperCase().trim().replace(/ /g, '_'));
     return true;

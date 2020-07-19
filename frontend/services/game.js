@@ -211,9 +211,7 @@ gameService.setupSocket = function () {
       }
 
       setTimeout(function(squareCount) {
-        console.log('called it');
         $(`.game-wrapper .counter-name-${squareCount}`).remove();
-        console.log(`.game-wrapper .relic-name.counter-name-${squareCount}`);
       }, 1000, squareCounter);
 
       let relicNamePositionLeft = canvasPosition.left + relicPosition.left - 150 + (rectangleSize / 2) + 17;
@@ -309,7 +307,6 @@ gameService.setupSocket = function () {
 
 
     gameSocket.on('round-ready', function (data) {
-      console.log('Round ready!');
       let numReady = data.numReady;
       let numPlayers = data.numPlayers;
       $(".canvas .ready div").text(`Get ready! ${numReady}/${numPlayers}`);
@@ -317,7 +314,6 @@ gameService.setupSocket = function () {
 
 
     gameSocket.on('round-start', function (data) {
-      console.log('Round start!');
       $(".canvas .square").removeClass("display-none");
       $(".canvas .ready").addClass("display-none");
     });

@@ -25,7 +25,6 @@ playerService.load = function() {
 }
 
 playerService.updateColor = function (color) {
-  console.log('updating color ' + color)
   playerInfo.color = color;
 }
 
