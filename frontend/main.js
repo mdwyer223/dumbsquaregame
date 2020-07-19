@@ -350,6 +350,27 @@ $(document).ready(function () {
   });
 
 
+  $('.create-game-session-info input').keypress(function(e) {
+    let keyCode = e.which;
+ 
+    /* 
+    48-57 - (0-9) Numbers
+    65-90 - (A-Z)
+    97-122 - (a-z)
+    8 - (backspace)
+    32 - (space)
+    95 - (underscore)
+    */
+    // Not allow special 
+    if ( !( (keyCode >= 48 && keyCode <= 57) 
+      ||(keyCode >= 65 && keyCode <= 90) 
+      || (keyCode >= 97 && keyCode <= 122) ) 
+      && keyCode != 8 && keyCode != 32 && keyCode != 95) {
+      e.preventDefault();
+    }
+  });
+
+
   $('#join-game-password').click(function () {
     let pass = $('.join-game-password-input input').val();
 
@@ -662,7 +683,7 @@ function validateSessionId(gameId) {
   let hasSpecialCharacters = specialCharacters.test(gameId);
   console.log(hasSpecialCharacters)
   if (!hasSpecialCharacters && gameId.length > 2) {
-    gameService.updateGameId(gameId.toUpperCase().trim().replace(/ /g, '-'));
+    gameService.updateGameId(gameId.toUpperCase().trim().replace(/ /g, '_'));
     return true;
   }
   return false;
