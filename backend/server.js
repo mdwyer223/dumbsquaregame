@@ -217,6 +217,22 @@ defaultNamespace.on('connection', function (socket) {
   });
 
   socket.on('send-message', (data) => {
+    if(data.msg.includes('!kick')) {
+      let kickData = data.msg.split(' ');
+      if (kickData.length == 2){
+        let opts = {
+          gameId: data.gameId,
+          player: {
+            id: kickData[1]
+          },
+          owner: data.player.id
+        }
+        let validKick = game.kickPlayer(opts);
+        opts['validKick'] = validKick;
+
+        defaultNamespace.to(opts.gameId).emit('kick-player', opts);
+      }
+    }
     defaultNamespace.to(data.gameId).emit('message-sent', data)
   });
 
