@@ -23,6 +23,10 @@ function validateGameRoom(gameId) {
 }
 
 function validatePlayer(gameId, player) {
+  if (!rooms[gameId]) {
+    return false;
+  }
+
   if (!rooms[gameId].players) { return false; }
   if (!rooms[gameId].players[player.id]) { return false; }
   return true;
@@ -94,12 +98,17 @@ game.create = function(opts, password) {
     squareData: {
       x: null,
       y: null
-    }
+    },
+    owner: opts.playerId
   };
   
   console.log(`Created room (${gameId})!`);
 
   return true;
+};
+
+game.delete = function(opts) {
+  delete rooms[opts.gameId];
 };
 
 
@@ -145,6 +154,17 @@ game.getRoomsAndPlayers = function(opts) {
     numRooms: numRooms, 
     numPlayers: numPlayers,
   };
+}
+
+
+game.kickPlayer = function(opts) {
+  if (opts.owner === rooms[opts.gameId].owner) {
+    if (opts.owner !== opts.player.id) { 
+      return game.removePlayer(opts);
+    }
+  }
+
+  return false;
 }
 
 
@@ -218,13 +238,21 @@ game.removePlayer = function(opts) {
   let gameId = opts.gameId;
   let player = opts.player;
 
-  if (!validateGameRoom(gameId) && !validatePlayer(gameId, player)) { return; }
+  if (!validateGameRoom(gameId) && !validatePlayer(gameId, player)) { return false; }
 
   delete rooms[gameId].players[player.id];
   
   if(Object.keys(rooms[gameId].players).length === 0) {
     delete rooms[gameId];
+    return true;
   }
+
+  if (rooms[gameId].owner === player.id) {
+    playerIds = Object.keys(rooms[gameId].players)
+    rooms[gameId].owner = Object.keys(rooms[gameId].players)[Math.floor(Math.random()*playerIds.length)];
+  }
+
+  return true;
   
 };
 

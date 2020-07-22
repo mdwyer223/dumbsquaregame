@@ -330,7 +330,7 @@ $(document).ready(function () {
     let pass = $('.create-game-wrapper .create-game-password input').val();
 
     gameService.connect();
-    gameService.createGame(gameService.id, maxPlayers, maxPoints, pass);
+    gameService.createGame(playerInfo.id, gameService.id, maxPlayers, maxPoints, pass);
     gameService.joinRoom(gameService.id);
     gameService.addPlayer(gameService.id, playerInfo.id, playerInfo.name, playerInfo.color, pass);
     

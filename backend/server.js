@@ -13,6 +13,7 @@ const path = require('path');
 const player = require('./services/player');
 const game = require('./services/game');
 const mail = require('./services/mail');
+const config = require('./config')
 
 const app = express();
 const port = 80;
@@ -32,6 +33,21 @@ app.get('/', (req, res) => {
   res.sendFile(
     path.join(__dirname, './frontend', 'index.html')
   );
+});
+
+app.post('/admin/delete/games/:gameId', (req, res) => {
+  if (req.query.p !== config.admin.password) {
+    res.json({'message': 'nice try hacker'});
+    return;
+  }
+
+  let data = {
+    gameId: req.params.gameId
+  };
+  defaultNamespace.to(data.gameId).emit('nuke-room');
+  game.delete(data);
+
+  res.json({'message': 'room is being destroyed...'});
 });
 
 app.post('/feedback', (req, res) => {
@@ -71,7 +87,7 @@ app.get('/games/:gameId/validate', (req, res) => {
 /*
   /games/dog/2/10?p=123
 */
-app.post('/games/:gameId/:maxPlayers/:pointsPerRound', (req, res) => {
+app.post('/games/:playerId/:gameId/:maxPlayers/:pointsPerRound', (req, res) => {
   let password = req.query.p;
   let gameCreated = game.create(req.params, password);
   if(gameCreated) {
@@ -106,6 +122,14 @@ defaultNamespace.on('connection', function (socket) {
     console.log(`Player joined the room ${gameId}`);
   });
 
+  socket.on('kick-player', (data) => {
+    let validKick = game.kickPlayer(data);
+
+    data['validKick'] = validKick;
+
+    defaultNamespace.to(data.gameId).emit('kick-player', data);
+  });
+
   socket.on('player-joined', (data) => {
     console.log(`Player joined ${data.player.name} ${data.player.id}`);
 
@@ -133,7 +157,7 @@ defaultNamespace.on('connection', function (socket) {
   });
 
   socket.on('player-left', (data) => {
-    console.log(`Player left ${data.player.name} ${data.player.id}`)
+    console.log(`Player left ${data.player.id}`)
     let playerInfo = {
       player: data.player
     }

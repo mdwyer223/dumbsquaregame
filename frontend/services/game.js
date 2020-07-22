@@ -39,10 +39,10 @@ gameService.addPlayer = function (gameId, playerId, playerName, playerColor, pas
 };
 
 
-gameService.createGame = function (gameId, maxPlayers, maxPoints, password) {
+gameService.createGame = function (playerId, gameId, maxPlayers, maxPoints, password) {
   console.log('Creating game...');
   let passField = password ? `?p=${password}` : ''
-  $.post(`/games/${gameId}/${maxPlayers}/${maxPoints}${passField}`, function (data) {
+  $.post(`/games/${playerId}/${gameId}/${maxPlayers}/${maxPoints}${passField}`, function (data) {
     if (data['message']) {
       console.warn('Game was not created!');
       gameService.gameCreated = false;
@@ -81,6 +81,20 @@ gameService.disconnect = function (gameId, playerId) {
   }
 };
 
+
+gameService.kickPlayer = function(gameId, playerId) {
+  if (gameId) {
+    let kickData = {
+      gameId: gameId,
+      player: {
+        id: playerId
+      },
+      owner: playerInfo.id
+    };
+
+    gameSocket.emit('kick-player', kickData);
+  }
+};
 
 gameService.joinRoom = function (gameId) {
   if (gameId) {
@@ -153,6 +167,24 @@ gameService.setupSocket = function () {
   console.log('Setting up socket...');
   gameSocket.on('connect', function () {
 
+    gameSocket.on('kick-player', function(data) {
+      if (data.validKick) {
+        if (data.player.id === playerInfo.id) {
+          let playerLeave = {
+            gameId: gameService.id,
+            player: {
+              id: data.player.id
+            }
+          };
+          gameSocket.emit('player-left', playerLeave);
+          gameSocket.close();
+          resetGameRoom();
+          resetGameBoard();
+          switchToMainMenu();
+        }
+      }
+    });
+
 
     gameSocket.on('message-sent', function (data) {
       let messageString = data.msg;
@@ -168,6 +200,14 @@ gameService.setupSocket = function () {
           $(".message").removeClass("inactive");
         }, 1);
       }
+    });
+
+
+    gameSocket.on('nuke-room', function(data) {
+      gameSocket.close();
+      resetGameRoom();
+      resetGameBoard();
+      switchToMainMenu();
     });
     
 
