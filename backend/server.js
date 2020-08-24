@@ -153,6 +153,7 @@ defaultNamespace.on('connection', function (socket) {
 
     gameData.players = addPlayerInfo.players;
     gameData.roundReset = addPlayerInfo.roundReset;
+    gameData.numPoints = addPlayerInfo.numPoints;
     defaultNamespace.to(data.gameId).emit('player-joined', gameData);
   });
 

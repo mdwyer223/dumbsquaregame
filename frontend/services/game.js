@@ -285,6 +285,8 @@ gameService.setupSocket = function () {
       let playerKeys = Object.keys(players);
 
       $(".scoreboard h2").text(`Room: ${data.gameId}`);
+      $(".round-points-goal").text(`Goal: ${data.numPoints} points`);
+      console.log(data);
 
       for (let i = 0; i < playerKeys.length; i++) {
         let playerData = players[playerKeys[i]];
@@ -424,6 +426,12 @@ gameService.setupSocket = function () {
     gameSocket.on('waiting-for-players', function (data) {
       let numReady = data.numReady;
       let numPlayers = data.numPlayers;
+
+      if (numPlayers === 1) {
+        $(".canvas .ready div").text(`Waiting for players to join...`);
+        return;
+      }
+
       if (!data.roundReset) {
         if (numReady === 0) {
           $(".canvas .ready div").text(`Hold mouse here to start`);

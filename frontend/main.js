@@ -541,11 +541,13 @@ function openChat() {
 
 function resetGameBoard() {
   $(gameSquare).addClass("display-none");
+  $(".round-points-goal").text("");
   $(".relic-square").remove();
   $(".relic-name").remove();
 }
 
 function resetGameRoom() {
+  $(".round-points-goal").text("");
   $('.canvas .cursor').remove();
   $(gameSquare).addClass("display-none");
   $(".relic-name").remove();
