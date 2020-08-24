@@ -97,6 +97,10 @@ app.post('/games/:playerId/:gameId/:maxPlayers/:pointsPerRound', (req, res) => {
   }
 });
 
+app.get('/leave/:playerId', (req, res) => {
+  game.leaver({playerId: req.params.playerId});
+});
+
 app.post('/players', (req, res) => {
   let newPlayerId = player.generateNewId();
   res.json({ playerId: newPlayerId });
@@ -114,6 +118,7 @@ app.get('/players/names', (req, res) => {
 defaultNamespace.on('connection', function (socket) {
 
   socket.on('disconnect', function (socket) {
+    console.log(socket);
     console.log('user disconnected');
   });
 

@@ -158,7 +158,7 @@ game.getRoomsAndPlayers = function(opts) {
     numRooms: numRooms, 
     numPlayers: numPlayers,
   };
-}
+};
 
 
 game.kickPlayer = function(opts) {
@@ -169,7 +169,24 @@ game.kickPlayer = function(opts) {
   }
 
   return false;
-}
+};
+
+
+
+game.leaver = function(opts) {
+  let roomIds = Object.keys(rooms);
+
+  roomIds.forEach(function(roomId) {
+    let players = rooms[roomId].players;
+    players = Object.keys(players);
+
+    players.forEach(function(playerId) {
+      if (opts.playerId === playerId) {
+        delete rooms[roomId].players[playerId];
+      }
+    });
+  });
+};
 
 
 game.readyPlayer = function(opts) {

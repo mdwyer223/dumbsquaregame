@@ -606,6 +606,10 @@ function roundWon(playerColor, playerName, playerList) {
   });
 }
 
+function leave() {
+  $.get(`/leave/${playerInfo.id}`, function(data){});
+}
+
 function sendGameMessage() {
   let messageString = $(chatBox).val();
   if (messageString.length < 1) { return; }

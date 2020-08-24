@@ -292,20 +292,20 @@ gameService.setupSocket = function () {
         let playerData = players[playerKeys[i]];
         if (isEmpty($(`#${playerData.id}`))) {
           if (playerData.id === playerInfo.id) {
-            $('.sidebar .scoreboard-container').append(`<div id="${playerData.id}" class="inactive player ${playerData.color}"><div class="name">${playerData.name}</div><div class="you-identifier">YOU</div><div class="points"><div class="mobile-divider">- </div><span>${playerData.score}</span>pts</div></div>`);            
+            $('.sidebar .scoreboard-container .player-list').append(`<div id="${playerData.id}" class="inactive player ${playerData.color}"><div class="name">${playerData.name}</div><div class="you-identifier">YOU</div><div class="points"><div class="mobile-divider">- </div><span>${playerData.score}</span>pts</div></div>`);            
           } else {
-            $('.sidebar .scoreboard-container').append(`<div id="${playerData.id}" class="inactive player ${playerData.color}"><div class="name">${playerData.name}</div><div class="points"><div class="mobile-divider">- </div><span>${playerData.score}</span>pts</div></div>`);
+            $('.sidebar .scoreboard-container .player-list').append(`<div id="${playerData.id}" class="inactive player ${playerData.color}"><div class="name">${playerData.name}</div><div class="points"><div class="mobile-divider">- </div><span>${playerData.score}</span>pts</div></div>`);
           }
         }
       }
 
       let namePlace = 0;
-      let container = $('.scoreboard-container > div');
+      let container = $('.scoreboard-container .player-list > div');
       let containerLength = container.length;
       for (namePlace = 0; namePlace < containerLength; namePlace++) {
-        let playerPlace = namePlace + 2;
+        let currentPlayer = container[namePlace];
         setTimeout(function(){ 
-          $(".scoreboard .player:nth-child(" + playerPlace + ")").removeClass("inactive");
+          $(`#${currentPlayer.id}`).removeClass("inactive");
         }, (namePlace * 60) + 60);
       }
 
@@ -429,8 +429,11 @@ gameService.setupSocket = function () {
 
       if (numPlayers === 1) {
         $(".canvas .ready div").text(`Waiting for players to join...`);
+        $('.scoreboard-container .waiting-message').removeClass('display-none');
         return;
       }
+
+      $('.scoreboard-container .waiting-message').addClass('display-none');
 
       if (!data.roundReset) {
         if (numReady === 0) {
