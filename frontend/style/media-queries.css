@@ -46,6 +46,11 @@
 
 @media (max-width: 1000px) {
 
+  .footer {
+    margin-top: 0px;
+    margin-bottom: 36px;
+  }
+
   .main-menu-wrapper .search-bar-container input {
     width: 408px;
     pointer-events: all;
@@ -171,6 +176,14 @@
 }
 
 @media (min-width: 1800px) {
+
+  .footer {
+    font-size: 20px;
+    margin-top: 16px;
+    margin-bottom: 32px;
+    font-weight: 400;
+    color: var(--text-60);
+  }
 
   .canvas .round-points-goal {
     bottom: 60px;

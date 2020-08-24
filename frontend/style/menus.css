@@ -1,3 +1,11 @@
+.footer {
+  font-size: 16px;
+  margin-top: 8px;
+  margin-bottom: 24px;
+  font-weight: 400;
+  color: var(--text-60);
+}
+
 .back-button {
   padding: 9px 18px 10px;
   color: white;
