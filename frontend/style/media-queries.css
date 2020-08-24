@@ -122,6 +122,13 @@
 
 @media (min-width: 1500px) {
 
+  .waiting-message {
+    padding: 8px;
+    line-height: 135%;
+    margin-top: 16px;
+    font-size: 24px;
+  }
+
   h1 {
     font-size: 28px;
   }
@@ -436,6 +443,10 @@
   .canvas .round-points-goal {
     bottom: 38px;
     font-size: 21px;
+  }
+
+  .waiting-message {
+    display: none;
   }
 
   .main-menu-wrapper .room-list .empty {

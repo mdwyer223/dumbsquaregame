@@ -159,6 +159,12 @@
   padding-bottom: 32px;
 }
 
+.waiting-message {
+  padding: 8px;
+  line-height: 135%;
+  margin-top: 12px;
+}
+
 .scoreboard .player,
 .players-container .player {
   display: flex;
