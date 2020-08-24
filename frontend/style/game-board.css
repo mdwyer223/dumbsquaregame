@@ -425,6 +425,15 @@
   z-index: 2;
 }
 
+.canvas .round-points-goal {
+  position: absolute;
+  bottom: 48px;
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text-60);
+  z-index: 2;
+}
+
 .canvas .ready,
 .canvas .play-again-button {
   background: var(--bg-level-3);

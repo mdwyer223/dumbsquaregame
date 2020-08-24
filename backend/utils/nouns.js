@@ -1,4 +1,4 @@
-const nouns = [
+module.exports = [
   "aardvark",
   "abacus",
   "abdomen",
@@ -3864,8 +3864,3 @@ const nouns = [
   "zoology",
   "zucchini",
   ];
-  const length = nouns.length;
-  const one = _ => nouns[Math.floor(Math.random() * length)];
-  
-  module.exports = { nouns, one };
-  

@@ -205,13 +205,6 @@
   font-weight: 500;
 }
 
-.create-game-wrapper .create-game-session-info span {
-  margin: 24px 0;
-  position: relative;
-  top: 12px;
-  opacity: 0;
-}
-
 .main-menu-logo-container {
   display: flex;
   justify-content: center;
@@ -603,7 +596,8 @@
   opacity: 0.8;
 }
 
-.create-game-password h3 span {
+.create-game-password h3 span,
+.create-game-session-info h3 span {
   opacity: 0.5;
   font-weight: 400;
   padding-left: 6px;

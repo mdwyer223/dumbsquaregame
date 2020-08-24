@@ -165,6 +165,11 @@
 
 @media (min-width: 1800px) {
 
+  .canvas .round-points-goal {
+    bottom: 60px;
+    font-size: 28px;
+  }
+
   .main-menu-wrapper .search-bar-container.inactive input {
     width: 380px !important;
   }
@@ -428,6 +433,11 @@
 
 @media (max-width: 560px) {
 
+  .canvas .round-points-goal {
+    bottom: 38px;
+    font-size: 21px;
+  }
+
   .main-menu-wrapper .room-list .empty {
     padding: 24px 24px 60px;
   }
@@ -470,6 +480,11 @@
 @media (max-width: 499px) {
 
   .cheater-scrim {
+    display: none;
+  }
+
+  .scoreboard .player .you-identifier,
+  .players-container .player .you-identifier {
     display: none;
   }
 
