@@ -183,6 +183,7 @@
     margin-bottom: 32px;
     font-weight: 400;
     color: var(--text-60);
+    user-select: none;
   }
 
   .canvas .round-points-goal {

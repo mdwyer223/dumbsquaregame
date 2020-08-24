@@ -442,6 +442,7 @@
   font-weight: 500;
   color: var(--text-60);
   z-index: 2;
+  user-select: none;
 }
 
 .canvas .ready,
